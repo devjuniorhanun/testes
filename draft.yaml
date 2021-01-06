@@ -1,0 +1,22 @@
+models:
+  Models\ServicoAgricola:
+    tenant_id: id foreign
+    safra_id: id foreign
+    cultura_id: id foreign
+    talhao_id: id foreign
+    tipo_operacao_agricula_id: id foreign
+    uuid: uuid
+    data: date
+    volume_bomba: double:10,3 nullable
+    vazao: double:10,3 nullable
+    capacidade_bomba: double:10,3 nullable
+    bomba_recomendada: double:10,3 nullable
+    bomba_usada: double:10,3 nullable
+    diferenca_bomba: double:10,3 nullable
+    area: double:10,2
+    observacao: text
+    status: enum:ABERTA,FINALIZADA,CANCELADA
+    softDeletes: true
+    timestamps: true
+    relationships:
+      belongsToMany: OperadorAgricula, Produto

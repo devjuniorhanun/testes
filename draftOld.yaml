@@ -1,0 +1,311 @@
+models:
+  Models\Tenant:
+    uuid: uuid
+    nome: string unique
+    cnpj: string unique
+    url: string nullable
+    email: string unique
+    telefone: string nullable
+    logo: string nullable
+    status: enum:Ativa,Desativada default:'Ativa'
+    softDeletes: true
+    timestamps: true
+
+  Models\Safra:
+    tenant_id: id foreign
+    uuid: uuid
+    nome: string unique
+    data_inicio: date nullable
+    data_final: date nullable
+    status: enum:Ativa,Desativada default:'Ativa'
+    softDeletes: true
+    timestamps: true
+
+  Models\Cultura:
+    tenant_id: id foreign
+    uuid: uuid
+    nome: string unique
+    status: enum:Ativa,Desativada default:'Ativa'
+    softDeletes: true
+    timestamps: true
+
+  Models\VariedadeCultura:
+    tenant_id: id foreign
+    cultura_id: id foreign
+    uuid: uuid
+    nome: string unique
+    tecnologia: string nullable
+    ciclo: string nullable
+    status: enum:Ativa,Desativada default:'Ativa'
+    softDeletes: true
+    timestamps: true
+
+  Models\Proprietario:
+    tenant_id: id foreign
+    uuid: uuid
+    razao_social: string unique
+    nome_fantasia: string unique
+    abreviacao: string unique
+    tipo_pagamento: enum:Deposito,Transferencia default:'Deposito'
+    tipo: enum:Fisica,Juridica default:'Fisica'
+    data_nascimento: date
+    nascionalidade: string nullable
+    naturalidade: string nullable
+    estado_civel: enum:"Solteiro(a),Casado(a),Viuvo(a) default:'Solteiro(a)'
+    cpf_cnpj: string nullable
+    rg_inscriacao: string nullable
+    email: string nullable
+    telefone: string nullable
+    celular: string nullable
+    status: enum:Ativa,Desativada default:'Ativa'
+    cep: string nullable
+    estado: string nullable
+    cidade: string nullable
+    bairro: string nullable
+    endereco: string nullable
+    complemento: string nullable
+    numero: string nullable
+    softDeletes: true
+    timestamps: true
+
+  Models\Produtor:
+    tenant_id: id foreign
+    uuid: uuid
+    razao_social: string unique
+    nome_fantasia: string unique
+    abreviacao: string unique
+    tipo_pagamento: enum:Deposito,Transferencia default:'Deposito'
+    tipo: enum:Fisica,Juridica default:'Fisica'
+    data_nascimento: date
+    nascionalidade: string nullable
+    naturalidade: string nullable
+    estado_civel: enum:"Solteiro(a),Casado(a),Viuvo(a) default:'Solteiro(a)'
+    cpf_cnpj: string nullable
+    rg_inscriacao: string nullable
+    email: string nullable
+    telefone: string nullable
+    celular: string nullable
+    status: enum:Ativa,Desativada default:'Ativa'
+    cep: string nullable
+    estado: string nullable
+    cidade: string nullable
+    bairro: string nullable
+    endereco: string nullable
+    complemento: string nullable
+    numero: string nullable
+    softDeletes: true
+    timestamps: true
+
+  Models\Fazenda:
+    tenant_id: id foreign
+    proprietario_id: id foreign
+    produtor_id: id foreign
+    uuid: uuid
+    nome: string unique
+    inscricao_estadual: string unique
+    status: enum:Ativa,Desativada default:'Ativa'
+    area_total: double:10,2 nullable
+    nome_gerente: string nullable
+    cep: string nullable
+    estado: string nullable
+    cidade: string nullable
+    bairro: string nullable
+    endereco: string nullable
+    complemento: string nullable
+    numero: string nullable
+    softDeletes: true
+    timestamps: true
+    relationships:
+      hasMany: Talhao
+
+  Models\Talhao:
+    tenant_id: id foreign
+    fazenda_id: id foreign
+    uuid: uuid
+    nome: string unique
+    area_total: double:10,2
+    bloco: string
+    status: enum:Ativo,Desativada default:'Ativo'
+    softDeletes: true
+    timestamps: true
+    relationships:
+      hasMany: LocacaoTalhao
+
+  Models\LocacaoTalhao:
+    tenant_id: id foreign
+    safra_id: id foreign
+    cultura_id: id foreign
+    variedade_cultura_id: id foreign
+    talhao_id: id foreign
+    uuid: uuid
+    area_plantada: double:10,2
+    semente_linear: string nullable
+    semente_populacao: string nullable
+    inicio_plantio: date nullable
+    final_plantio: date nullable
+    data_prevista: date nullable
+    observacoes: text nullable
+    status: enum:Ativo,Desativada default:'Ativo'
+    softDeletes: true
+    timestamps: true
+
+  Models\GrupoProduto:
+    tenant_id: id foreign
+    uuid: uuid
+    nome: string unique
+    status: enum:Ativo,Desativada default:'Ativo'
+    softDeletes: true
+    timestamps: true
+    relationships:
+      hasMany: SubGrupoProduto, Produto
+
+  Models\SubGrupoProduto:
+    tenant_id: id foreign
+    grupo_produto_id: id foreign
+    uuid: uuid
+    nome: string unique
+    status: enum:Ativo,Desativada default:'Ativo'
+    softDeletes: true
+    timestamps: true
+    relationships:
+      hasMany: Produto
+
+  Models\Produto:
+    tenant_id: id foreign
+    grupo_produto_id: id foreign
+    sub_grupo_produto_id: id foreign
+    uuid: uuid
+    nome: string unique
+    unidade: string nullable
+    mcm: string nullable
+    estoque: double:10,3
+    qtn_minima: double:10,3
+    valor_unitario: double:10,3
+    finalidade: enum:Ativo,Desativada default:'Ativo'
+    localizacao_estoque: string nullable
+    status: enum:Ativo,Desativada default:'Ativo'
+    softDeletes: true
+    timestamps: true
+
+  Models\TipoOperacaoAgricula:
+    tenant_id: id foreign
+    uuid: uuid
+    nome: string unique
+    status: enum:Ativo,Desativada default:'Ativo'
+    softDeletes: true
+    timestamps: true
+
+  Models\OperadorAgricula:
+    tenant_id: id foreign
+    uuid: uuid
+    nome: string unique
+    status: enum:Ativo,Desativada default:'Ativo'
+    softDeletes: true
+    timestamps: true
+
+  Models\CentroAdministrativo:
+    tenant_id: id foreign
+    produtor_id: id foreign
+    fazenda_id: id foreign    
+    uuid: uuid   
+    softDeletes: true
+    timestamps: true
+
+  Models\CentroCusto:
+    tenant_id: id foreign
+    uuid: uuid
+    nome: string unique
+    tipo: enum:PRODUÇÃO,MÁQUINAS,ADMINISTRATIVO,COMBUSTÍVEL,DIVERSOS,LUBRIFICANTES,OFICINA default:'PRODUÇÃO'
+    status: enum:Ativo,Desativada default:Ativo
+    softDeletes: true
+    timestamps: true
+
+  Models\Fornecedor:
+    tenant_id: id foreign
+    uuid: uuid
+    razao_social: string unique
+    nome_fantasia: string unique
+    cpf_cnpj: string unique
+    rg_inscricao: string unique
+    finalidade: enum:ARMAZÉNS GERAIS,COMBUSTÍVEIS,COLHEDOR,FUNCIONÁRIO,GERAL,INSUMOS,USO CONSUMO,TRANSPORTADOR
+    tipo: enum:FÍSICO,JURÍDICO
+    email: string nullable
+    telefone: string nullable
+    celular: string nullable
+    cep: string nullable
+    estado: string nullable
+    cidade: string nullable
+    bairro: string nullable
+    endereco: string nullable
+    complmento: string nullable
+    numero: string nullable
+    nome_contato: string nullable
+    email_contato: string nullable
+    telefone_contato: string nullable
+    status: enum:Ativo,Desativada
+    softDeletes: true
+    timestamps: true 
+
+  Models\LancamentoContaApagar:
+    tenant_id: id foreign
+    centro_custo_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    numero_documento: string
+    data_documento: date
+    data_vencimento: date
+    descricao: text
+    valor: double:10,2
+    valor_desconto: double:10,2
+    tipo: enum:BOLETO,DINHEIRO,CHEQUE,TRANSFERÊNCIA
+    status: enum:ABERTA,APAGA,CANCELADA
+    softDeletes: true
+    timestamps: true 
+
+  Models\LancamentoContaApagar:
+    tenant_id: id foreign
+    centro_custo_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    numero_documento: string
+    data_documento: date
+    data_vencimento: date
+    descricao: text
+    valor: double:10,2
+    valor_desconto: double:10,2
+    tipo: enum:BOLETO,DINHEIRO,CHEQUE,TRANSFERÊNCIA
+    status: enum:ABERTA,APAGA,CANCELADA
+    softDeletes: true
+    timestamps: true 
+
+  Models\GrupoFrota:
+    tenant_id: id foreign
+    uuid: uuid
+    nome: string unique
+    status: enum:Ativo,Desativada default:'Ativo'
+    softDeletes: true
+    timestamps: true
+    relationships:
+      hasMany: Frota
+
+  Models\Frota:
+    tenant_id: id foreign
+    grupo_frota_id: id foreign
+    uuid: uuid
+    nome: string unique
+    marca: string nullable
+    modelo: string nullable
+    ano: string nullable
+    chassi: string nullable
+    data_aquisicao: date nullable
+    valor_aquisicao: double:10,2 nullable
+    volume_tanque: double:10,3 nullable
+    combustivel: enum:S-10,S-500,GASOLINA,ETANOL
+    tipo_marcacao: enum:HORIMETRO,KILOMETRO
+    medidor_inicial: double:10,3 nullable
+    medidor_final: double:10,3 nullable
+    observacao: text nullable
+    status: enum:Ativo,Desativada
+    softDeletes: true
+    timestamps: true
+    
