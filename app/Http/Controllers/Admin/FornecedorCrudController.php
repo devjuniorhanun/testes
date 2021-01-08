@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\FornecedorRequest;
+use App\Models\Fornecedor;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+
 
 /**
  * Class FornecedorCrudController
@@ -39,6 +41,7 @@ class FornecedorCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        
         CRUD::column('razao_social')->label('Razão Social');
         CRUD::column('cpf_cnpj')->label('Cpf / Cnpj');
         CRUD::column('finalidade')->type('enum');
@@ -47,11 +50,6 @@ class FornecedorCrudController extends CrudController
         CRUD::column('nome_contato');
         CRUD::column('telefone_contato');
 
-        /**
-         * Columns can be defined using the fluent syntax or array syntax:
-         * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
-         */
     }
 
     /**
@@ -100,25 +98,25 @@ class FornecedorCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->crud->set('show.setFromDb', false);
-        CRUD::column('razao_social')->label('Razão social.:')->size(3);
-        CRUD::column('nome_fantasia')->label('Nome Fantasia.:')->size(3);
-        CRUD::column('cpf_cnpj')->label('Cpf / Cnpj.:')->size(3);
+        CRUD::column('razao_social')->label('Razão social')->size(3);
+        CRUD::column('nome_fantasia')->label('Nome Fantasia')->size(3);
+        CRUD::column('cpf_cnpj')->label('Cpf / Cnpj')->size(3);
         CRUD::column('rg_inscricao')->label('Rg / Inscrição')->size(3);
-        CRUD::column('finalidade')->label('Finalidade.:')->type('enum')->size(3);
-        CRUD::column('tipo')->label('Tipo.:')->type('enum')->size(3);
-        CRUD::column('email')->label('Email.:')->size(3);
-        CRUD::column('telefone')->label('Telefon.:')->size(3);
-        CRUD::column('celular')->label('Celular.:')->size(3);
-        CRUD::column('cep')->label('Cep.:')->size(3);
-        CRUD::column('estado')->label('Estado.:')->size(3);
-        CRUD::column('cidade')->label('Cidade.:')->size(3);
-        CRUD::column('bairro')->label('Bairro.:')->size(3);
-        CRUD::column('endereco')->label('Endereço.:')->size(3);
-        CRUD::column('complmento')->label('Complemento.:')->size(3);
-        CRUD::column('numero')->label('Numero.:')->size(3);
-        CRUD::column('nome_contato')->label('Nome Contato.:')->size(3);
-        CRUD::column('email_contato')->label('Email Contato.:')->size(3);
-        CRUD::column('telefone_contato')->label('Telefone Contato.:')->size(3);
+        CRUD::column('finalidade')->label('Finalidade')->type('enum')->size(3);
+        CRUD::column('tipo')->label('Tipo')->type('enum')->size(3);
+        CRUD::column('email')->label('Email')->size(3);
+        CRUD::column('telefone')->label('Telefon')->size(3);
+        CRUD::column('celular')->label('Celular')->size(3);
+        CRUD::column('cep')->label('Cep')->size(3);
+        CRUD::column('estado')->label('Estado')->size(3);
+        CRUD::column('cidade')->label('Cidade')->size(3);
+        CRUD::column('bairro')->label('Bairro')->size(3);
+        CRUD::column('endereco')->label('Endereço')->size(3);
+        CRUD::column('complmento')->label('Complemento')->size(3);
+        CRUD::column('numero')->label('Numero')->size(3);
+        CRUD::column('nome_contato')->label('Nome Contato')->size(3);
+        CRUD::column('email_contato')->label('Email Contato')->size(3);
+        CRUD::column('telefone_contato')->label('Telefone Contato')->size(3);
         CRUD::column('status')->type('enum')->size(3);
         
     }

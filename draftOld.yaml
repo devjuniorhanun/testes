@@ -309,3 +309,78 @@ models:
     softDeletes: true
     timestamps: true
     
+  Models\ServicoAgricola:
+    tenant_id: id foreign
+    user_id: id foreign
+    safra_id: id foreign
+    cultura_id: id foreign
+    talhao_id: id foreign
+    tipo_operacao_agricula_id: id foreign
+    uuid: uuid
+    data: date
+    volume_bomba: double:10,3 nullable
+    vazao: double:10,3 nullable
+    capacidade_bomba: double:10,3 nullable
+    bomba_recomendada: double:10,3 nullable
+    bomba_usada: double:10,3 nullable
+    diferenca_bomba: double:10,3 nullable
+    area: double:10,2
+    observacao: text
+    status: enum:ABERTA,FINALIZADA,CANCELADA
+    softDeletes: true
+    timestamps: true
+    relationships:
+      hasMany: ServicoAgricolaOperador, ServicoAgricolaItem
+
+  Models\ServicoAgricolaOperador:
+    tenant_id: id foreign
+    servico_agricola_id: id foreign
+    operador_agricula_id: id foreign
+    uuid: uuid
+    tipo_operador: enum:OPERADOR,TANQUEIRO
+    softDeletes: true
+    timestamps: true
+
+  Models\ServicoAgricolaItem:
+    tenant_id: id foreign
+    servico_agricola_id: id foreign
+    produto_id: id foreign
+    uuid: uuid
+    dose_estimada_hectare: double:10,3 nullable
+    dose_usada_hectare: double:10,3 nullable
+    quantidade_estimada: double:10,3 nullable
+    quantidade_usada: double:10,3 nullable
+    softDeletes: true
+    timestamps: true
+
+  Models\Armazem:
+    tenant_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    nome: string unique
+    cidade: string nullable
+    percurso: string nullable
+    tipo: enum:PRÓPRIO,TERCEIRO
+    status: enum:ABERTA,FINALIZADA,CANCELADA
+    softDeletes: true
+    timestamps: true
+
+  Models\Colhedor:
+    tenant_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    nome: string unique
+    qnt_linha: string nullable
+    status: enum:ATIVO,DESATIVADO,BLOQUEADO
+    softDeletes: true
+    timestamps: true
+
+  Models\MatrizFrete:
+    tenant_id: id foreign
+    uuid: uuid
+    bloco: string
+    percurso: string
+    frete: double:4,2
+    status: enum:ATIVO,DESATIVADO,BLOQUEADO
+    softDeletes: true
+    timestamps: true

@@ -1,9 +1,7 @@
 created:
-    - database/factories/Models/ServicoAgricolaFactory.php
-    - database/migrations/2020_12_14_083405_create_servico_agricolas_table.php
-    - database/migrations/2020_12_14_083406_create_operador_agricula_servico_agricola_table.php
-    - database/migrations/2020_12_14_083407_create_produto_servico_agricola_table.php
-    - app/Models/ServicoAgricola.php
+    - database/factories/Models/MotoristaFactory.php
+    - database/migrations/2021_01_08_160506_create_motoristas_table.php
+    - app/Models/Motorista.php
 models:
     Models\CentroAdministrativo: { tenant_id: 'biginteger unsigned', produtor_id: 'biginteger unsigned', fazenda_id: 'biginteger unsigned', uuid: 'string:36' }
     Models\CentroCusto: { tenant_id: 'biginteger unsigned', uuid: 'string:36', nome: string, tipo: 'enum:PRODUÇÃO,MÁQUINAS,ADMINISTRATIVO,COMBUSTÍVEL,DIVERSOS,LUBRIFICANTES,OFICINA default:PRODUÇÃO', status: 'enum:Ativo,Desativada default:Ativo' }
@@ -27,3 +25,7 @@ models:
     Models\User: { uuid: 'string:36', name: string, email: string, email_verified_at: 'datetime nullable', password: string, two_factor_secret: 'text nullable', two_factor_recovery_codes: 'text nullable', remember_token: 'string:100 nullable', current_team_id: 'biginteger unsigned nullable', profile_photo_path: 'text nullable' }
     Models\VariedadeCultura: { tenant_id: 'biginteger unsigned', cultura_id: 'biginteger unsigned', uuid: 'string:36', nome: string, tecnologia: 'string nullable', ciclo: 'string nullable', status: 'enum:Ativa,Desativada default:Ativa' }
     Models\ServicoAgricola: { tenant_id: 'id foreign', safra_id: 'id foreign', cultura_id: 'id foreign', talhao_id: 'id foreign', tipo_operacao_agricula_id: 'id foreign', uuid: uuid, data: date, volume_bomba: 'double:10,3 nullable', vazao: 'double:10,3 nullable', capacidade_bomba: 'double:10,3 nullable', bomba_recomendada: 'double:10,3 nullable', bomba_usada: 'double:10,3 nullable', diferenca_bomba: 'double:10,3 nullable', area: 'double:10,2', observacao: text, status: 'enum:ABERTA,FINALIZADA,CANCELADA', softdeletes: softDeletes, timestamps: timestamps, relationships: { belongsToMany: 'OperadorAgricula, Produto' } }
+    Models\Armazem: { tenant_id: 'id foreign', fornecedor_id: 'id foreign', uuid: uuid, nome: 'string unique', cidade: 'string nullable', percurso: 'string nullable', tipo: 'enum:PRÓPRIO,TERCEIRO', status: 'enum:ABERTA,FINALIZADA,CANCELADA', softdeletes: softDeletes, timestamps: timestamps }
+    Models\Colhedor: { tenant_id: 'id foreign', fornecedor_id: 'id foreign', uuid: uuid, nome: 'string unique', qnt_linha: 'string nullable', status: 'enum:ATIVO,DESATIVADO,BLOQUEADO', softdeletes: softDeletes, timestamps: timestamps }
+    Models\MatrizFrete: { tenant_id: 'id foreign', fornecedor_id: 'id foreign', uuid: uuid, bloco: string, percurso: string, frete: 'double:4,2', status: 'enum:ATIVO,DESATIVADO,BLOQUEADO', softdeletes: softDeletes, timestamps: timestamps }
+    Models\Motorista: { tenant_id: 'id foreign', fornecedor_id: 'id foreign', uuid: uuid, nome: 'string unique', cpf: 'string unique', placa: 'string unique', tipo: 'enum:SAFRA,EMBARQUE', celular: 'string nullable', placa_nome: 'string nullable', cep: 'string nullable', estado: 'string nullable', cidade: 'string nullable', bairro: 'string nullable', endereco: 'string nullable', complemento: 'string nullable', numero: 'string nullable', status: 'enum:ATIVO,DESATIVADO,BLOQUEADO', softdeletes: softDeletes, timestamps: timestamps }

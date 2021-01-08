@@ -7,6 +7,8 @@
 jQuery(function ($) {
     // Define o dominio
     var url = window.location.host;
+    $(".cpf").mask("999.999.999-99");
+    $('.placa').mask('SSS-9A99');
 
     'use strict';
     $(".cpfcnpj").keydown(function () {

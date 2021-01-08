@@ -30,6 +30,7 @@
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('fazenda') }}"><i class="nav-icon la la-question"></i> <span>Fazendas</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talhao') }}"><i class="nav-icon la la-question"></i> <span>Talhãos</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('locacaotalhao') }}"><i class="nav-icon la la-question"></i> <span>Locação Talhões</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('matrizfrete') }}"><i class="nav-icon la la-question"></i> <span>Matriz Fretes</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('grupofrota') }}"><i class="nav-icon la la-question"></i> <span>Grupos Frotas</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('frota') }}"><i class="nav-icon la la-question"></i> <span>Frotas</span></a></li>
 
@@ -46,6 +47,10 @@
 			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Fornecedores</a>
 			<ul class="nav-dropdown-items">
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('fornecedor') }}"><i class="nav-icon la la-question"></i> <span>Fornecedores</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('armazem') }}"><i class="nav-icon la la-question"></i> <span>Armazéns</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('colhedor') }}"><i class="nav-icon la la-question"></i> <span>Colhedores</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('motorista') }}"><i class="nav-icon la la-question"></i> <span>Motoristas</span></a></li>
+				
 			</ul>
 		</li>
 		<li class="nav-item nav-dropdown">
