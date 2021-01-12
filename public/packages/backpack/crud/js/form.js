@@ -41,6 +41,7 @@ jQuery(function ($) {
     $('.inscricao').mask('00.000.000-0');
     $('.valores').mask("#.##0,00", { reverse: true });
     $('.volume').mask("#.##0,000", { reverse: true });
+    $('.peso').mask("#.##0", { reverse: true });
     $('.desabilitado').attr("readonly", true);
     // Calcula a Quantidade de bombas por aplicação
     $("#vazao").focusout(function () {
@@ -66,5 +67,49 @@ jQuery(function ($) {
                 console.log(error)
             });
     });
+
+    /**
+     * Função para calcular.
+     * Peso liquido, Quantidade de sacos, valor do frete
+     */
+    $("#peso_desconto").focusout(function () {
+        var pesoBruto = $("#peso_bruto").val(); // Peso Bruto
+        var pesoDesconto = $("#peso_desconto").val(); // Peso do Desconto
+        //var pesoLiquido = $("#peso_liquido").val();
+
+        var idTalhao = $("#talhao_id").val(); // Id do Talhão
+        var idArmazen = $("#armazem_id").val(); // Id do Armazem
+        var idMotorista = $("#motorista_id").val(); // Id do Motorista
+
+        var totalPeso = pesoBruto - pesoDesconto; // Total do Peso
+        var valorDesconto = pesoDesconto / pesoBruto; // Porcentagem de desconto
+        var sacoBruto = (pesoBruto / 60) * 1000; // Quantidade de Sacos Bruto
+        var saco_liquido = (totalPeso / 60) * 1000; // Quantidade de Saco Liquido
+
+        $("#peso_liquido").val(totalPeso.toFixed(3));
+        $("#desconto").val(valorDesconto.toFixed(3));
+        $("#saco_bruto").val(sacoBruto.toFixed(3));
+        $("#saco_liquido").val(saco_liquido.toFixed(3));
+        axios.get(`http://${url}/admin/lancamentosafra/frete/${idTalhao}/${idArmazen}/${idMotorista}`)
+            .then(response => {
+                //alert(response.data['locacao']['area_plantada']);
+                var valorFrete = sacoBruto * response.data['frete'];
+                $("#valor_frete").val(valorFrete.toFixed(2));
+                $("#motorista_fornecedor_id").val(response.data['fornecedor']);
+                $("#locacao_talhao_id").val(response.data['locacao']['id']);
+                $("#variedade_cultura_id").val(response.data['locacao']['variedade_cultura_id']);
+                $("#cultura_id").val(response.data['locacao']['cultura_id']);
+                $("#colhedor_fornecedor_id").val(1);
+                $("#matriz_frete_id").val(1);
+                $("#armazen_fornecedor_id").val(1);
+                
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    });
+
+
+
 
 });

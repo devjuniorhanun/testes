@@ -43,4 +43,6 @@ Route::group([
     Route::crud('colhedor', 'ColhedorCrudController');
     Route::crud('matrizfrete', 'MatrizFreteCrudController');
     Route::crud('motorista', 'MotoristaCrudController');
+    Route::crud('lancamentosafra', 'LancamentoSafraCrudController');
+    Route::get('lancamentosafra/frete/{idTalhao}/{idArmazen}/{idMotorista}', 'LancamentoSafraCrudController@frete');
 }); // this should be the absolute last line of this file

@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Estilos para impressão
+   ========================================================================== */
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin:0 !important;
+    padding:0 !important;
+    font: 9pt "Times New Roman", Times, serif;
+  }
+  .no-print, nav, footer, video, audio, object, embed {
+    display:none;
+    margin:5 !important;
+    padding:0 !important;
+  }
+
+  .print {
+    display: block;
+    margin:5 !important;
+    padding:0 !important;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+}

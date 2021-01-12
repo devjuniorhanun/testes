@@ -384,3 +384,53 @@ models:
     status: enum:ATIVO,DESATIVADO,BLOQUEADO
     softDeletes: true
     timestamps: true
+
+  Models\Motorista:
+    tenant_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    nome: string unique
+    cpf: string unique
+    placa: string unique
+    tipo: enum:SAFRA,EMBARQUE
+    celular: string nullable
+    placa_nome: string nullable
+    cep: string nullable
+    estado: string nullable
+    cidade: string nullable
+    bairro: string nullable
+    endereco: string nullable
+    complemento: string nullable
+    numero: string nullable
+    status: enum:ATIVO,DESATIVADO,BLOQUEADO
+    softDeletes: true
+    timestamps: true
+
+  Models\LancamentoSafra:
+    tenant_id: id foreign
+    locacao_talhao_id: id foreign
+    safra_id: id foreign
+    cultura_id: id foreign
+    variedade_cultura_id: id foreign
+    talhao_id: id foreign
+    motorista_id: id foreign
+    motorista_fornecedor_id: id foreign:fornecedors
+    proprietario_id: id foreign
+    armazem_id: id foreign
+    armazen_fornecedor_id: id foreign:fornecedors
+    colhedor_id: id foreign
+    colhedor_fornecedor_id: id foreign:fornecedors
+    fazenda_id: id foreign
+    matriz_frete_id: id foreign
+    data_colhido: date
+    num_romaneio: string
+    num_controle: string
+    peso_bruto: double:10,3
+    peso_desconto: double:10,3
+    desconto: double:10,3
+    peso_liquido: double:10,3
+    saco_liquido: double:10,3
+    saco_bruto: double:10,3
+    valor_frete: double:10,3
+    softDeletes: true
+    timestamps: true
