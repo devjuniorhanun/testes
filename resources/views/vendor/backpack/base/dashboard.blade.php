@@ -15,7 +15,26 @@ Widget::add()->to('before_content')->type('div')->class('row')->content([
 			//->progress(100*(int)$colherido/1000)
 			//->hint(1000-$colherido.' more until next milestone.'),	
 		
-	]);
+    ]);
+    
+    $widgets['after_content'][] = [
+	  'type' => 'div',
+	  'class' => 'row',
+      'content' => [ // widgets 
+        [ 
+		        'type' => 'chart',
+		        'wrapperClass' => 'col-md-4',
+		        // 'class' => 'col-md-6',
+		        'controller' => \App\Http\Controllers\Admin\Charts\TalhaoChartController::class,
+				'content' => [
+				    'header' => 'Talhões', // optional
+				    // 'body' => 'This chart should make it obvious how many new users have signed up in the past 7 days.<br><br>', // optional
+		    	]
+	    	],
+
+
+	  ]
+	];
 @endphp
 
 @section('content')
