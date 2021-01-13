@@ -11,6 +11,7 @@ use App\Models\Motorista;
 use App\Models\Talhao;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class LancamentoSafraCrudController
@@ -47,11 +48,7 @@ class LancamentoSafraCrudController extends CrudController
     {
         $this->crud->enableExportButtons();
         $this->crud->enableResponsiveTable();
-        CRUD::column('como_vai')->type('select')
-            ->entity('motorista')
-            ->with('motoristaFornecedor')
-            ->model('App\Models\Fornecedor')
-            ->attribute('motoristaFornecedor_razao_social');
+        
         CRUD::column('data_colhido')->type('datetime')->format('DD/MM/YYYY');
         //CRUD::column('motorista_fornecedor_id');
         //CRUD::column('motorista_id');
@@ -66,9 +63,9 @@ class LancamentoSafraCrudController extends CrudController
             ->attribute('nome');
         CRUD::column('num_controle')->label('Nº Controler');
         CRUD::column('num_romaneio')->label('Nº Romaneio');
-        CRUD::column('peso_bruto')->label('Peso Bruto (Kg)');
-        CRUD::column('peso_desconto')->label('Desconto (Kg)');
-        CRUD::column('peso_liquido')->label('Peso Liquido (Kg)');
+        CRUD::column('peso_bruto')->label('Peso Bruto (Kg)')->type('number')->thousands_sep(".");
+        CRUD::column('peso_desconto')->label('Desconto (Kg)')->type('number')->thousands_sep(".");
+        CRUD::column('peso_liquido')->label('Peso Liquido (Kg)')->type('number')->thousands_sep(".");
         CRUD::column('armazem_id')->type('select')
             ->entity('Armazem')
             ->attribute('nome');
@@ -81,13 +78,25 @@ class LancamentoSafraCrudController extends CrudController
             ->attribute('nome');
         //CRUD::column('locacao_talhao_id');
         //CRUD::column('matriz_frete_id');
+        CRUD::column('matriz_frete_id')
+        ->type('select')
+            ->entity('matrizFrete')
+            //->model('App\Models\Fornecedor')
+            ->attribute('frete');
         CRUD::column('proprietario_id')->type('select')
             ->entity('Proprietario')
             ->attribute('nome_fantasia');
-        CRUD::column('saco_bruto');
-        CRUD::column('saco_liquido');
-        CRUD::column('safra_id');
-        CRUD::column('valor_frete');
+        CRUD::column('saco_bruto')
+        ->prefix('Sc ');
+        CRUD::column('saco_liquido')
+        ->prefix('Sc ');
+        //CRUD::column('safra_id');
+        CRUD::column('valor_frete')->type('number')
+        ->prefix('R$ ')
+        ->decimals(2)
+        ->dec_point(',')
+        ->thousands_sep('.')
+        ->label('Frete');
 
 
 
@@ -236,6 +245,7 @@ class LancamentoSafraCrudController extends CrudController
 
         $this->data['crud'] = $this->crud;
         $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
+        //$this->data['colhido'] = LancamentoSafra::where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
         return view('admin.lacamento_lavoura.index',$this->data);
     }
     public function frete($idTalhao, $idArmazen, $idMotorista)

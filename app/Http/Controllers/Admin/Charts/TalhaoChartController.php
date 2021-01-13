@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin\Charts;
 use App\Models\LancamentoSafra;
 use App\Models\Talhao;
 use Backpack\CRUD\app\Http\Controllers\ChartController;
-use ConsoleTVs\Charts\Classes\Chartjs\Chart;
+//use ConsoleTVs\Charts\Classes\Chartjs\Chart;
+use ConsoleTVs\Charts\Classes\Highcharts\Chart;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -34,7 +35,7 @@ class TalhaoChartController extends ChartController
         
         $this->chart = new Chart();
         $this->chart->dataset('Red', 'pie', $qutSacos)
-                    ->backgroundColor($cores);
+                    ->color($cores);
 
        // OPTIONAL
        $this->chart->displayAxes(false);

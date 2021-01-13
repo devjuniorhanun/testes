@@ -83,11 +83,11 @@ jQuery(function ($) {
 
         var totalPeso = pesoBruto - pesoDesconto; // Total do Peso
         var valorDesconto = pesoDesconto / pesoBruto; // Porcentagem de desconto
-        var sacoBruto = (pesoBruto / 60) * 1000; // Quantidade de Sacos Bruto
-        var saco_liquido = (totalPeso / 60) * 1000; // Quantidade de Saco Liquido
+        var sacoBruto = (pesoBruto / 60); // Quantidade de Sacos Bruto
+        var saco_liquido = (totalPeso / 60); // Quantidade de Saco Liquido
 
-        $("#peso_liquido").val(totalPeso.toFixed(3));
-        $("#desconto").val(valorDesconto.toFixed(3));
+        $("#peso_liquido").val(totalPeso);
+        $("#desconto").val(valorDesconto.toFixed(2));
         $("#saco_bruto").val(sacoBruto.toFixed(3));
         $("#saco_liquido").val(saco_liquido.toFixed(3));
         axios.get(`http://${url}/admin/lancamentosafra/frete/${idTalhao}/${idArmazen}/${idMotorista}`)

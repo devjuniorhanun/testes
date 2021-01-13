@@ -110,14 +110,14 @@
             <tfoot>
               <tr>
                   
-                {{-- Table columns --}}
+                
                 @foreach ($crud->columns() as $column)
                   <th>{!! $column['label'] !!}</th>
                 @endforeach
 
-                @if ( $crud->buttons()->where('stack', 'line')->count() )
-                  <th>{{ trans('backpack::crud.actions') }}</th>
-                @endif
+               
+                  <th>Total Colheido</th>
+               
               </tr>
             </tfoot>
           </table>
@@ -145,6 +145,7 @@
   <link rel="stylesheet" href="{{ asset('packages/backpack/crud/css/crud.css').'?v='.config('backpack.base.cachebusting_string') }}">
   <link rel="stylesheet" href="{{ asset('packages/backpack/crud/css/form.css').'?v='.config('backpack.base.cachebusting_string') }}">
   <link rel="stylesheet" href="{{ asset('packages/backpack/crud/css/list.css').'?v='.config('backpack.base.cachebusting_string') }}">
+  <link rel="stylesheet" href="{{ asset('css/print.css') }}">
 
   <!-- CRUD LIST CONTENT - crud_list_styles stack -->
   @stack('crud_list_styles')
