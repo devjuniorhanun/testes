@@ -92,15 +92,15 @@ jQuery(function ($) {
         $("#saco_liquido").val(saco_liquido.toFixed(3));
         axios.get(`http://${url}/admin/lancamentosafra/frete/${idTalhao}/${idArmazen}/${idMotorista}`)
             .then(response => {
-                //alert(response.data['locacao']['area_plantada']);
-                var valorFrete = sacoBruto * response.data['frete'];
+                //alert(response.data['frete']['frete']);
+                var valorFrete = sacoBruto * response.data['frete']['frete'];
                 $("#valor_frete").val(valorFrete.toFixed(2));
-                $("#motorista_fornecedor_id").val(response.data['fornecedor']);
+                $("#motorista_fornecedor_id").val(response.data['fornecedor']['id']);
                 $("#locacao_talhao_id").val(response.data['locacao']['id']);
                 $("#variedade_cultura_id").val(response.data['locacao']['variedade_cultura_id']);
                 $("#cultura_id").val(response.data['locacao']['cultura_id']);
-                $("#colhedor_fornecedor_id").val(1);
-                $("#matriz_frete_id").val(1);
+                $("#colhedor_fornecedor_id").val(response.data['fornecedor']['fornecedor_id']);
+                $("#matriz_frete_id").val(response.data['frete']['id']);
                 $("#armazen_fornecedor_id").val(1);
                 
             })

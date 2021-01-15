@@ -62,26 +62,31 @@ class FornecedorCrudController extends CrudController
     {
         CRUD::setValidation(FornecedorRequest::class);
 
-        CRUD::field('razao_social')->label('Razão social.:')->size(3);
-        CRUD::field('nome_fantasia')->label('Nome Fantasia.:')->size(3);
-        CRUD::field('cpf_cnpj')->label('Cpf / Cnpj.:')->size(3)->attributes(['class' => 'form-control cpfcnpj']);
-        CRUD::field('rg_inscricao')->label('Rg / Inscrição')->size(3);
-        CRUD::field('finalidade')->label('Finalidade.:')->type('enum')->size(3);
-        CRUD::field('tipo')->label('Tipo.:')->type('enum')->size(3);
-        CRUD::field('email')->label('Email.:')->size(3);
-        CRUD::field('telefone')->label('Telefone.:')->attributes(['class' => 'form-control telefone'])->size(3);
-        CRUD::field('celular')->label('Celular.:')->attributes(['class' => 'form-control celular'])->size(3);
-        CRUD::field('cep')->label('Cep.:')->attributes(['id' => 'cep'])->size(3);
-        CRUD::field('estado')->label('Estado.:')->attributes(['id' => 'estado'])->size(3);
-        CRUD::field('cidade')->label('Cidade.:')->attributes(['id' => 'cidade'])->size(3);
-        CRUD::field('bairro')->label('Bairro.:')->attributes(['id' => 'bairro'])->size(3);
-        CRUD::field('endereco')->label('Endereço.:')->attributes(['id' => 'endereco'])->size(3);
-        CRUD::field('complmento')->label('Complemento.:')->size(3);
-        CRUD::field('numero')->label('Numero.:')->size(3);
-        CRUD::field('nome_contato')->label('Nome Contato.:')->size(3);
-        CRUD::field('email_contato')->label('Email Contato.:')->size(3);
-        CRUD::field('telefone_contato')->label('Telefone Contato.:')->size(3);
-        CRUD::field('status')->type('enum')->size(3);
+        CRUD::field('razao_social')->label('Razão social.:')->size(3)->tab('Fornecedor');
+        CRUD::field('nome_fantasia')->label('Nome Fantasia.:')->size(3)->tab('Fornecedor');
+        CRUD::field('cpf_cnpj')->label('Cpf / Cnpj.:')->size(3)->attributes(['class' => 'form-control cpfcnpj'])->tab('Fornecedor');
+        CRUD::field('rg_inscricao')->label('Rg / Inscrição')->size(3)->tab('Fornecedor');
+        CRUD::field('finalidade')->label('Finalidade.:')->type('enum')->size(3)->tab('Fornecedor');
+        CRUD::field('tipo')->label('Tipo.:')->type('enum')->size(3)->tab('Fornecedor');
+        CRUD::field('email')->label('Email.:')->size(3)->tab('Fornecedor');
+        CRUD::field('telefone')->label('Telefone.:')->attributes(['class' => 'form-control telefone'])->size(3)->tab('Fornecedor');
+        CRUD::field('celular')->label('Celular.:')->attributes(['class' => 'form-control celular'])->size(3)->tab('Fornecedor');
+        CRUD::field('cep')->label('Cep.:')->attributes(['id' => 'cep'])->size(3)->tab('Fornecedor');
+        CRUD::field('estado')->label('Estado.:')->attributes(['id' => 'estado'])->size(3)->tab('Fornecedor');
+        CRUD::field('cidade')->label('Cidade.:')->attributes(['id' => 'cidade'])->size(3)->tab('Fornecedor');
+        CRUD::field('bairro')->label('Bairro.:')->attributes(['id' => 'bairro'])->size(3)->tab('Fornecedor');
+        CRUD::field('endereco')->label('Endereço.:')->attributes(['id' => 'endereco'])->size(3)->tab('Fornecedor');
+        CRUD::field('complmento')->label('Complemento.:')->size(3)->tab('Fornecedor');
+        CRUD::field('numero')->label('Numero.:')->size(3)->tab('Fornecedor');
+        CRUD::field('nome_contato')->label('Nome Contato.:')->size(3)->tab('Contato');
+        CRUD::field('email_contato')->label('Email Contato.:')->size(3)->tab('Contato');
+        CRUD::field('telefone_contato')->label('Telefone Contato.:')->size(3)->tab('Contato');
+        CRUD::field('status')->type('enum')->size(3)->tab('Fornecedor');
+        CRUD::field('nome_banco')->label('Nome.:')->size(3)->tab('Dados Bancarios');
+        CRUD::field('banco')->label('Banco.:')->size(3)->tab('Dados Bancarios');
+        CRUD::field('agencia')->label('Agencia.:')->size(3)->tab('Dados Bancarios');
+        CRUD::field('num_conta')->label('Nº Conta.:')->size(3)->tab('Dados Bancarios');
+
     }
 
     /**
@@ -118,6 +123,10 @@ class FornecedorCrudController extends CrudController
         CRUD::column('email_contato')->label('Email Contato')->size(3);
         CRUD::column('telefone_contato')->label('Telefone Contato')->size(3);
         CRUD::column('status')->type('enum')->size(3);
+        CRUD::column('nome_banco')->label('Nome');
+        CRUD::column('banco')->label('Banco');
+        CRUD::column('agencia')->label('Agencia');
+        CRUD::column('num_conta')->label('Nº Conta');
         
     }
 }

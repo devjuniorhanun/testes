@@ -59,6 +59,10 @@ class Fornecedor extends Model
         'email_contato',
         'telefone_contato',
         'status',
+        'nome_banco',
+        'banco',
+        'agencia',
+        'num_conta',
     ];
 
     /**

@@ -39,6 +39,10 @@ class CreateFornecedorsTable extends Migration
             $table->string('email_contato')->nullable();
             $table->string('telefone_contato')->nullable();
             $table->enum('status', ["Ativo","Desativada"]);
+            $table->string('nome_banco')->nullable();
+            $table->string('banco')->nullable();
+            $table->string('agencia')->nullable();
+            $table->string('num_conta')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -8,10 +8,12 @@ use App\Models\LancamentoSafra;
 use App\Models\LocacaoTalhao;
 use App\Models\MatrizFrete;
 use App\Models\Motorista;
+use App\Models\Safra;
 use App\Models\Talhao;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 /**
  * Class LancamentoSafraCrudController
@@ -48,7 +50,7 @@ class LancamentoSafraCrudController extends CrudController
     {
         $this->crud->enableExportButtons();
         $this->crud->enableResponsiveTable();
-        
+
         CRUD::column('data_colhido')->type('datetime')->format('DD/MM/YYYY');
         //CRUD::column('motorista_fornecedor_id');
         //CRUD::column('motorista_id');
@@ -79,7 +81,7 @@ class LancamentoSafraCrudController extends CrudController
         //CRUD::column('locacao_talhao_id');
         //CRUD::column('matriz_frete_id');
         CRUD::column('matriz_frete_id')
-        ->type('select')
+            ->type('select')
             ->entity('matrizFrete')
             //->model('App\Models\Fornecedor')
             ->attribute('frete');
@@ -87,16 +89,16 @@ class LancamentoSafraCrudController extends CrudController
             ->entity('Proprietario')
             ->attribute('nome_fantasia');
         CRUD::column('saco_bruto')
-        ->prefix('Sc ');
+            ->prefix('Sc ');
         CRUD::column('saco_liquido')
-        ->prefix('Sc ');
+            ->prefix('Sc ');
         //CRUD::column('safra_id');
         CRUD::column('valor_frete')->type('number')
-        ->prefix('R$ ')
-        ->decimals(2)
-        ->dec_point(',')
-        ->thousands_sep('.')
-        ->label('Frete');
+            ->prefix('R$ ')
+            ->decimals(2)
+            ->dec_point(',')
+            ->thousands_sep('.')
+            ->label('Frete');
 
 
 
@@ -221,6 +223,61 @@ class LancamentoSafraCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false);
+        CRUD::column('data_colhido')->type('datetime')->format('DD/MM/YYYY');
+        //CRUD::column('motorista_fornecedor_id');
+        //CRUD::column('motorista_id');
+        CRUD::column('motorista_id')->type('select')
+            ->entity('motorista')
+            ->with('fornecedor')
+            //->model('App\Models\Fornecedor')
+            ->attribute('placa_nome');
+
+        CRUD::column('talhao_id')->type('select')
+            ->entity('Talhao')
+            ->attribute('nome');
+        CRUD::column('num_controle')->label('Nº Controler');
+        CRUD::column('num_romaneio')->label('Nº Romaneio');
+        CRUD::column('peso_bruto')->label('Peso Bruto (Kg)')->type('number')->thousands_sep(".");
+        CRUD::column('peso_desconto')->label('Desconto (Kg)')->type('number')->thousands_sep(".");
+        CRUD::column('peso_liquido')->label('Peso Liquido (Kg)')->type('number')->thousands_sep(".");
+        CRUD::column('armazem_id')->type('select')
+            ->entity('Armazem')
+            ->attribute('nome');
+        CRUD::column('colhedor_id')->type('select')
+            ->entity('Colhedor')
+            ->attribute('nome');
+        CRUD::column('desconto')->label('Desconto (%)');
+        CRUD::column('fazenda_id')->type('select')
+            ->entity('Fazenda')
+            ->attribute('nome');
+        //CRUD::column('locacao_talhao_id');
+        //CRUD::column('matriz_frete_id');
+        CRUD::column('matriz_frete_id')
+            ->type('select')
+            ->entity('matrizFrete')
+            //->model('App\Models\Fornecedor')
+            ->attribute('frete');
+        CRUD::column('proprietario_id')->type('select')
+            ->entity('Proprietario')
+            ->attribute('nome_fantasia');
+        CRUD::column('saco_bruto')
+        ->decimals(3)
+            ->prefix('Sc ');
+        CRUD::column('saco_liquido')
+            ->prefix('Sc ');
+        //CRUD::column('safra_id');
+        CRUD::column('valor_frete')->type('number')
+            ->prefix('R$ ')
+            ->decimals(2)
+            ->dec_point(',')
+            ->thousands_sep('.')
+            ->label('Frete');
+
+    }
     /*
     public function index()
     {
@@ -246,16 +303,72 @@ class LancamentoSafraCrudController extends CrudController
         $this->data['crud'] = $this->crud;
         $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
         //$this->data['colhido'] = LancamentoSafra::where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
-        return view('admin.lacamento_lavoura.index',$this->data);
+        return view('admin.lacamento_lavoura.index', $this->data);
     }
+
     public function frete($idTalhao, $idArmazen, $idMotorista)
     {
         $dados = [];
         $bloco = Talhao::find($idTalhao)->bloco;
         $percuso = Armazem::find($idArmazen)->percurso;
-        $dados['fornecedor'] = Motorista::find($idMotorista)->fornecedor_id;
-        $dados['frete'] = MatrizFrete::where('bloco', '=', $bloco)->where('percurso', '=', $percuso)->first()->frete;
+        $dados['fornecedor'] = Motorista::find($idMotorista);
+        $dados['frete'] = MatrizFrete::where('bloco', '=', $bloco)->where('percurso', '=', $percuso)->first();
         $dados['locacao'] = LocacaoTalhao::where('talhao_id', '=', $idTalhao)->first();
+        //dd($dados);
         return $dados;
     }
+
+    public function safra()
+    {
+        $listagem = LancamentoSafra::Listagem();
+       
+        $totalColhido = LancamentoSafra::totalColhido();
+        $totalColhidoCulutra = LancamentoSafra::totalColhidoCulutra();
+        $listaData = LancamentoSafra::listaData();
+        $listaMotorista = LancamentoSafra::listaMotorista();
+        $listaTalhao = LancamentoSafra::listaTalhao();
+        $listaArmazem = LancamentoSafra::listaArmazem();
+        //dd($listagem);
+        return view('admin.lacamento_lavoura.safras',compact('listagem','totalColhido','listaTalhao','listaArmazem',
+                                                             'totalColhidoCulutra','listaData','listaMotorista'));
+    }
+
+    public function safras(Request $request)
+    {
+        $totalColhido = LancamentoSafra::totalColhido();
+        $totalColhidoCulutra = LancamentoSafra::totalColhidoCulutra();
+        $listaData = LancamentoSafra::listaData();
+        $listaMotorista = LancamentoSafra::listaMotorista();
+        $listaTalhao = LancamentoSafra::listaTalhao();
+        $listaArmazem = LancamentoSafra::listaArmazem();
+        
+        
+        if($request->periodo > 0){
+            $listagem = LancamentoSafra::where('data_colhido','like', "%$request->periodo%")->get();
+        } else if($request->motorista > 0)
+        {
+            $listagem = LancamentoSafra::where('motorista_id','=', $request->motorista)->get();
+        }
+        else if($request->talhao > 0)
+        {
+            $listagem = LancamentoSafra::where('talhao_id','=', $request->talhao)->get();
+        }
+        else if($request->armazem > 0)
+        {
+            $listagem = LancamentoSafra::where('armazem_id','=', $request->armazem)->get();
+        }
+        return view('admin.lacamento_lavoura.relatorios',compact('listagem','totalColhido','listaTalhao','listaArmazem',
+                                                             'totalColhidoCulutra','listaData','listaMotorista'));
+        //listagem = LancamentoSafra::where('data_colhido','like', "%$periodo%")->get();
+        //dd($listagem);
+        //return LancamentoSafra::Relatorios($data);
+        
+    }
+
+    /*public function motoristas()
+    {
+        $this->crud->hasAccessOrFail('list');
+        $registros = LancamentoSafra::where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
+        return view('admin.lacamento_lavoura.motoristas', compact('registros'));
+    }*/
 }

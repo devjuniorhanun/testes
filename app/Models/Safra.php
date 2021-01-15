@@ -75,4 +75,9 @@ class Safra extends Model
         return $this->belongsTo(Tenant::class);
     }
 
+    public function lacamentos()
+    {
+        return $this->hasMany(LancamentoSafra::class);
+    }
+
 }

@@ -2,7 +2,7 @@
 
 @php
 use Illuminate\Support\Facades\DB;
-$colherido = DB::table('lancamento_safras')->where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
+$colherido = number_format(DB::table('lancamento_safras')->where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso, 0, '.', '.');
 //dd($colherido);
 Widget::add()->to('before_content')->type('div')->class('row')->content([
 		// notice we use Widget::make() to add widgets as content (not in a group)

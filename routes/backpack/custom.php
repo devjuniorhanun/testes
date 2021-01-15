@@ -45,6 +45,9 @@ Route::group([
     Route::crud('motorista', 'MotoristaCrudController');
     Route::crud('lancamentosafra', 'LancamentoSafraCrudController');
     Route::get('lancamentosafra/frete/{idTalhao}/{idArmazen}/{idMotorista}', 'LancamentoSafraCrudController@frete');
+    Route::get('lancamentosafra/safra', 'LancamentoSafraCrudController@safra');
+    Route::any('lancamentosafra/safras', 'LancamentoSafraCrudController@safras')->name('relatorio_safra');;
+    Route::get('lancamentosafra/motoristas', 'LancamentoSafraCrudController@motoristas');
     Route::get('charts/talhao', 'Charts\TalhaoChartController@response')->name('charts.talhao.index');
-    Route::get('charts/weekly-users', 'Charts\WeeklyUsersChartController@response')->name('charts.weekly-users.index');
+    
 }); // this should be the absolute last line of this file

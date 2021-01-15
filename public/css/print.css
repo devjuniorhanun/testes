@@ -11,8 +11,7 @@
   }
   .no-print, nav, footer, video, audio, object, embed {
     display:none;
-    margin:5 !important;
-    padding:0 !important;
+    
   }
 
   .print {
