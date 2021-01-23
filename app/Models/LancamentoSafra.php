@@ -170,6 +170,14 @@ class LancamentoSafra extends Model
         return $this->belongsTo(MatrizFrete::class);
     }
 
+    public function loca()
+    {
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
+
+            ->pluck('nome', 'id');
+        return $result;
+    }
+
     /**
      * Método scopeListagem($query,$pagina)
      * Responsavel por listar todos os registros, ativos.
@@ -180,51 +188,52 @@ class LancamentoSafra extends Model
      */
     public function scopeListagem($query)
     {
-        $result = DB::table('safras')->where('safras.status','=','Ativa')
-            ->where('lancamento_safras.id','>', 0)
-            ->leftJoin('lancamento_safras','lancamento_safras.safra_id','=','safras.id')
-            ->leftJoin('motoristas','motoristas.id','=','lancamento_safras.motorista_id')
-            ->leftJoin('talhaos','talhaos.id','=','lancamento_safras.talhao_id')
-            ->leftJoin('matriz_fretes','matriz_fretes.id','=','lancamento_safras.matriz_frete_id')
-            ->leftJoin('armazems','armazems.id','=','lancamento_safras.armazem_id')
-            ->select('lancamento_safras.*','motoristas.placa_nome as motorista','talhaos.nome as talhao','matriz_fretes.frete as matrizFrete','armazems.nome as nomeArmazen')
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
+            ->where('lancamento_safras.id', '>', 0)
+            ->leftJoin('lancamento_safras', 'lancamento_safras.safra_id', '=', 'safras.id')
+            ->leftJoin('motoristas', 'motoristas.id', '=', 'lancamento_safras.motorista_id')
+            ->leftJoin('talhaos', 'talhaos.id', '=', 'lancamento_safras.talhao_id')
+            ->leftJoin('matriz_fretes', 'matriz_fretes.id', '=', 'lancamento_safras.matriz_frete_id')
+            ->leftJoin('armazems', 'armazems.id', '=', 'lancamento_safras.armazem_id')
+            ->select('lancamento_safras.*', 'motoristas.placa_nome as motorista', 'talhaos.nome as talhao', 'matriz_fretes.frete as matrizFrete', 'armazems.nome as nomeArmazen')
             ->get();
-            //->paginate($pagina);
+        //->paginate($pagina);
         //dd($result);
         return $result;
     }
 
     public function scopeTotalColhido()
     {
-        $result = DB::table('safras')->where('safras.status','=','Ativa')
-            ->leftJoin('lancamento_safras','lancamento_safras.safra_id','=','safras.id')
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
+            ->leftJoin('lancamento_safras', 'lancamento_safras.safra_id', '=', 'safras.id')
             ->select(
                 DB::raw('SUM(peso_liquido) as liquido'),
                 DB::raw('SUM(saco_liquido) as sacos'),
-                DB::raw('SUM(valor_frete) as frete'))
-            ->first()
-            ;
+                DB::raw('SUM(valor_frete) as frete')
+            )
+            ->first();
         return $result;
     }
 
     public function scopeTotalColhidoCulutra()
     {
-        $result = DB::table('safras')->where('safras.status','=','Ativa')
-            ->leftJoin('lancamento_safras','lancamento_safras.safra_id','=','safras.id')
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
+            ->leftJoin('lancamento_safras', 'lancamento_safras.safra_id', '=', 'safras.id')
             ->join('locacao_talhaos', 'lancamento_safras.locacao_talhao_id', '=', 'locacao_talhaos.id')
             ->join('culturas', 'locacao_talhaos.cultura_id', '=', 'culturas.id')
-            ->select('culturas.nome',
-                DB::raw('SUM(saco_liquido) as sacos'))
+            ->select(
+                'culturas.nome',
+                DB::raw('SUM(saco_liquido) as sacos')
+            )
             ->orderBy('culturas.nome')
             ->groupBy('culturas.id')
-            ->get()
-        ;
+            ->get();
         return $result;
     }
 
     public function scopeListaData()
     {
-        $result = DB::table('safras')->where('safras.status','=','Ativa')
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
             ->leftJoin('lancamento_safras', '.safra_id', '=', 'safras.id')
             ->where('lancamento_safras.data_colhido', '<>', null)
             ->select('lancamento_safras.data_colhido')
@@ -236,24 +245,45 @@ class LancamentoSafra extends Model
 
     public function scopeListaMotorista()
     {
-        $result = DB::table('safras')->where('safras.status','=','Ativa')
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
             ->leftJoin('lancamento_safras', '.safra_id', '=', 'safras.id')
             ->where('lancamento_safras.data_colhido', '<>', null)
             ->leftJoin('motoristas', 'motoristas.id', '=', 'lancamento_safras.motorista_id')
-            ->select('motoristas.id','motoristas.nome')
+            ->select('motoristas.id', 'motoristas.nome')
             ->orderBy('motoristas.nome')
             ->groupBy('motoristas.id')
             ->get();
         return $result;
     }
 
+    public function scopeListaTransportador()
+    {
+        $result = DB::table('fornecedors')->where('fornecedors.finalidade', '=', 'TRANSPORTADOR')
+            ->join('lancamento_safras', 'lancamento_safras.motorista_fornecedor_id', '=', 'fornecedors.id')
+            ->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
+            ->leftJoin('adiantamento_motoristas', 'adiantamento_motoristas.fornecedor_id', '=', 'fornecedors.id')
+            ->select(
+                'fornecedors.*',
+                'lancamento_safras.motorista_fornecedor_id',
+                DB::raw('SUM(saco_bruto) as sacoBruto'),
+                DB::raw('SUM(valor_frete) as frete'),
+                DB::raw('count(lancamento_safras.id) as qtnViagem'),
+                DB::raw('SUM(adiantamento_motoristas.valor_pagamento) as valorAdiantamento')
+            )
+            ->where('safras.status', '=', 'Ativa')
+            ->groupBy('lancamento_safras.motorista_fornecedor_id')
+            ->get();
+        //dd($result);
+        return $result;
+    }
+
     public function scopeListaTalhao()
     {
-        $result = DB::table('safras')->where('safras.status','=','Ativa')
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
             ->leftJoin('lancamento_safras', '.safra_id', '=', 'safras.id')
             ->where('lancamento_safras.data_colhido', '<>', null)
             ->leftJoin('talhaos', 'talhaos.id', '=', 'lancamento_safras.talhao_id')
-            ->select('talhaos.id','talhaos.nome')
+            ->select('talhaos.id', 'talhaos.nome')
             ->orderBy('talhaos.nome')
             ->groupBy('talhaos.id')
             ->get();
@@ -262,20 +292,38 @@ class LancamentoSafra extends Model
 
     public function scopeListaArmazem()
     {
-        $result = DB::table('safras')->where('safras.status','=','Ativa')
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
             ->leftJoin('lancamento_safras', '.safra_id', '=', 'safras.id')
             ->where('lancamento_safras.data_colhido', '<>', null)
             ->leftJoin('armazems', 'armazems.id', '=', 'lancamento_safras.armazem_id')
-            ->select('armazems.id','armazems.nome')
+            ->select('armazems.id', 'armazems.nome')
             ->orderBy('armazems.nome')
             ->groupBy('armazems.id')
             ->get();
         return $result;
     }
 
-    public function scopeRelatorios()
+    public function scopeMapaProdutividade()
     {
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
+        ->join('lancamento_safras', '.safra_id', '=', 'safras.id')
+        ->join('locacao_talhaos', 'lancamento_safras.locacao_talhao_id', '=', 'locacao_talhaos.id')
+        ->join('culturas', 'locacao_talhaos.cultura_id', '=', 'culturas.id')
+        ->join('talhaos', 'locacao_talhaos.talhao_id', '=', 'talhaos.id')
+        ->where('lancamento_safras.data_colhido', '<>', null)
+        ->select('locacao_talhaos.area_plantada','talhaos.nome', 'culturas.nome as culturaNome',
+            DB::raw('SUM(lancamento_safras.saco_liquido) as saco_liquido')
+        )
+        ->orderBy('locacao_talhaos.cultura_id')
+        ->orderBy('talhaos.nome')
+        ->groupBy('lancamento_safras.locacao_talhao_id','locacao_talhaos.cultura_id')
+        ->get();
+        //dd($result);
+    return $result;
 
     }
 
+    public function scopeRelatorios()
+    {
+    }
 }

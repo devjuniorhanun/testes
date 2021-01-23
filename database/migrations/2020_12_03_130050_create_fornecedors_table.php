@@ -21,8 +21,8 @@ class CreateFornecedorsTable extends Migration
             $table->uuid('uuid');
             $table->string('razao_social')->unique();
             $table->string('nome_fantasia')->unique();
-            $table->string('cpf_cnpj')->unique();
-            $table->string('rg_inscricao')->unique();
+            $table->string('cpf_cnpj')->nullable()->unique();
+            $table->string('rg_inscricao')->nullable()->unique();
             $table->enum('finalidade', ["ARMAZÉNS GERAIS","COMBUSTÍVEIS","COLHEDOR","FUNCIONÁRIO","GERAL","INSUMOS","USO CONSUMO","TRANSPORTADOR"]);
             $table->enum('tipo', ["FÍSICO","JURÍDICO"]);
             $table->string('email')->nullable();

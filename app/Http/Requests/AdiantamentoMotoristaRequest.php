@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LancamentoSafraRequest extends FormRequest
+class AdiantamentoMotoristaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,19 +26,7 @@ class LancamentoSafraRequest extends FormRequest
     public function rules()
     {
         return [
-            'data_colhido' => 'required',
-            'safra_id' => 'required',
-            'motorista_id' => 'required',
-            'proprietario_id' => 'required',
-            'num_romaneio' => 'required',
-            'num_controle' => 'required',
-            'talhao_id' => 'required',
-            'armazem_id' => 'required',
-            'peso_bruto' => 'required',
-            'peso_desconto' => 'required',
-            'peso_liquido' => 'required',
-            'colhedor_id' => 'required',
-            'fazenda_id' => 'required',
+            // 'name' => 'required|min:5|max:255'
         ];
     }
 

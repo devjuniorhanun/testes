@@ -92,7 +92,11 @@ class LancamentoSafraCrudController extends CrudController
             ->prefix('Sc ');
         CRUD::column('saco_liquido')
             ->prefix('Sc ');
-        //CRUD::column('safra_id');
+        CRUD::column('safra_id')
+            ->type('select')
+            ->entity('safra')
+            //->model('App\Models\Fornecedor')
+            ->attribute('nome');
         CRUD::column('valor_frete')->type('number')
             ->prefix('R$ ')
             ->decimals(2)
@@ -143,20 +147,16 @@ class LancamentoSafraCrudController extends CrudController
             ->size(3);
         CRUD::field('num_romaneio')->label('Nº Romaneio')->size(3);
         CRUD::field('num_controle')->label('Nº Controle')->size(3);
-        CRUD::field('talhao_id')->type('hidden')->attributes(['id' => 'talhao_id']);
 
-        CRUD::field('locacao_talhao_id')
-            ->attributes(['id' => 'locacao_talhao_id'])
-            ->label('Talhão')
-            ->model('App\Models\LocacaoTalhao')
-            ->type('select2_from_ajax')
+        CRUD::field('talhao_id')
+            ->attributes(['id' => 'talhao_id'])
+            ->label('Talhões')
+            ->type('select2')
             ->attribute('nome')
-            ->data_source('locacao')
-            ->placeholder('Talhões')
-            ->include_all_form_fields(true)
-            ->minimum_input_length(0)
-            ->dependencies(['safra_id'])
-            ->method('post')
+            ->model('App\Models\Talhao')
+            ->options(function ($query) {
+                return $query->where('status', '=', 'Ativo')->orderBy('nome', 'ASC')->get();
+            })
             ->size(3);
 
         CRUD::field('armazem_id')
@@ -187,7 +187,7 @@ class LancamentoSafraCrudController extends CrudController
         CRUD::field('fazenda_id')
             ->label('Fazendas Deposito.:')
             ->type('select2')
-            ->attribute('inscricao_estadual')
+            ->attribute('nome')
             ->model('App\Models\Fazenda')
             ->options(function ($query) {
                 return $query->where('status', '=', 'Ativa')->orderBy('nome', 'ASC')->get();
@@ -205,7 +205,7 @@ class LancamentoSafraCrudController extends CrudController
         CRUD::field('variedade_cultura_id')->type('hidden')->attributes(['id' => 'variedade_cultura_id']);
         CRUD::field('colhedor_fornecedor_id')->type('hidden')->attributes(['id' => 'colhedor_fornecedor_id']);
         CRUD::field('matriz_frete_id')->type('hidden')->attributes(['id' => 'matriz_frete_id']);
-        
+        CRUD::field('locacao_talhao_id')->type('hidden')->attributes(['id' => 'locacao_talhao_id']);
     }
 
     /**
@@ -300,16 +300,15 @@ class LancamentoSafraCrudController extends CrudController
         return view('admin.lacamento_lavoura.index', $this->data);
     }
 
-    public function frete($idLocacao, $idArmazen, $idMotorista)
+    public function frete($idTalhao, $idArmazen, $idMotorista)
     {
         $dados = [];
-        $dados['locacao'] = LocacaoTalhao::where('id', '=', $idLocacao)->first();
-        $bloco = Talhao::find($dados['locacao']['talhao_id'])->bloco;
-        $dados['percuso'] = Armazem::find($idArmazen);
+        $bloco = Talhao::find($idTalhao)->bloco;
+        $percuso = Armazem::find($idArmazen)->percurso;
         $dados['fornecedor'] = Motorista::find($idMotorista);
-        $dados['frete'] = MatrizFrete::where('bloco', '=', $bloco)->where('percurso', '=', $dados['percuso']->percurso)->first();
-
-        //dd($dados['frete']['frete']);
+        $dados['frete'] = MatrizFrete::where('bloco', '=', $bloco)->where('percurso', '=', $percuso)->first();
+        $dados['locacao'] = LocacaoTalhao::where('talhao_id', '=', $idTalhao)->first();
+        //dd($dados);
         return $dados;
     }
 
@@ -363,46 +362,16 @@ class LancamentoSafraCrudController extends CrudController
             'listaData',
             'listaMotorista'
         ));
-        
+        //listagem = LancamentoSafra::where('data_colhido','like', "%$periodo%")->get();
+        //dd($listagem);
+        //return LancamentoSafra::Relatorios($data);
+
     }
 
-    public function motoristas()
+    /*public function motoristas()
     {
         $this->crud->hasAccessOrFail('list');
         $registros = LancamentoSafra::where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
-        $listaTransportador = LancamentoSafra::listaTransportador();
-        return view('admin.lacamento_lavoura.motoristas', compact('registros','listaTransportador'));
-    }
-
-    public function mapaProdutividade()
-    {
-        $produtividade = LancamentoSafra::mapaProdutividade();
-        $totalColhido = LancamentoSafra::totalColhido();
-        $totalColhidoCulutra = LancamentoSafra::totalColhidoCulutra();
-        
-        return view('admin.lacamento_lavoura.mapaProdutividade',compact('produtividade','totalColhido','totalColhidoCulutra'));
-    }
-
-    public function locacao(Request $request)
-    {
-        $search_term = $request->input('q');
-        $form = collect($request->input('form'))->pluck('value', 'name');
-
-        if ($search_term) {
-            $options = DB::table('safras')->where('safras.status', '=', 'Ativa')
-                ->leftJoin('locacao_talhaos', 'locacao_talhaos.safra_id', '=', 'safras.id')
-                ->leftJoin('talhaos', 'talhaos.id', '=', 'locacao_talhaos.talhao_id')
-                ->orderBy('talhaos.nome')
-                ->where('talhaos.nome', 'LIKE', '%' . $search_term . '%')
-                ->paginate(1000000);
-            return $options;
-        } else {
-            $options = DB::table('safras')->where('safras.status', '=', 'Ativa')
-                ->leftJoin('locacao_talhaos', 'locacao_talhaos.safra_id', '=', 'safras.id')
-                ->leftJoin('talhaos', 'talhaos.id', '=', 'locacao_talhaos.talhao_id')
-                ->orderBy('talhaos.nome')
-                ->paginate(1000000);
-        }
-        return $options;
-    }
+        return view('admin.lacamento_lavoura.motoristas', compact('registros'));
+    }*/
 }

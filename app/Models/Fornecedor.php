@@ -86,4 +86,9 @@ class Fornecedor extends Model
     {
         return $this->belongsTo(Tenant::class);
     }
+
+    public function motoristas()
+    {
+        return $this->belongsTo(Motorista::class);
+    }
 }

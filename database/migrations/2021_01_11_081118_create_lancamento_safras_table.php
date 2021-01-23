@@ -17,6 +17,7 @@ class CreateLancamentoSafrasTable extends Migration
 
         Schema::create('lancamento_safras', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('locacao_talhao_id')->constrained()->cascadeOnDelete();
             $table->foreignId('safra_id')->constrained()->cascadeOnDelete();

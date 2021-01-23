@@ -1,1 +1,12 @@
 models:
+  Models\AdiantamentoMotorista:
+    tenant_id: id foreign
+    safra_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    data_pagamento: date
+    valor_pagamento: double:10,2
+    tipo_fornecedor: enum:TRANSPORTADOR,COLHEDOR
+    tipo_adiantamento: enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL
+    softDeletes: true
+    timestamps: true

@@ -102,6 +102,7 @@
 			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Colheita</a>
 			<ul class="nav-dropdown-items">
 			<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra/safra') }}"><i class="nav-icon la la-question"></i> <span>Safra</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra/mapaProdutividade') }}"><i class="nav-icon la la-question"></i> <span>Mapa Produtividade</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra/motoristas') }}"><i class="nav-icon la la-question"></i> <span>Motorista</span></a></li>
 			</ul>
 		</li>
@@ -116,3 +117,4 @@
 	</ul>
 </li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('servicoagricola') }}'><i class='nav-icon la la-question'></i> ServicoAgricolas</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('adiantamentomotorista') }}'><i class='nav-icon la la-question'></i> AdiantamentoMotoristas</a></li>

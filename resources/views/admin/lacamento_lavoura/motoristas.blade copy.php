@@ -1,5 +1,9 @@
 @extends(backpack_view('blank'))
 
+@php
+
+@endphp
+
 @section('header')
 <div class="container-fluid">
   <h2>
@@ -28,6 +32,7 @@
         <th scope="col">Peso Bruto</th>
         <th scope="col">Valor Frete</th>
         <th scope="col">Adiantamentos</th>
+        <th>Valor</th>
       </tr>
     </thead>
     <tbody>
@@ -40,8 +45,10 @@
         <th scope="row">{{ $lista->qtnViagem }}</th>
         <td>{{ $lista->nome_fantasia }}</td>
         <td>{{ number_format($lista->sacoBruto, 0, '.', '.') }} Sc</td>
-        <td>R$ {{ number_format($lista->frete, 2, ',', '.') }}</td>
-        <td>R$ {{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
+        <td>{{ number_format($lista->frete, 2, ',', '.') }}</td>
+        <td>{{extenso(number_format($lista->frete, 2, ',', '.'),1)}}</td>
+        <td>{{ ($lista->valorAdiantamento)?$lista->valorAdiantamento : "0"}}</td>
+
       </tr>
       @empty
       <p>Não foi encontrado Nem um Registro</p>
@@ -55,7 +62,7 @@
 </div>
 <div class="card-footer text-muted">
 
-
+</div>
 </div>
 @stop
 @section('after_styles')

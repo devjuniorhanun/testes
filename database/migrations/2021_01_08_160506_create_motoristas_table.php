@@ -21,7 +21,7 @@ class CreateMotoristasTable extends Migration
             $table->foreignId('fornecedor_id')->constrained()->cascadeOnDelete();
             $table->uuid('uuid');
             $table->string('nome')->unique();
-            $table->string('cpf')->unique();
+            $table->string('cpf')->nullable()->unique();
             $table->string('placa')->unique();
             $table->enum('tipo', ["SAFRA","EMBARQUE"]);
             $table->string('celular')->nullable();

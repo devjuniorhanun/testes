@@ -18,14 +18,14 @@
 
     <div class="row">
       <div class="col-md-2">
-        <strong>Total Colhido.: <br>{{ number_format($totalColhido->liquido, 0, '.', '.') }}</strong>
+        <strong>Total Colhido.: <br>{{ number_format($totalColhido->liquido, 0, '.', '.') }} Kg</strong>
       </div>
       <div class="col-md-2">
-        <strong>Sacos Colhido.: <br>{{ number_format($totalColhido->sacos, 0, '.', '.') }}</strong>
+        <strong>Sacos Colhido.: <br>{{ number_format($totalColhido->sacos, 0, '.', '.') }} Sc</strong>
       </div>
       
       <div class="col-md-2">
-        <strong>Frete Pago.: <br>{{ number_format($totalColhido->frete, 2, ',', '.') }}</strong>
+        <strong>Frete Pago.: <br>R$ {{ number_format($totalColhido->frete, 2, ',', '.') }}</strong>
       </div>
 
     </div>

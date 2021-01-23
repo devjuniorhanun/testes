@@ -116,8 +116,8 @@ class ServicoAgricolaCrudController extends CrudController
             })
             ->size(3)->tab('Lançamentos');
         CRUD::field('data')->label('Data Aplicação')->size(3)->tab('Lançamentos');
-        CRUD::field('volume_bomba')->label('Volume da Bomba')->size(3)->attributes(['class' => 'form-control volume', 'id' => 'volume_bomba'])->tab('Lançamentos');
-        CRUD::field('vazao')->label('Vazão Bomba')->size(3)->attributes(['class' => 'form-control volume', 'id' => 'vazao'])->tab('Lançamentos');
+        CRUD::field('volume_bomba')->label('Volume da Bomba')->size(3)->attributes(['id' => 'volume_bomba'])->tab('Lançamentos');
+        CRUD::field('vazao')->label('Vazão Bomba')->size(3)->attributes(['id' => 'vazao'])->tab('Lançamentos');
         CRUD::field('area')->label('Área')->size(3)->attributes(['class' => 'form-control desabilitado', 'id' => 'area'])->tab('Lançamentos');
         CRUD::field('capacidade_bomba')->label('Capacidade Bomba')->size(3)->attributes(['class' => 'form-control desabilitado', 'id' => 'capacidade_bomba'])->tab('Lançamentos');
         CRUD::field('bomba_recomendada')->label('Quant. Bomba Recomendada')->size(3)->attributes(['class' => 'form-control desabilitado', 'id' => 'bomba_recomendada'])->tab('Lançamentos');
@@ -232,7 +232,7 @@ class ServicoAgricolaCrudController extends CrudController
                 'tipo_operador' => $operador->tipo_operador,
 
             ];
-            $model->operadorAgriculas()->attach($test);
+            $model->operadorAgriculas()->attach($model->id,$test);
             //echo $operador->operadores . " - " .tipo_operador $operador-> . "<br>";
         }
 
