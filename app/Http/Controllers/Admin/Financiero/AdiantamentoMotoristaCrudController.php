@@ -144,6 +144,7 @@ class AdiantamentoMotoristaCrudController extends CrudController
 
     protected function setupShowOperation()
     {
+        /*
         $this->crud->set('show.setFromDb', false);
         CRUD::column('safra_id')
             ->type('select')
@@ -160,5 +161,33 @@ class AdiantamentoMotoristaCrudController extends CrudController
             ->dec_point(',')
             ->thousands_sep('.');
         CRUD::column('tipo_adiantamento')->type('enum');
+        */
+        $this->crud->hasAccessOrFail('show');
+
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
+        //$this->data['colhido'] = LancamentoSafra::where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
+        return view('admin.lacamento_lavoura.index', $this->data);
     }
+
+    public function show($id)
+    {
+        $this->crud->hasAccessOrFail('show');
+        /// get the info for that entry
+        $this->data['entry'] = $this->crud->getEntry($id);
+        $this->data['crud'] = $this->crud;
+
+        // get entry ID from Request (makes sure its the last ID for nested resources)
+        $id = $this->crud->getCurrentEntryId() ?? $id;
+        $setFromDb = $this->crud->get('show.setFromDb');
+
+        // set columns from db
+        if ($setFromDb) {
+            $this->crud->setFromDb();
+        }
+       //dd($this->data['entry']);
+
+        return view('financeiro.adiantamento.motorista', $this->data);
+    }
+
 }
