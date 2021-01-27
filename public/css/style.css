@@ -1,0 +1,15 @@
+.recibo {
+  padding: 5px;
+  font-weight: bold;
+  font-size: 50px;
+  text-align: center;
+}
+
+.recibos {
+  font-size: 20px;
+}
+
+.numeroRecibo {
+  font-size: 30px;
+}
+

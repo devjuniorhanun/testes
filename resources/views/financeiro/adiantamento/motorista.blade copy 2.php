@@ -22,17 +22,19 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
 @section('content')
 
-
-@for($i=1;$i<=2;$i++) <div class="row mb-5 recibos">
-    <div class="col border rounded">
+<div class="row border rounded">
+    <div class="col">
         <div class="row">
-            <div class="col col-md-5 border rounded recibo">Recibo</div>
-            <div class="col col-md-2 offset-md-2 border rounded">
+            <div class="col">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col col-md-4 border rounded recibo">Recibo</div>
+            <div class="col col-md-1 offset-md-2 border rounded">
                 <div class="row">
                     <div class="col"><b>Nº</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">{{ $entry->id }}</div>
+                    <div class="col numeroRecibo">1</div>
                 </div>
             </div>
             <div class="col col-md-2 offset-md-1 border rounded">
@@ -40,36 +42,56 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                     <div class="col"><b>Valor R$</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">R$ {{ number_format($entry->valor_pagamento, 2, ',', '.') }}</div>
+                    <div class="col numeroRecibo">R$ 500,00</div>
                 </div>
+
             </div>
         </div>
 
-        <div class="row pt-2">
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
+
+        <div class="row">
             <div class="col border rounded">
                 Recebi(emos) de: <b>Paulo Roberto Titoto</b>
             </div>
         </div>
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
 
-        <div class="row pt-2">
+        <div class="row">
             <div class="col border rounded">
                 Endereço: <b>Fazenda Santa Martha, Rod. BR-452, Km 101 - Zona Rural</b>
             </div>
         </div>
-
-        <div class="row pt-2">
-            <div class="col border rounded">
-                A importância de: <b>( {{extenso(number_format($entry->valor_pagamento, 2, ',', '.'))}} ) </b>
-            </div>
+        <div class="row">
+            <div class="col">&nbsp;</div>
         </div>
 
-        <div class="row pt-2">
+        <div class="row">
             <div class="col border rounded">
-                Referente a: <b>Adiantamento de Serviços de Frete da {{ $entry->safra->nome}} </b>
+                A importância de: <b>( {{extenso(500)}} ) </b>
             </div>
         </div>
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
 
-        <div class="row pt-2">
+        <div class="row">
+            <div class="col border rounded">
+                Referente a: <b>Adiantamento de Serviços de Frete da Safra - 20/21 </b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
+
+        <div class="row">
             <div class="col border rounded">
                 <b>
                     <div class="text-center">Recebimento através de </div>
@@ -77,14 +99,14 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
             </div>
         </div>
 
-        <div class="row pt-2">
-            <div class="col col-md-2 border rounded">{{ $entry->tipo_adiantamento }}</div>
+        <div class="row">
+            <div class="col col-md-2 border rounded recibo">Dep . Banc.</div>
             <div class="col col-md-1 offset-md-1 border rounded">
                 <div class="row">
                     <div class="col"><b>Nº</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->num_conta : '' }}</div>
+                    <div class="col numeroRecibo">1</div>
                 </div>
             </div>
             <div class="col col-md-4 offset-md-1 border rounded">
@@ -92,7 +114,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                     <div class="col"><b>Banco</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->banco : '' }}</div>
+                    <div class="col numeroRecibo">Banco</div>
                 </div>
 
             </div>
@@ -101,114 +123,122 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                     <div class="col"><b>Agência</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->agencia : '' }}</div>
+                    <div class="col numeroRecibo">123</div>
                 </div>
             </div>
         </div>
-
-        <div class="row pt-2">
+        <div class="row">
+            <div class="col">&nbsp;</div>
+        </div>
+        <div class="row">
             <div class="col col-md-4">
                 <div class="row">
                     <div class="col border rounded">
                         <div class="row">
                             <div class="col">
-                                Nome do Emitente
+                                Data
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <b>{{ $entry->fornecedor->razao_social}}</b>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row pt-2">
-                    <div class="col border rounded">
-                        <div class="row">
-                            <div class="col">
-                                Endereço
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <b>{{ $entry->fornecedor->endereco}} - {{ $entry->fornecedor->cidade}}</b>
+                                27/01/2021
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row pt-2">
+                <div class="row">
                     <div class="col border rounded">
                         <div class="row">
                             <div class="col">
-                                Cpf / Cnpj
+                                Data
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <b>{{ $entry->fornecedor->cpf_cnpj}}</b>
+                                27/01/2021
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col border rounded">
+                        <div class="row">
+                            <div class="col">
+                                Data
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                27/01/2021
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="col col-md-6">
+            <div class="col col-md-4">
+                <div class="row">
+                    <div class="col border rounded">
+                        <div class="row">
+                            <div class="col">
+                                Data
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                27/01/2021
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col border rounded">
                         <div class="row">
                             <div class="col border rounded">
                                 <div class="row">
                                     <div class="col">
-                                        Data
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <hr>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col text-center">
-                                    {{ Carbon\Carbon::parse($entry->data_pagamento)->format('d/m/Y')}}
+                                        Assinatura
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-5">
-                            <div class="col">
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="row pb-3">
-                            <div class="col text-center">
-                                Assinatura
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col col-md-2">
+            <div class="col col-md-3">
                 <div class="row">
-                    <div class="border rounded pt-5">
-                        <div class="col pb-5">
-                            <img src="{{ asset('img/logo.png') }}" alt="Santa Martha" class="mx-auto" style="width: 140px;">
+                    <div class="col border rounded">
+                        <div class="col">
+                            <img src="{{ asset('img/logo.png') }}" alt="Santa Martha" width="100px" >
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col text-right">ola</div>
                 </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col text-right">
-                <small>{{$i}}º Via</small>
-            </div>
-        </div>
-    </div>
-    </div>
+        @endsection
 
-    @if($i == 1)
-    <hr class="mb-5">
-    @endif
-
-    @endfor
-
-    @endsection
-
-    @section('after_styles')
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    @endsection
+        @section('after_styles')
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        @endsection

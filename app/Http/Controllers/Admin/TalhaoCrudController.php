@@ -40,6 +40,7 @@ class TalhaoCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->enableExportButtons();
         CRUD::column('fazenda_id')
             ->label('Fazenda.:')
             ->type('select')

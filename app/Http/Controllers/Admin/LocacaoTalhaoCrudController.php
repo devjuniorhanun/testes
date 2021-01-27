@@ -64,6 +64,12 @@ class LocacaoTalhaoCrudController extends CrudController
             ->entity('Talhao')
             ->attribute('nome')
             ->size(4);
+            CRUD::column('bloco')
+            ->label('Bloco')
+            ->type('select')
+            ->entity('Talhao')
+            ->attribute('bloco')
+            ->size(4);
 
         CRUD::column('area_plantada')->size(2)
         ->type('number')
