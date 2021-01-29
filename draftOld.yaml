@@ -413,7 +413,19 @@ models:
     cultura_id: id foreign
     variedade_cultura_id: id foreign
     talhao_id: id foreign
-    motorista_id: id foreign
+    motorista_id: id foreigntenant_id: id foreign
+    safra_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    data_pagamento: date
+    valor_pagamento: double:10,2
+    tipo_fornecedor: enum:TRANSPORTADOR,COLHEDOR
+    tipo_adiantamento: enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL
+    nome_banco: string nullable
+    agencia: string nullable
+    num_conta: string nullable
+    softDeletes: true
+    timestamps: true
     motorista_fornecedor_id: id foreign:fornecedors
     proprietario_id: id foreign
     armazem_id: id foreign
@@ -444,5 +456,36 @@ models:
     valor_pagamento: double:10,2
     tipo_fornecedor: enum:TRANSPORTADOR,COLHEDOR
     tipo_adiantamento: enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL
+    softDeletes: true
+    timestamps: true
+
+  Models\AdiantamentoMotorista:
+    tenant_id: id foreign
+    safra_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    data_pagamento: date
+    valor_pagamento: double:10,2
+    #tipo_fornecedor: enum:TRANSPORTADOR,COLHEDOR
+    tipo_adiantamento: enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL
+    nome_banco: string nullable
+    agencia: string nullable
+    num_conta: string nullable
+    softDeletes: true
+    timestamps: true
+
+
+  Models\AdiantamentoColhedo:
+    tenant_id: id foreign
+    safra_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    data_pagamento: date
+    valor_pagamento: double:10,2
+    #tipo_fornecedor: enum:TRANSPORTADOR,COLHEDOR
+    tipo_adiantamento: enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL
+    nome_banco: string nullable
+    agencia: string nullable
+    num_conta: string nullable
     softDeletes: true
     timestamps: true

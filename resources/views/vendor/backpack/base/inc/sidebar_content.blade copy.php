@@ -1,5 +1,6 @@
 <!-- This file is used to store sidebar items, starting with Backpack\Base 0.9.0 -->
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dashboard') }}"><i class="la la-home nav-icon"></i> {{ trans('backpack::base.dashboard') }}</a></li>
+
 <!-- Cadastros -->
 <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Cadastros</a>
@@ -50,7 +51,7 @@
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('armazem') }}"><i class="nav-icon la la-question"></i> <span>Armazéns</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('colhedor') }}"><i class="nav-icon la la-question"></i> <span>Colhedores</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('motorista') }}"><i class="nav-icon la la-question"></i> <span>Motoristas</span></a></li>
-
+				
 			</ul>
 		</li>
 		<li class="nav-item nav-dropdown">
@@ -66,19 +67,24 @@
 			<ul class="nav-dropdown-items">
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('centroadministrativo') }}"><i class="nav-icon la la-question"></i> <span>Centro Admini.</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('centrocusto') }}"><i class="nav-icon la la-question"></i> <span>Centros Custo</span></a></li>
+				<li class="nav-item nav-dropdown">
+					<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Lançamentos</a>
+					<ul class="nav-dropdown-items">
+						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Conta Apagar</span></a></li>
+					</ul>
+				</li>
 			</ul>
 		</li>
 	</ul>
 </li>
 
-<!-- Lançamentos -->
 <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Lançamentos</a>
 	<ul class="nav-dropdown-items">
 		<li class="nav-item nav-dropdown">
 			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Colheita</a>
 			<ul class="nav-dropdown-items">
-				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra') }}"><i class="nav-icon la la-question"></i> <span>Safra</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra') }}"><i class="nav-icon la la-question"></i> <span>Lançamento Colheita</span></a></li>
 			</ul>
 		</li>
 	</ul>
@@ -86,36 +92,39 @@
 		<li class="nav-item nav-dropdown">
 			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Financiero</a>
 			<ul class="nav-dropdown-items">
-				<li class="nav-item nav-dropdown">
-					<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Contas</a>
-					<ul class="nav-dropdown-items">
-						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Apagar</span></a></li>
-
-					</ul>
-				</li>
-				<li class="nav-item nav-dropdown">
-					<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Adiantamentos</a>
-					<ul class="nav-dropdown-items">
-						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('adiantamentomotorista') }}"><i class="nav-icon la la-question"></i> <span>Motoristas</span></a></li>
-						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('adiantamentocolhedo') }}"><i class="nav-icon la la-question"></i> <span>Colhedores</span></a></li>
-					</ul>
-				</li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Conta Apagar</span></a></li>
 			</ul>
 		</li>
 	</ul>
 </li>
-
-<!-- Relatorios -->
 <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Relatórios</a>
 	<ul class="nav-dropdown-items">
 		<li class="nav-item nav-dropdown">
 			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Colheita</a>
 			<ul class="nav-dropdown-items">
-				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra/safra') }}"><i class="nav-icon la la-question"></i> <span>Safra</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra/safra') }}"><i class="nav-icon la la-question"></i> <span>Safra</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra/mapaProdutividade') }}"><i class="nav-icon la la-question"></i> <span>Mapa Produtividade</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentosafra/motoristas') }}"><i class="nav-icon la la-question"></i> <span>Motorista</span></a></li>
 			</ul>
 		</li>
 	</ul>
+	<ul class="nav-dropdown-items">
+		<li class="nav-item nav-dropdown">
+			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Financiero</a>
+			<ul class="nav-dropdown-items">
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Conta Apagar</span></a></li>
+				<ul class="nav-dropdown-items">
+		<li class="nav-item nav-dropdown">
+			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Adiantamentos</a>
+			<ul class="nav-dropdown-items">
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Conta Apagar</span></a></li>
+			</ul>
+		</li>
+	</ul>
+			</ul>
+		</li>
+	</ul>
 </li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('servicoagricola') }}'><i class='nav-icon la la-question'></i> ServicoAgricolas</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('adiantamentomotorista') }}'><i class='nav-icon la la-question'></i>Motoristas</a></li>

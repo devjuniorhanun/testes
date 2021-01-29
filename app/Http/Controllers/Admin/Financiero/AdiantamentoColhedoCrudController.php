@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Admin\Financiero;
 
-use App\Http\Requests\AdiantamentoMotoristaRequest;
-use App\Models\AdiantamentoMotorista;
+use App\Http\Requests\AdiantamentoColhedoRequest;
+use App\Models\AdiantamentoColhedo;
 use App\Models\LancamentoContaApagar;
-use App\Models\LancamentoSafra;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
 
 /**
- * Class AdiantamentoMotoristaCrudController
+ * Class AdiantamentoColhedoCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class AdiantamentoMotoristaCrudController extends CrudController
+class AdiantamentoColhedoCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -30,9 +29,9 @@ class AdiantamentoMotoristaCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\AdiantamentoMotorista::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/adiantamentomotorista');
-        CRUD::setEntityNameStrings('Adiantamento Motorista', 'Adiantamentos Motoristas');
+        CRUD::setModel(\App\Models\AdiantamentoColhedo::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/adiantamentocolhedo');
+        CRUD::setEntityNameStrings('Colhedor', 'Adiantamento Colhedores');
     }
 
     /**
@@ -74,7 +73,7 @@ class AdiantamentoMotoristaCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(AdiantamentoMotoristaRequest::class);
+        CRUD::setValidation(AdiantamentoColhedoRequest::class);
 
         CRUD::field('safra_id')
             ->label('Safra.:')
@@ -85,13 +84,12 @@ class AdiantamentoMotoristaCrudController extends CrudController
                 return $query->where('status', '=', 'Ativa')->orderBy('nome', 'ASC')->get();
             })
             ->size(3);
-
         CRUD::field('fornecedor_id')
-            ->label('Transportador.:')
+            ->label('Colhedor.:')
             ->type('select2_from_ajax')
             ->attribute('razao_social')
-            ->data_source('motoristas')
-            ->placeholder('Transportador')
+            ->data_source('colhedores')
+            ->placeholder('Colhedor')
             ->include_all_form_fields(true)
             ->minimum_input_length(0)
             ->method('post')
@@ -102,12 +100,6 @@ class AdiantamentoMotoristaCrudController extends CrudController
         CRUD::field('nome_banco')->label('Banco.:')->size(3);
         CRUD::field('agencia')->label('Agência.:')->size(3);
         CRUD::field('num_conta')->label('Nº Cheque.:')->size(3);
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
     }
 
     /**
@@ -134,7 +126,7 @@ class AdiantamentoMotoristaCrudController extends CrudController
             $data['valor_pagamento'] = str_replace(',', ".", $data['valor_pagamento']);
         }
 
-        $model = AdiantamentoMotorista::create($data);
+        $model = AdiantamentoColhedo::create($data);
 
         switch ($data['tipo_adiantamento'] == 'DEPOSITO') {
             case 'DEPOSITO':
@@ -172,34 +164,6 @@ class AdiantamentoMotoristaCrudController extends CrudController
         return $this->crud->performSaveAction($model->id);
     }
 
-    protected function setupShowOperation()
-    {
-        /*
-        $this->crud->set('show.setFromDb', false);
-        CRUD::column('safra_id')
-            ->type('select')
-            ->entity('safra')
-            ->attribute('nome');
-        CRUD::column('fornecedor_id')
-            ->type('select')
-            ->entity('fornecedor')
-            ->attribute('nome_fantasia');
-        CRUD::column('data_pagamento')->type('datetime')->format('DD/MM/YYYY');
-        CRUD::column('valor_pagamento')->type('number')
-            ->prefix('R$ ')
-            ->decimals(2)
-            ->dec_point(',')
-            ->thousands_sep('.');
-        CRUD::column('tipo_adiantamento')->type('enum');
-        */
-        $this->crud->hasAccessOrFail('show');
-
-        $this->data['crud'] = $this->crud;
-        $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
-        //$this->data['colhido'] = LancamentoSafra::where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
-        return view('admin.lacamento_lavoura.index', $this->data);
-    }
-
     public function show($id)
     {
         $this->crud->hasAccessOrFail('show');
@@ -217,20 +181,19 @@ class AdiantamentoMotoristaCrudController extends CrudController
         }
         //dd($this->data['entry']);
 
-        return view('financeiro.adiantamento.motorista', $this->data);
+        return view('financeiro.adiantamento.colhedor', $this->data);
     }
 
-    public function motoristas(Request $request)
+    public function colhedores(Request $request)
     {
         $search_term = $request->input('q');
-        $form = collect($request->input('form'))->pluck('value', 'razao_social');
+       // $form = collect($request->input('form'))->pluck('value', 'razao_social');
 
         if ($search_term) {
-            $options = AdiantamentoMotorista::listaTransportador();
+            $options = AdiantamentoColhedo::listaColhedores();
         } else {
-            $options = AdiantamentoMotorista::listaTransportadores();
+            $options = AdiantamentoColhedo::listaColhedores();
         }
-        //$options = AdiantamentoMotorista::listaTransportador();
         return $options;
     }
 }

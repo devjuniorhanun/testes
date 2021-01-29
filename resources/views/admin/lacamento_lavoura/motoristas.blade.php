@@ -9,53 +9,62 @@
 @endsection
 
 @section('content')
-<div class="row no-print">
-  <div class="col">
-    {{-- Abre o formulário --}}
-    {!! Form::open(['route' => 'relatorio_safra']) !!}
-    {{-- Chama os campos do formulário --}}
-    @include('admin.lacamento_lavoura.form_filtros_motorista')
-    {{-- Fecha o formulário --}}
-    {!! Form::close() !!}
+<div class="card">
+  <div class="card-header">
+    <div class="row no-print">
+      <div class="col">
+        {{-- Abre o formulário --}}
+        {!! Form::open(['route' => 'relatorio_safra']) !!}
+        {{-- Chama os campos do formulário --}}
+        @include('admin.lacamento_lavoura.form_filtros_motorista')
+        {{-- Fecha o formulário --}}
+        {!! Form::close() !!}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-body">
+    <table class="table table-striped table-hover table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Qtn Viagem</th>
+          <th scope="col">Transportador</th>
+          <th scope="col">Peso Bruto</th>
+          <th scope="col">Valor Frete</th>
+          <th scope="col">Adiantamentos</th>
+        </tr>
+      </thead>
+      <tbody>
+        @forelse ($listaTransportador as $lista)
+        <tr>
+          <th scope="row">{{ $lista->qtnViagem }}</th>
+          <td>{{ $lista->nome_fantasia }}</td>
+          <td>{{ number_format($lista->sacoBruto, 0, '.', '.') }} Sc</td>
+          <td>R$ {{ number_format($lista->frete, 2, ',', '.') }}</td>
+          <td>R$ {{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
+        </tr>
+        @empty
+        <p>Não foi encontrado Nem um Registro</p>
+        @endforelse
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <th scope="col">Qtn Viagem</th>
+          <th scope="col">Transportador</th>
+          <th scope="col">Peso Bruto</th>
+          <th scope="col">Valor Frete</th>
+          <th scope="col">Adiantamentos</th>
+        </tr>
+
+      </tfoot>
+    </table>
   </div>
 </div>
-<div class="card-body">
-  <table class="table table-striped table-hover table-sm">
-    <thead>
-      <tr>
-        <th scope="col">QtnViagem</th>
-        <th scope="col">Transportador</th>
-        <th scope="col">Peso Bruto</th>
-        <th scope="col">Valor Frete</th>
-        <th scope="col">Adiantamentos</th>
-      </tr>
-    </thead>
-    <tbody>
-
-      @forelse ($listaTransportador as $lista)
 
 
-
-      <tr>
-        <th scope="row">{{ $lista->qtnViagem }}</th>
-        <td>{{ $lista->nome_fantasia }}</td>
-        <td>{{ number_format($lista->sacoBruto, 0, '.', '.') }} Sc</td>
-        <td>R$ {{ number_format($lista->frete, 2, ',', '.') }}</td>
-        <td>R$ {{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
-      </tr>
-      @empty
-      <p>Não foi encontrado Nem um Registro</p>
-      @endforelse
-
-    </tbody>
-    <tfoot>
-
-    </tfoot>
-  </table>
-</div>
 <div class="card-footer text-muted">
-
-
 </div>
 @stop
 @section('after_styles')

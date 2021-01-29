@@ -1,7 +1,7 @@
 created:
-    - database/factories/Models/AdiantamentoMotoristaFactory.php
-    - database/migrations/2021_01_23_091625_create_adiantamento_motoristas_table.php
-    - app/Models/AdiantamentoMotorista.php
+    - database/factories/Models/AdiantamentoColhedoFactory.php
+    - database/migrations/2021_01_28_115720_create_adiantamento_colhedos_table.php
+    - app/Models/AdiantamentoColhedo.php
 models:
     Models\CentroAdministrativo: { tenant_id: 'biginteger unsigned', produtor_id: 'biginteger unsigned', fazenda_id: 'biginteger unsigned', uuid: 'string:36' }
     Models\CentroCusto: { tenant_id: 'biginteger unsigned', uuid: 'string:36', nome: string, tipo: 'enum:PRODUÇÃO,MÁQUINAS,ADMINISTRATIVO,COMBUSTÍVEL,DIVERSOS,LUBRIFICANTES,OFICINA default:PRODUÇÃO', status: 'enum:Ativo,Desativada default:Ativo' }
@@ -31,3 +31,4 @@ models:
     Models\Motorista: { tenant_id: 'id foreign', fornecedor_id: 'id foreign', uuid: uuid, nome: 'string unique', cpf: 'string unique', placa: 'string unique', tipo: 'enum:SAFRA,EMBARQUE', celular: 'string nullable', placa_nome: 'string nullable', cep: 'string nullable', estado: 'string nullable', cidade: 'string nullable', bairro: 'string nullable', endereco: 'string nullable', complemento: 'string nullable', numero: 'string nullable', status: 'enum:ATIVO,DESATIVADO,BLOQUEADO', softdeletes: softDeletes, timestamps: timestamps }
     Models\LancamentoSafra: { tenant_id: 'id foreign', locacao_talhao_id: 'id foreign', safra_id: 'id foreign', cultura_id: 'id foreign', variedade_cultura_id: 'id foreign', talhao_id: 'id foreign', motorista_id: 'id foreign', motorista_fornecedor_id: 'id foreign:fornecedors', proprietario_id: 'id foreign', armazem_id: 'id foreign', armazen_fornecedor_id: 'id foreign:fornecedors', colhedor_id: 'id foreign', colhedor_fornecedor_id: 'id foreign:fornecedors', fazenda_id: 'id foreign', matriz_frete_id: 'id foreign', data_colhido: date, num_romaneio: string, num_controle: string, peso_bruto: 'double:10,3', peso_desconto: 'double:10,3', desconto: 'double:10,3', peso_liquido: 'double:10,3', saco_liquido: 'double:10,3', saco_bruto: 'double:10,3', valor_frete: 'double:10,3', softdeletes: softDeletes, timestamps: timestamps }
     Models\AdiantamentoMotorista: { tenant_id: 'id foreign', safra_id: 'id foreign', fornecedor_id: 'id foreign', uuid: uuid, data_pagamento: date, valor_pagamento: 'double:10,2', tipo_adiantamento: 'enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL', softdeletes: softDeletes, timestamps: timestamps }
+    Models\AdiantamentoColhedo: { tenant_id: 'id foreign', safra_id: 'id foreign', fornecedor_id: 'id foreign', uuid: uuid, data_pagamento: date, valor_pagamento: 'double:10,2', tipo_adiantamento: 'enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL', nome_banco: 'string nullable', agencia: 'string nullable', num_conta: 'string nullable', softdeletes: softDeletes, timestamps: timestamps }

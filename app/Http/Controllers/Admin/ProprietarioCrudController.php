@@ -28,7 +28,7 @@ class ProprietarioCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Proprietario::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/proprietario');
-        CRUD::setEntityNameStrings('proprietario', 'proprietarios');
+        CRUD::setEntityNameStrings('Proprietário', 'Proprietários');
     }
 
     /**

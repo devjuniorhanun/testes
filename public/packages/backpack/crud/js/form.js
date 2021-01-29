@@ -81,6 +81,7 @@ jQuery(function ($) {
         //alert(idLocacao);
         var idArmazen = $("#armazem_id").val(); // Id do Armazem
         var idMotorista = $("#motorista_id").val(); // Id do Motorista
+        var idColhedor = $("#colhedor_id").val(); // Id do Colhedor
 
         var totalPeso = pesoBruto - pesoDesconto; // Total do Peso
         var valorDesconto = pesoDesconto / pesoBruto; // Porcentagem de desconto
@@ -91,15 +92,18 @@ jQuery(function ($) {
         $("#desconto").val(valorDesconto.toFixed(2));
         $("#saco_bruto").val(sacoBruto.toFixed(3));
         $("#saco_liquido").val(saco_liquido.toFixed(3));
-        axios.get(`http://${url}/admin/lancamentosafra/frete/${idLocacao}/${idArmazen}/${idMotorista}`)
+        axios.get(`http://${url}/admin/lancamentosafra/frete/${idLocacao}/${idArmazen}/${idMotorista}/${idColhedor}`)
             .then(response => {
+                //alert(response.data['colhedor']['fornecedor_id']);
+                //alert(idLocacao + " - " + idArmazen + " - " + idMotorista + " - " + idColhedor)
+                //alert(response.data['percuso']['fornecedor_id']);
                 var valorFrete = sacoBruto * response.data['frete']['frete'];
                 $("#valor_frete").val(valorFrete.toFixed(2));
-                $("#motorista_fornecedor_id").val(response.data['fornecedor']['fornecedor_id']);
+                $("#motorista_fornecedor_id").val(response.data['motorista']['fornecedor_id']);
                 $("#talhao_id").val(response.data['locacao']['talhao_id']);
                 $("#variedade_cultura_id").val(response.data['locacao']['variedade_cultura_id']);
                 $("#cultura_id").val(response.data['locacao']['cultura_id']);
-                $("#colhedor_fornecedor_id").val(response.data['fornecedor']['fornecedor_id']);
+                $("#colhedor_fornecedor_id").val(response.data['colhedor']['fornecedor_id']);
                 $("#matriz_frete_id").val(response.data['frete']['id']);
                 $("#armazen_fornecedor_id").val(response.data['percuso']['fornecedor_id']);                
             })

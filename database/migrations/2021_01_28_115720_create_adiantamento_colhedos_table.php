@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdiantamentoMotoristasTable extends Migration
+class CreateAdiantamentoColhedosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateAdiantamentoMotoristasTable extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::create('adiantamento_motoristas', function (Blueprint $table) {
+        Schema::create('adiantamento_colhedos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('safra_id')->constrained()->cascadeOnDelete();
@@ -23,7 +23,6 @@ class CreateAdiantamentoMotoristasTable extends Migration
             $table->uuid('uuid');
             $table->date('data_pagamento');
             $table->double('valor_pagamento', 10, 2);
-            //$table->enum('tipo_fornecedor', ["TRANSPORTADOR","COLHEDOR"]);
             $table->enum('tipo_adiantamento', ["DINHEIRO","CHEQUE","DEPOSITO","DIESEL"]);
             $table->string('nome_banco')->nullable();
             $table->string('agencia')->nullable();
@@ -42,6 +41,6 @@ class CreateAdiantamentoMotoristasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('adiantamento_motoristas');
+        Schema::dropIfExists('adiantamento_colhedos');
     }
 }

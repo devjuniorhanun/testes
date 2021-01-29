@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\LancamentoSafraRequest;
 use App\Models\Armazem;
+use App\Models\Colhedor;
 use App\Models\LancamentoSafra;
 use App\Models\LocacaoTalhao;
 use App\Models\MatrizFrete;
@@ -169,12 +170,8 @@ class LancamentoSafraCrudController extends CrudController
                 return $query->where('status', '=', 'Ativo')->orderBy('nome', 'ASC')->get();
             })
             ->size(3);
-
-        CRUD::field('peso_bruto')->size(2)->label('Peso Bruto (Kg).:')->attributes(['id' => 'peso_bruto', 'class' => 'form-control']);
-        CRUD::field('peso_desconto')->size(2)->label('Desconto (Kg).:')->attributes(['id' => 'peso_desconto', 'class' => 'form-control']);
-        CRUD::field('peso_liquido')->size(2)->label('Peso Liquido (Kg).:')->attributes(['id' => 'peso_liquido', 'class' => 'form-control']);
-
         CRUD::field('colhedor_id')
+            ->attributes(['id' => 'colhedor_id'])
             ->label('Colhedores.:')
             ->type('select2')
             ->attribute('nome')
@@ -183,6 +180,12 @@ class LancamentoSafraCrudController extends CrudController
                 return $query->where('status', '=', 'Ativo')->orderBy('nome', 'ASC')->get();
             })
             ->size(3);
+
+        CRUD::field('peso_bruto')->size(2)->label('Peso Bruto (Kg).:')->attributes(['id' => 'peso_bruto', 'class' => 'form-control']);
+        CRUD::field('peso_desconto')->size(2)->label('Desconto (Kg).:')->attributes(['id' => 'peso_desconto', 'class' => 'form-control']);
+        CRUD::field('peso_liquido')->size(2)->label('Peso Liquido (Kg).:')->attributes(['id' => 'peso_liquido', 'class' => 'form-control desabilitado']);
+
+
 
         CRUD::field('fazenda_id')
             ->label('Fazendas Deposito.:')
@@ -205,7 +208,6 @@ class LancamentoSafraCrudController extends CrudController
         CRUD::field('variedade_cultura_id')->type('hidden')->attributes(['id' => 'variedade_cultura_id']);
         CRUD::field('colhedor_fornecedor_id')->type('hidden')->attributes(['id' => 'colhedor_fornecedor_id']);
         CRUD::field('matriz_frete_id')->type('hidden')->attributes(['id' => 'matriz_frete_id']);
-        
     }
 
     /**
@@ -272,24 +274,17 @@ class LancamentoSafraCrudController extends CrudController
             ->thousands_sep('.')
             ->label('Frete');
     }
-    /*
-    public function index()
+
+    /*public function store()
     {
-        $this->crud->hasAccessOrFail('list');
 
-        $this->data['crud'] = $this->crud;
-        $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
-        $registros = LancamentoSafra::get();
-        //dd($this->data['registros']);
-        //$model = Lan
-        //dd($this->crud->columns);
-        //dd($this->data->collum);
-        $da = $this->data;
+        $this->crud->hasAccessOrFail('create');
 
-        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
-        return view('admin.lacamento_lavoura.index', compact('registros','da') );
-    }
-*/
+        // execute the FormRequest authorization and validation, if one is required
+        $data = $this->crud->validateRequest()->all();
+        dd($data);
+    }*/
+
     public function index()
     {
         $this->crud->hasAccessOrFail('list');
@@ -300,16 +295,18 @@ class LancamentoSafraCrudController extends CrudController
         return view('admin.lacamento_lavoura.index', $this->data);
     }
 
-    public function frete($idLocacao, $idArmazen, $idMotorista)
+    public function frete($idLocacao, $idArmazen, $idMotorista, $idColhedor)
     {
         $dados = [];
         $dados['locacao'] = LocacaoTalhao::where('id', '=', $idLocacao)->first();
         $bloco = Talhao::find($dados['locacao']['talhao_id'])->bloco;
         $dados['percuso'] = Armazem::find($idArmazen);
-        $dados['fornecedor'] = Motorista::find($idMotorista);
+        // /$dados['armazem'] = Armazem::find($idArmazen);
+        $dados['motorista'] = Motorista::find($idMotorista);
+        $dados['colhedor'] = Colhedor::find($idColhedor);
         $dados['frete'] = MatrizFrete::where('bloco', '=', $bloco)->where('percurso', '=', $dados['percuso']->percurso)->first();
 
-        //dd($dados['frete']['frete']);
+       //dd($dados['percuso']);
         return $dados;
     }
 
@@ -363,7 +360,6 @@ class LancamentoSafraCrudController extends CrudController
             'listaData',
             'listaMotorista'
         ));
-        
     }
 
     public function motoristas()
@@ -371,7 +367,7 @@ class LancamentoSafraCrudController extends CrudController
         $this->crud->hasAccessOrFail('list');
         $registros = LancamentoSafra::where('safra_id', '=', '2')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
         $listaTransportador = LancamentoSafra::listaTransportador();
-        return view('admin.lacamento_lavoura.motoristas', compact('registros','listaTransportador'));
+        return view('admin.lacamento_lavoura.motoristas', compact('registros', 'listaTransportador'));
     }
 
     public function mapaProdutividade()
@@ -379,8 +375,8 @@ class LancamentoSafraCrudController extends CrudController
         $produtividade = LancamentoSafra::mapaProdutividade();
         $totalColhido = LancamentoSafra::totalColhido();
         $totalColhidoCulutra = LancamentoSafra::totalColhidoCulutra();
-        
-        return view('admin.lacamento_lavoura.mapaProdutividade',compact('produtividade','totalColhido','totalColhidoCulutra'));
+
+        return view('admin.lacamento_lavoura.mapaProdutividade', compact('produtividade', 'totalColhido', 'totalColhidoCulutra'));
     }
 
     public function locacao(Request $request)

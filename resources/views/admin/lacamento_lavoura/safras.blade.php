@@ -1,9 +1,5 @@
 @extends(backpack_view('blank'))
 
-@php
-
-@endphp
-
 @section('header')
 <div class="container-fluid">
   <h2>

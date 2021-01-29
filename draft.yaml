@@ -1,12 +1,15 @@
 models:
-  Models\AdiantamentoMotorista:
+  Models\AdiantamentoColhedo:
     tenant_id: id foreign
     safra_id: id foreign
     fornecedor_id: id foreign
     uuid: uuid
     data_pagamento: date
     valor_pagamento: double:10,2
-    tipo_fornecedor: enum:TRANSPORTADOR,COLHEDOR
+    #tipo_fornecedor: enum:TRANSPORTADOR,COLHEDOR
     tipo_adiantamento: enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL
+    nome_banco: string nullable
+    agencia: string nullable
+    num_conta: string nullable
     softDeletes: true
     timestamps: true
