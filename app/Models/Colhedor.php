@@ -9,6 +9,7 @@ use App\Models\Traits\Uuid;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Models\Traits\Empresa;
 use \Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Support\Facades\DB;
 
 class Colhedor extends Model
 {
@@ -74,5 +75,25 @@ class Colhedor extends Model
     public function fornecedor()
     {
         return $this->belongsTo(Fornecedor::class);
+    }
+
+    public function scopeListaColhedor()
+    {
+        $result = DB::table('fornecedors')->where('fornecedors.finalidade', '=', 'COLHEDOR')
+            ->join('lancamento_safras', 'lancamento_safras.colhedor_fornecedor_id', '=', 'fornecedors.id')
+            ->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
+            ->leftJoin('adiantamento_colhedos', 'adiantamento_colhedos.fornecedor_id', '=', 'fornecedors.id')
+            ->select(
+                'fornecedors.*',
+                'lancamento_safras.colhedor_fornecedor_id',
+                DB::raw('SUM(saco_bruto) as sacoBruto'),
+                DB::raw('SUM(valor_frete) as frete'),
+                DB::raw('count(lancamento_safras.id) as qtnViagem'),
+                DB::raw('SUM(adiantamento_colhedos.valor_pagamento) as valorAdiantamento')
+            )
+            ->where('safras.status', '=', 'Ativa')
+            ->groupBy('lancamento_safras.colhedor_fornecedor_id')
+            ->get();
+        return $result;
     }
 }

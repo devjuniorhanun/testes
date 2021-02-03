@@ -46,14 +46,19 @@ Route::group([
     Route::crud('lancamentosafra', 'LancamentoSafraCrudController');
     Route::post('lancamentosafra/locacao', 'LancamentoSafraCrudController@locacao');
     Route::get('lancamentosafra/frete/{idLocacao}/{idArmazen}/{idMotorista}/{idColhedor}', 'LancamentoSafraCrudController@frete');
-    Route::get('lancamentosafra/safra', 'LancamentoSafraCrudController@safra');
-    Route::any('lancamentosafra/safras', 'LancamentoSafraCrudController@safras')->name('relatorio_safra');;
-    Route::get('lancamentosafra/motoristas', 'LancamentoSafraCrudController@motoristas');
-    Route::get('lancamentosafra/mapaProdutividade', 'LancamentoSafraCrudController@mapaProdutividade');
+    Route::get('relatorios/safra', 'LancamentoSafraCrudController@safra');
+    Route::any('relatorios/safras', 'LancamentoSafraCrudController@safras')->name('relatorio_safra');;
+    Route::get('relatorios/mapaProdutividade', 'LancamentoSafraCrudController@mapaProdutividade');
     Route::get('financeiro/motoristas', 'Financiero\AdiantamentoSafraController@index');
     Route::get('charts/talhao', 'Charts\TalhaoChartController@response')->name('charts.talhao.index');
+
+    // Adiantamentos
     Route::crud('adiantamentomotorista', 'Financiero\AdiantamentoMotoristaCrudController');
     Route::post('adiantamentomotorista/motoristas', 'Financiero\AdiantamentoMotoristaCrudController@motoristas');
     Route::crud('adiantamentocolhedo', 'Financiero\AdiantamentoColhedoCrudController');
     Route::post('adiantamentocolhedo/colhedores', 'Financiero\AdiantamentoColhedoCrudController@colhedores');
+    
+    // Relatorios
+    Route::get('relatorios/motoristas', 'LancamentoSafraCrudController@motoristas');
+    Route::get('relatorios/colhedores', 'Relatorios\SafraController@colhedores');
 }); // this should be the absolute last line of this file

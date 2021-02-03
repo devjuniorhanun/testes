@@ -277,6 +277,8 @@ class LancamentoSafra extends Model
         return $result;
     }
 
+    
+
     public function scopeListaTalhao()
     {
         $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
