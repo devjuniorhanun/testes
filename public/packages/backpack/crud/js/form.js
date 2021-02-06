@@ -75,14 +75,10 @@ jQuery(function ($) {
     $("#peso_desconto").focusout(function () {
         var pesoBruto = $("#peso_bruto").val(); // Peso Bruto
         var pesoDesconto = $("#peso_desconto").val(); // Peso do Desconto
-        //var pesoLiquido = $("#peso_liquido").val();
-
         var idLocacao = $("#locacao_talhao_id").val(); // Id do Talhão
-        //alert(idLocacao);
         var idArmazen = $("#armazem_id").val(); // Id do Armazem
         var idMotorista = $("#motorista_id").val(); // Id do Motorista
         var idColhedor = $("#colhedor_id").val(); // Id do Colhedor
-
         var totalPeso = pesoBruto - pesoDesconto; // Total do Peso
         var valorDesconto = pesoDesconto / pesoBruto; // Porcentagem de desconto
         var sacoBruto = (pesoBruto / 60); // Quantidade de Sacos Bruto
@@ -92,12 +88,8 @@ jQuery(function ($) {
         $("#desconto").val(valorDesconto.toFixed(2));
         $("#saco_bruto").val(sacoBruto.toFixed(3));
         $("#saco_liquido").val(saco_liquido.toFixed(3));
-        //alert(idLocacao)
         axios.get(`http://${url}/admin/lancamentosafra/frete/${idLocacao}/${idArmazen}/${idMotorista}/${idColhedor}`)
             .then(response => {
-                //alert(response.data['colhedor']['fornecedor_id']);
-                //alert(idLocacao + " - " + idArmazen + " - " + idMotorista + " - " + idColhedor)
-                //alert(response.data['percuso']['fornecedor_id']);
                 var valorFrete = sacoBruto * response.data['frete']['frete'];
                 $("#valor_frete").val(valorFrete.toFixed(2));
                 $("#motorista_fornecedor_id").val(response.data['motorista']['fornecedor_id']);

@@ -369,6 +369,16 @@ class LancamentoSafraCrudController extends CrudController
         ));
     }
 
+    public function motorista()
+    {
+        $id = 10;
+        //$registros = Motorista::listaMotoristas($id);
+        $registros = LancamentoSafra::where('motorista_fornecedor_id', '=', $id)->get()->groupBy('motorista_id');
+        $listaTransportador = LancamentoSafra::listaTransportador();
+        //dd($registros);
+        return view('admin.lacamento_lavoura.motorista', compact('registros', 'listaTransportador'));
+    }
+
     public function motoristas()
     {
         $this->crud->hasAccessOrFail('list');

@@ -60,6 +60,7 @@ Route::group([
     Route::post('adiantamentocolhedo/colhedores', 'Financiero\AdiantamentoColhedoCrudController@colhedores');
     
     // Relatorios
-    Route::get('relatorios/motoristas', 'LancamentoSafraCrudController@motoristas');
+    Route::any('relatorios/motorista', 'LancamentoSafraCrudController@motorista')->name('relatorio_motorista');
+    Route::get('relatorios/motoristas', 'LancamentoSafraCrudController@motoristas');    
     Route::get('relatorios/colhedores', 'Relatorios\SafraController@colhedores');
 }); // this should be the absolute last line of this file

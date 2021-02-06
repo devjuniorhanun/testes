@@ -14,7 +14,7 @@
 
 @section('content')
 <div class="card">
-  <div class="card-header">
+  <div class="card-header no-print">
     <div class="row">
       <div class="col">
         {{-- Abre o formulário --}}
@@ -36,13 +36,15 @@
           <th scope="col">Talhão</th>
           <th scope="col">Romaneio</th>
           <th scope="col">Controle</th>
-          <th scope="col">Peso Bruto</th>
-          <th scope="col">Sc Brutos</th>
-          <th scope="col">Desconto</th>
-          <th scope="col">Peso Líquido</th>
+          <th scope="col">P. Bruto</th>
+          <th scope="col">S. Brutos</th>
+          <th scope="col">Des</th>
+          <th scope="col">P. Líquido</th>
+          <th scope="col">S. Líquido</th>
           <th scope="col">Armazén</th>
+          <th scope="col">Colhedor</th>
           <th scope="col">Frete</th>
-          <th scope="col">Valor Frete</th>
+          <th scope="col">V. Frete</th>
         </tr>
       </thead>
       <tbody>
@@ -51,6 +53,7 @@
         $peso_bruto = 0;
         $valor_frete = 0;
         $saco_bruto = 0;
+        $saco_liquido = 0;
 
         @endphp
 
@@ -61,6 +64,7 @@
         $peso_bruto += $lista->peso_bruto;
         $saco_bruto += $lista->saco_bruto;
         $valor_frete += $lista->valor_frete;
+        $saco_liquido += $lista->saco_liquido;
 
         @endphp
 
@@ -72,10 +76,12 @@
           <td>{{ $lista->num_romaneio }}</td>
           <td>{{ $lista->num_controle }}</td>
           <td>{{ number_format($lista->peso_bruto, 0, '.', '.') }} kg</td>
-          <td>{{ number_format($lista->saco_bruto, 3, '.', '.') }} Sc</td>
+          <td>{{ number_format($lista->saco_bruto, 0, '.', '.') }} Sc</td>
           <td>{{ number_format($lista->peso_desconto, 0, '.', '.') }} Kg</td>
           <td>{{ number_format($lista->peso_liquido, 0, '.', '.') }} Kg</td>
+          <td>{{ number_format($lista->saco_liquido, 0, '.', '.') }} Sc</td>
           <td>{{ $lista->armazem->nome }}</td>
+          <td>{{ $lista->colhedor->nome }}</td>
           <td>R$ {{ number_format($lista->matrizFrete->frete, 2, ',', '.') }}</td>
           <td>R$ {{ number_format($lista->valor_frete, 2, ',', '.') }}</td>
 
@@ -87,14 +93,33 @@
       </tbody>
       <tfoot>
         <tr>
-          <td><strong>Totais</strong></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <th scope="col">#</th>
+          <th scope="col">Data</th>
+          <th scope="col">Motorista</th>
+          <th scope="col">Talhão</th>
+          <th scope="col">Romaneio</th>
+          <th scope="col">Controle</th>
+          <th scope="col">P. Bruto</th>
+          <th scope="col">S. Brutos</th>
+          <th scope="col">Des</th>
+          <th scope="col">P. Líquido</th>
+          <th scope="col">S. Líquido</th>
+          <th scope="col">Armazén</th>
+          <th scope="col">Colhedor</th>
+          <th scope="col">Frete</th>
+          <th scope="col">V. Frete</th>
+        </tr>
+        <tr>
+          <td colspan="2"><strong>Totais</strong></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
           <td></td>
           <td></td>
           <td><strong>{{ number_format($peso_bruto, 0, '.', '.')}} Kg</strong></td>
           <td><strong>{{ number_format($saco_bruto, 3, '.', '.')}} Sc</strong></td>
+          <td></td>
+          <td></td>
+          <td><strong>{{ number_format($saco_liquido, 3, '.', '.')}} Sc</strong></td>
           <td></td>
           <td></td>
           <td></td>

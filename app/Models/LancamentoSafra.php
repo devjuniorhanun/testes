@@ -195,7 +195,9 @@ class LancamentoSafra extends Model
             ->leftJoin('talhaos', 'talhaos.id', '=', 'lancamento_safras.talhao_id')
             ->leftJoin('matriz_fretes', 'matriz_fretes.id', '=', 'lancamento_safras.matriz_frete_id')
             ->leftJoin('armazems', 'armazems.id', '=', 'lancamento_safras.armazem_id')
-            ->select('lancamento_safras.*', 'motoristas.placa_nome as motorista', 'talhaos.nome as talhao', 'matriz_fretes.frete as matrizFrete', 'armazems.nome as nomeArmazen')
+            ->leftJoin('colhedors', 'colhedors.id' , '=', 'lancamento_safras.colhedor_id')
+            ->select('lancamento_safras.*', 'motoristas.placa_nome as motorista', 'talhaos.nome as talhao', 
+            'matriz_fretes.frete as matrizFrete', 'armazems.nome as nomeArmazen', 'colhedors.nome as nomeColhedor')
             ->get();
         //->paginate($pagina);
         //dd($result);
@@ -272,6 +274,7 @@ class LancamentoSafra extends Model
             )
             ->where('safras.status', '=', 'Ativa')
             ->groupBy('lancamento_safras.motorista_fornecedor_id')
+            ->orderBy('fornecedors.razao_social')
             ->get();
         //dd($result);
         return $result;

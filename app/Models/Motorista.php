@@ -9,6 +9,7 @@ use App\Models\Traits\Uuid;
 use Spatie\Activitylog\Traits\LogsActivity;
 use App\Models\Traits\Empresa;
 use \Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Support\Facades\DB;
 
 class Motorista extends Model
 {
@@ -83,5 +84,21 @@ class Motorista extends Model
     public function fornecedor()
     {
         return $this->belongsTo(Fornecedor::class);
+    }
+
+    public function scopeListaMotoristas($query,$id)
+    {
+        //dd($id);
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
+        ->where('lancamento_safras.id', '>', 0)
+        ->leftJoin('lancamento_safras', 'lancamento_safras.safra_id', '=', 'safras.id')
+        ->leftJoin('motoristas', 'motoristas.id', '=', 'lancamento_safras.motorista_id')
+        ->where('motorista_fornecedor_id', '=', $id)
+        //->select
+        ->groupBy('lancamento_safras.motorista_id')
+        ->get()
+        ;
+        return $result;
+
     }
 }

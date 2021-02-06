@@ -14,14 +14,13 @@
     <div class="row no-print">
       <div class="col">
         {{-- Abre o formulário --}}
-        {!! Form::open(['route' => 'relatorio_safra']) !!}
+        {!! Form::open(['route' => 'relatorio_motorista']) !!}
         {{-- Chama os campos do formulário --}}
         @include('admin.lacamento_lavoura.form_filtros_motorista')
         {{-- Fecha o formulário --}}
         {!! Form::close() !!}
       </div>
     </div>
-
   </div>
 
   <div class="card-body">
