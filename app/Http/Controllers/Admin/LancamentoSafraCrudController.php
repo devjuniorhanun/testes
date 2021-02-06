@@ -51,6 +51,7 @@ class LancamentoSafraCrudController extends CrudController
     {
         $this->crud->enableExportButtons();
         $this->crud->enableResponsiveTable();
+        CRUD::column('id')->label('Nº');
 
         CRUD::column('data_colhido')->type('datetime')->format('DD/MM/YYYY');
         //CRUD::column('motorista_fornecedor_id');
@@ -320,7 +321,8 @@ class LancamentoSafraCrudController extends CrudController
         $listaMotorista = LancamentoSafra::listaMotorista();
         $listaTalhao = LancamentoSafra::listaTalhao();
         $listaArmazem = LancamentoSafra::listaArmazem();
-        //dd($listagem);
+        $listaColhedores = LancamentoSafra::listaColhedores();
+        
         return view('admin.lacamento_lavoura.safras', compact(
             'listagem',
             'totalColhido',
@@ -328,7 +330,8 @@ class LancamentoSafraCrudController extends CrudController
             'listaArmazem',
             'totalColhidoCulutra',
             'listaData',
-            'listaMotorista'
+            'listaMotorista',
+            'listaColhedores'
         ));
     }
 
@@ -340,7 +343,8 @@ class LancamentoSafraCrudController extends CrudController
         $listaMotorista = LancamentoSafra::listaMotorista();
         $listaTalhao = LancamentoSafra::listaTalhao();
         $listaArmazem = LancamentoSafra::listaArmazem();
-
+        $listaColhedores = LancamentoSafra::listaColhedores();
+        
 
         if ($request->periodo > 0) {
             $listagem = LancamentoSafra::where('data_colhido', 'like', "%$request->periodo%")->get();
@@ -350,6 +354,8 @@ class LancamentoSafraCrudController extends CrudController
             $listagem = LancamentoSafra::where('talhao_id', '=', $request->talhao)->get();
         } else if ($request->armazem > 0) {
             $listagem = LancamentoSafra::where('armazem_id', '=', $request->armazem)->get();
+        } else if ($request->colhedor > 0) {
+            $listagem = LancamentoSafra::where('colhedor_id', '=', $request->colhedor)->get();
         }
         return view('admin.lacamento_lavoura.relatorios', compact(
             'listagem',
@@ -358,7 +364,8 @@ class LancamentoSafraCrudController extends CrudController
             'listaArmazem',
             'totalColhidoCulutra',
             'listaData',
-            'listaMotorista'
+            'listaMotorista',
+            'listaColhedores'
         ));
     }
 
@@ -390,6 +397,7 @@ class LancamentoSafraCrudController extends CrudController
                 ->leftJoin('talhaos', 'talhaos.id', '=', 'locacao_talhaos.talhao_id')
                 ->orderBy('talhaos.nome')
                 ->where('talhaos.nome', 'LIKE', '%' . $search_term . '%')
+                ->select('locacao_talhaos.id','talhaos.nome')
                 ->paginate(1000000);
             return $options;
         } else {
@@ -397,7 +405,10 @@ class LancamentoSafraCrudController extends CrudController
                 ->leftJoin('locacao_talhaos', 'locacao_talhaos.safra_id', '=', 'safras.id')
                 ->leftJoin('talhaos', 'talhaos.id', '=', 'locacao_talhaos.talhao_id')
                 ->orderBy('talhaos.nome')
+                ->select('locacao_talhaos.id','talhaos.nome')
+                //->pluck('talhaos.nome','locacao_talhaos.id');
                 ->paginate(1000000);
+                ;
         }
         return $options;
     }

@@ -39,13 +39,14 @@ Route::group([
     Route::crud('frota', 'FrotaCrudController');
     Route::crud('servicoagricola', 'ServicoAgricolaCrudController');
     Route::get('servicoagricola/areaTalhao/{idTalhao}', 'ServicoAgricolaCrudController@areaTalhao');
+    Route::get('servicoagricola/servico/{idServico}', 'ServicoAgricolaCrudController@servico')->name('servicos');
     Route::crud('armazem', 'ArmazemCrudController');
     Route::crud('colhedor', 'ColhedorCrudController');
     Route::crud('matrizfrete', 'MatrizFreteCrudController');
     Route::crud('motorista', 'MotoristaCrudController');
     Route::crud('lancamentosafra', 'LancamentoSafraCrudController');
     Route::post('lancamentosafra/locacao', 'LancamentoSafraCrudController@locacao');
-    Route::get('lancamentosafra/frete/{idLocacao}/{idArmazen}/{idMotorista}/{idColhedor}', 'LancamentoSafraCrudController@frete');
+    Route::any('lancamentosafra/frete/{idLocacao}/{idArmazen}/{idMotorista}/{idColhedor}', 'LancamentoSafraCrudController@frete');
     Route::get('relatorios/safra', 'LancamentoSafraCrudController@safra');
     Route::any('relatorios/safras', 'LancamentoSafraCrudController@safras')->name('relatorio_safra');;
     Route::get('relatorios/mapaProdutividade', 'LancamentoSafraCrudController@mapaProdutividade');

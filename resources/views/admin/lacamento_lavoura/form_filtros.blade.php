@@ -36,6 +36,15 @@
             @endforeach
         </select>
     </div>
+    <div class="form-group col-md-2">
+        <label for="colhedor">Colhedores.:</label><br>
+        <select class="form-control form-control-sm" id="colhedor" name="colhedor">
+        <option value="0">Colhedores</option>
+            @foreach($listaColhedores as $lista)
+                <option value="{{ $lista->id }}">{{ $lista->nome }}</option>
+            @endforeach
+        </select>
+    </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="ciclo_id">&nbsp;</label><br>

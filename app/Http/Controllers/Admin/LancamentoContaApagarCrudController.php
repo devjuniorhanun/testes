@@ -58,8 +58,8 @@ class LancamentoContaApagarCrudController extends CrudController
             ->thousands_sep('.');
         CRUD::column('status')->label('Situação');
 
-        $this->crud->enableDetailsRow();
-        $this->crud->setDetailsRowView('vendor.backpack.crud.details_row.monster');
+        //$this->crud->enableDetailsRow();
+       // $this->crud->setDetailsRowView('vendor.backpack.crud.details_row.monster');
     }
 
     /**
@@ -167,12 +167,4 @@ class LancamentoContaApagarCrudController extends CrudController
         CRUD::column('status')->label('Situação');
     }
 
-    /*protected function setupshowDetailsRow()
-    {
-        $this->crud->enableDetailsRow();
-
-        CRUD::column('fornecedor_id')->type('select')
-            ->entity('Fornecedor')
-            ->attribute('nome_fantasia');
-    }*/
 }

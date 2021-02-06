@@ -92,6 +92,7 @@ jQuery(function ($) {
         $("#desconto").val(valorDesconto.toFixed(2));
         $("#saco_bruto").val(sacoBruto.toFixed(3));
         $("#saco_liquido").val(saco_liquido.toFixed(3));
+        //alert(idLocacao)
         axios.get(`http://${url}/admin/lancamentosafra/frete/${idLocacao}/${idArmazen}/${idMotorista}/${idColhedor}`)
             .then(response => {
                 //alert(response.data['colhedor']['fornecedor_id']);

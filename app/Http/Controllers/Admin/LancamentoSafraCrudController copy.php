@@ -52,12 +52,9 @@ class LancamentoSafraCrudController extends CrudController
         $this->crud->enableResponsiveTable();
 
         CRUD::column('data_colhido')->type('datetime')->format('DD/MM/YYYY');
-        //CRUD::column('motorista_fornecedor_id');
-        //CRUD::column('motorista_id');
         CRUD::column('motorista_id')->type('select')
             ->entity('motorista')
             ->with('fornecedor')
-            //->model('App\Models\Fornecedor')
             ->attribute('placa_nome');
 
         CRUD::column('talhao_id')->type('select')
@@ -78,12 +75,9 @@ class LancamentoSafraCrudController extends CrudController
         CRUD::column('fazenda_id')->type('select')
             ->entity('Fazenda')
             ->attribute('nome');
-        //CRUD::column('locacao_talhao_id');
-        //CRUD::column('matriz_frete_id');
         CRUD::column('matriz_frete_id')
             ->type('select')
             ->entity('matrizFrete')
-            //->model('App\Models\Fornecedor')
             ->attribute('frete');
         CRUD::column('proprietario_id')->type('select')
             ->entity('Proprietario')
@@ -95,7 +89,6 @@ class LancamentoSafraCrudController extends CrudController
         CRUD::column('safra_id')
             ->type('select')
             ->entity('safra')
-            //->model('App\Models\Fornecedor')
             ->attribute('nome');
         CRUD::column('valor_frete')->type('number')
             ->prefix('R$ ')
@@ -342,6 +335,8 @@ class LancamentoSafraCrudController extends CrudController
         $listaMotorista = LancamentoSafra::listaMotorista();
         $listaTalhao = LancamentoSafra::listaTalhao();
         $listaArmazem = LancamentoSafra::listaArmazem();
+        $listaColhedores = LancamentoSafra::listaColhedores();
+        dd($listaColhedores);
 
 
         if ($request->periodo > 0) {
@@ -352,6 +347,8 @@ class LancamentoSafraCrudController extends CrudController
             $listagem = LancamentoSafra::where('talhao_id', '=', $request->talhao)->get();
         } else if ($request->armazem > 0) {
             $listagem = LancamentoSafra::where('armazem_id', '=', $request->armazem)->get();
+        } else if ($request->colhedor > 0) {
+            $listagem = LancamentoSafra::where('colhedor_id', '=', $request->colhedor)->get();
         }
         return view('admin.lacamento_lavoura.relatorios', compact(
             'listagem',
@@ -360,7 +357,8 @@ class LancamentoSafraCrudController extends CrudController
             'listaArmazem',
             'totalColhidoCulutra',
             'listaData',
-            'listaMotorista'
+            'listaMotorista',
+            'listaColhedores'
         ));
         //listagem = LancamentoSafra::where('data_colhido','like', "%$periodo%")->get();
         //dd($listagem);

@@ -305,6 +305,19 @@ class LancamentoSafra extends Model
         return $result;
     }
 
+    public function scopeListaColhedores()
+    {
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
+            ->leftJoin('lancamento_safras', '.safra_id', '=', 'safras.id')
+            ->where('lancamento_safras.data_colhido', '<>', null)
+            ->leftJoin('colhedors', 'colhedors.id', '=', 'lancamento_safras.colhedor_id')
+            ->select('colhedors.id', 'colhedors.nome')
+            ->orderBy('colhedors.nome')
+            ->groupBy('colhedors.id')
+            ->get();
+        return $result;
+    }
+
     public function scopeMapaProdutividade()
     {
         $result = DB::table('safras')->where('safras.status', '=', 'Ativa')

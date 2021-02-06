@@ -8,6 +8,7 @@ use App\Models\ServicoAgricola;
 use App\Models\Talhao;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Request;
 
 /**
  * Class ServicoAgricolaCrudController
@@ -42,26 +43,39 @@ class ServicoAgricolaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('tenant_id');
-        CRUD::column('safra_id');
-        CRUD::column('cultura_id');
-        CRUD::column('talhao_id');
-        CRUD::column('tipo_operacao_agricula_id');
-        CRUD::column('uuid');
-        CRUD::column('data');
+        CRUD::column('safra_id')
+            ->type('select')
+            ->entity('safra')
+            ->attribute('nome');
+        CRUD::column('cultura_id')
+            ->type('select')
+            ->entity('cultura')
+            ->attribute('nome');
+        CRUD::column('talhao_id')
+            ->label('Talhão')
+            ->type('select')
+            ->entity('talhao')
+            ->attribute('nome');
+        CRUD::column('tipo_operacao_agricula_id')
+            ->label('Operação')
+            ->type('select')
+            ->entity('tipoOperacaoAgricula')
+            ->attribute('nome');
+        CRUD::column('data')->type('datetime')->format('D/M/YYYY');
         CRUD::column('volume_bomba');
-        CRUD::column('vazao');
-        CRUD::column('capacidade_bomba');
-        CRUD::column('bomba_recomendada');
-        CRUD::column('bomba_usada');
-        CRUD::column('diferenca_bomba');
-        CRUD::column('area');
-        CRUD::column('observacao');
-        CRUD::column('status');
-        CRUD::column('deleted_at');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
-
+        CRUD::column('vazao')->label('Vazão');
+        CRUD::column('capacidade_bomba')->label('Capacidade Bomba');
+        CRUD::column('bomba_recomendada')->label('Bomba Recomendada');
+        CRUD::column('bomba_usada')->label('Bomba Usadas');
+        CRUD::column('diferenca_bomba')->label('Diferença Bomba');
+        CRUD::column('area')->label('Área')->type('number')
+        ->decimals(2)
+        ->suffix(' ha')
+        ->dec_point(',')
+        ->thousands_sep('.');
+        CRUD::column('observacao')->label('Observações');
+        CRUD::column('status')->type('enum');
+        
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -122,8 +136,6 @@ class ServicoAgricolaCrudController extends CrudController
         CRUD::field('capacidade_bomba')->label('Capacidade Bomba')->size(3)->attributes(['class' => 'form-control desabilitado', 'id' => 'capacidade_bomba'])->tab('Lançamentos');
         CRUD::field('bomba_recomendada')->label('Quant. Bomba Recomendada')->size(3)->attributes(['class' => 'form-control desabilitado', 'id' => 'bomba_recomendada'])->tab('Lançamentos');
         CRUD::field('bomba_usada')->label('Quant. Bomba Usada')->size(3)->attributes(['class' => 'form-control', 'id' => 'bomba_usada'])->tab('Lançamentos');
-
-
         CRUD::field('diferenca_bomba')->label('Diferença Bomba')->size(3)->attributes(['class' => 'form-control desabilitado', 'id' => 'diferenca_bomba'])->tab('Lançamentos');
         CRUD::field('observacao')->label('Observações')->size(3)->tab('Lançamentos');
         CRUD::field('status')->label('Status')->type('enum')->size(3)->tab('Lançamentos');
@@ -175,28 +187,7 @@ class ServicoAgricolaCrudController extends CrudController
             ],
         ]);
 
-        /*CRUD::field('tenant_id');
-        CRUD::field('safra_id');
-        CRUD::field('cultura_id');
-        CRUD::field('talhao_id');
-        CRUD::field('tipo_operacao_agricula_id');
-        CRUD::field('uuid');
-        CRUD::field('data');
-        CRUD::field('volume_bomba');
-        CRUD::field('vazao');
-        CRUD::field('capacidade_bomba');
-        CRUD::field('bomba_recomendada');
-        CRUD::field('bomba_usada');
-        CRUD::field('diferenca_bomba');
-        CRUD::field('area');
-        CRUD::field('observacao');
-        CRUD::field('status');*/
-
-        /**
-         * Fields can be defined using the fluent syntax or array syntax:
-         * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
-         */
+        
     }
 
     /**
@@ -215,61 +206,65 @@ class ServicoAgricolaCrudController extends CrudController
         $this->crud->hasAccessOrFail('create');
         // execute the FormRequest authorization and validation, if one is required
         $data = $this->crud->validateRequest()->all();
-        
+
 
         if (isset($data['volume_bomba'])) {
             $data['volume_bomba'] = str_replace('.', "", $data['volume_bomba']);
             $data['volume_bomba'] = str_replace(',', ".", $data['volume_bomba']);
         }
-        
+
         $model = ServicoAgricola::create($data);
 
-        foreach (json_decode($data['operadores']) as $operador){
-           // dd($operador->tipo_operador);
-            $test = [
+        foreach (json_decode($data['operadores']) as $operador) {
+            $dados = [
                 'servico_agricola_id' => $model->id,
                 'operador_agricula_id' => $operador->operadores,
                 'tipo_operador' => $operador->tipo_operador,
 
             ];
-            $model->operadorAgriculas()->attach($model->id,$test);
-            //echo $operador->operadores . " - " .tipo_operador $operador-> . "<br>";
+            $model->operadorAgriculas()->attach($model->id, $dados);
         }
 
-        foreach (json_decode($data['produtos']) as $produto){
-           // echo $produto->produtos . " - " . $produto->dose_estimada_hectare . "<br>";
-           // $pro = Produto::find($produto->produtos);
+        foreach (json_decode($data['produtos']) as $produto) {
             $produto->dose_estimada_hectare = str_replace('.', "", $produto->dose_estimada_hectare);
             $produto->dose_estimada_hectare = str_replace(',', ".", $produto->dose_estimada_hectare);
-            $test = [
+            $dados = [
                 'servico_agricola_id' => $model->id,
                 'produto_id' => $produto->produtos,
                 'dosagem' => $produto->dose_estimada_hectare,
-                'quantidade' => round($produto->dose_estimada_hectare * $data['area'],3),
+                'quantidade' => round($produto->dose_estimada_hectare * $data['area'], 3),
 
             ];
-           // echo round($produto->dose_estimada_hectare * $data['area'],3). "<br>";
-            //dd($pro);
-            $model->produtos()->attach($test);
+            $model->produtos()->attach($model->id, $dados);
+            $estoque = Produto::find($produto->produtos); // Recebe o registro do produto
+            $dose = round($produto->dose_estimada_hectare * $data['area'], 3); // Dose do produto
+            $qtnRetirada = ceil($dose / $estoque->fator_conversao); // Dose Divide pelo fator de conversao
+            $qtnRetirada = $qtnRetirada * $estoque->fator_conversao; // Quantidade a ser retirada
+            $quantidade = $estoque->estoque - $qtnRetirada; // Quantidade menos estoque
+            $estoque->update(['estoque' => $quantidade]); // Salva a retirada
+            
         }
-        //dd($data);
         
-
         // show a success message
         \Alert::success(trans('Operação Cadastrada com Sucesso'))->flash();
 
         // save the redirect choice for next time
-        $this->crud->setSaveAction();
+       // $this->crud->setSaveAction();
 
-        return $this->crud->performSaveAction($model->id);
+       // return $this->crud->performSaveAction($model->id);
+       //return view('admin.servidos_agricola.servicos',compact('registros','listaColhedor'));
+       return redirect()->route('servicos', ['id' => $model->id]);
     }
-
-
 
     public function areaTalhao($idTalhao)
     {
         $area_total =  Talhao::find($idTalhao)->area_total;
         return $area_total;
+    }
+
+    public function servico($id)
+    {
+        return view('admin.servidos_agricola.servicos');
 
     }
 }

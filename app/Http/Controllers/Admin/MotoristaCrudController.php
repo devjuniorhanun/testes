@@ -148,4 +148,45 @@ class MotoristaCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    public function store()
+    {
+
+        $this->crud->hasAccessOrFail('create');
+
+        // execute the FormRequest authorization and validation, if one is required
+        $data = $this->crud->validateRequest()->all();
+        $data['placa_nome'] = $data['placa'].'-'.$data['nome'];
+
+        $model = Motorista::create($data);
+        // show a success message
+        \Alert::success(trans('Motorista Cadastro(a) com Sucesso'))->flash();
+
+        // save the redirect choice for next time
+       $this->crud->setSaveAction();
+
+       return $this->crud->performSaveAction($model->id);
+    }
+
+    public function update()
+    {
+        $this->crud->hasAccessOrFail('update');
+
+        // execute the FormRequest authorization and validation, if one is required
+        $request = $this->crud->validateRequest();
+        $data = $request->all();
+        $model = Motorista::find($request->id);
+        $data['placa_nome'] = $data['placa'].'-'.$data['nome'];
+
+        $model->update($data);
+
+        // show a success message
+        \Alert::success(trans('Motorista Alterador(a) com Sucesso'))->flash();
+
+        // save the redirect choice for next time
+       $this->crud->setSaveAction();
+
+       return $this->crud->performSaveAction($model->id);
+    }
+
 }

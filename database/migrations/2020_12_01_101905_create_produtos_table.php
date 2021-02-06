@@ -27,6 +27,7 @@ class CreateProdutosTable extends Migration
             $table->double('estoque', 10, 3);
             $table->double('qtn_minima', 10, 3);
             $table->double('valor_unitario', 10, 3);
+            $table->double('fator_conversao', 10,3);
             $table->enum('finalidade', ["Combustíveis","Insumos","Peças","Uso Consumo"])->default('Uso Consumo');
             $table->string('localizacao_estoque')->nullable();
             $table->enum('status', ["Ativo","Desativada"])->default('Ativo');

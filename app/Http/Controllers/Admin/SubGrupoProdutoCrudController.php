@@ -39,14 +39,12 @@ class SubGrupoProdutoCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('created_at');
-        CRUD::column('deleted_at');
-        CRUD::column('grupo_produto_id');
+        CRUD::column('grupo_produto_id')
+            ->type('select')
+            ->entity('grupoProduto')
+            ->attribute('nome');
         CRUD::column('nome');
-        CRUD::column('status');
-        CRUD::column('tenant_id');
-        CRUD::column('updated_at');
-        CRUD::column('uuid');
+        CRUD::column('status')->type('enum');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:

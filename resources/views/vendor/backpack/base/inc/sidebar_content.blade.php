@@ -103,6 +103,14 @@
 			</ul>
 		</li>
 	</ul>
+	<ul class="nav-dropdown-items">
+		<li class="nav-item nav-dropdown">
+			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Plantio</a>
+			<ul class="nav-dropdown-items">
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('servicoagricola') }}"><i class="nav-icon la la-question"></i> <span>Serviço Agricolas</span></a></li>
+			</ul>
+		</li>
+	</ul>
 </li>
 
 <!-- Relatorios -->
@@ -116,6 +124,20 @@
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('relatorios/mapaProdutividade') }}"><i class="nav-icon la la-question"></i> <span>Mapa Produtividade</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('relatorios/motoristas') }}"><i class="nav-icon la la-question"></i> <span>Motorista</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('relatorios/colhedores') }}"><i class="nav-icon la la-question"></i> <span>Colhedores</span></a></li>
+			</ul>
+		</li>
+	</ul>
+</li>
+
+<!-- Financeiros -->
+<li class="nav-item nav-dropdown">
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Financeiros</a>
+	<ul class="nav-dropdown-items">
+		<li class="nav-item nav-dropdown">
+			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Contas</a>
+			<ul class="nav-dropdown-items">
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Contas Apagar</span></a></li>
+				
 			</ul>
 		</li>
 	</ul>

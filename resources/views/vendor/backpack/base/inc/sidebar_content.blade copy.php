@@ -51,7 +51,7 @@
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('armazem') }}"><i class="nav-icon la la-question"></i> <span>Armazéns</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('colhedor') }}"><i class="nav-icon la la-question"></i> <span>Colhedores</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('motorista') }}"><i class="nav-icon la la-question"></i> <span>Motoristas</span></a></li>
-				
+
 			</ul>
 		</li>
 		<li class="nav-item nav-dropdown">
@@ -103,7 +103,7 @@
 		<li class="nav-item nav-dropdown">
 			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Colheita</a>
 			<ul class="nav-dropdown-items">
-			<li class="nav-item"><a class="nav-link" href="{{ backpack_url('relatorios/safra') }}"><i class="nav-icon la la-question"></i> <span>Safra</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('relatorios/safra') }}"><i class="nav-icon la la-question"></i> <span>Safra</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('relatorios/mapaProdutividade') }}"><i class="nav-icon la la-question"></i> <span>Mapa Produtividade</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('relatorios/motoristas') }}"><i class="nav-icon la la-question"></i> <span>Motorista</span></a></li>
 			</ul>
@@ -115,13 +115,13 @@
 			<ul class="nav-dropdown-items">
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Conta Apagar</span></a></li>
 				<ul class="nav-dropdown-items">
-		<li class="nav-item nav-dropdown">
-			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Adiantamentos</a>
-			<ul class="nav-dropdown-items">
-				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Conta Apagar</span></a></li>
-			</ul>
-		</li>
-	</ul>
+					<li class="nav-item nav-dropdown">
+						<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Adiantamentos</a>
+						<ul class="nav-dropdown-items">
+							<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Conta Apagar</span></a></li>
+						</ul>
+					</li>
+				</ul>
 			</ul>
 		</li>
 	</ul>

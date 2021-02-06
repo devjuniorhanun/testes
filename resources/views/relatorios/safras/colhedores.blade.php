@@ -36,39 +36,39 @@
     </div>
 
     <div class="card-body">
-    <table class="table table-striped table-hover table-sm">
-    <thead>
-      <tr>
-        <th scope="col">QtnViagem</th>
-        <th scope="col">Colhedor</th>
-        <th scope="col">Peso Bruto</th>
-        <th scope="col">Valor Colhido</th>
-        <th scope="col">Adiantamentos</th>
-      </tr>
-    </thead>
-    <tbody>
+        <table class="table table-striped table-hover table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">QtnViagem</th>
+                    <th scope="col">Colhedor</th>
+                    <th scope="col">Peso Bruto</th>
+                    <th scope="col">Valor Colhido</th>
+                    <th scope="col">Adiantamentos</th>
+                </tr>
+            </thead>
+            <tbody>
 
-      @forelse ($listaColhedor as $lista)
+                @forelse ($listaColhedor as $lista)
 
 
 
-      <tr>
-        <th scope="row">{{ $lista->qtnViagem }}</th>
-        <td>{{ $lista->nome_fantasia }}</td>
-        <td>{{ number_format($lista->sacoBruto, 0, '.', '.') }} Sc</td>
-        <td>{{ ($lista->sacoBruto * 0.05) }}</td>
-        <td>{{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
+                <tr>
+                    <th scope="row">{{ $lista->qtnViagem }}</th>
+                    <td>{{ $lista->nome_fantasia }}</td>
+                    <td>{{ number_format($lista->sacoBruto, 0, '.', '.') }} Sc</td>
+                    <td>{{ ($lista->sacoBruto * 0.05) }}</td>
+                    <td>{{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
 
-      </tr>
-      @empty
-      <p>Não foi encontrado Nem um Registro</p>
-      @endforelse
+                </tr>
+                @empty
+                <p>Não foi encontrado Nem um Registro</p>
+                @endforelse
 
-    </tbody>
-    <tfoot>
+            </tbody>
+            <tfoot>
 
-    </tfoot>
-  </table>
+            </tfoot>
+        </table>
     </div>
 
 </div>
