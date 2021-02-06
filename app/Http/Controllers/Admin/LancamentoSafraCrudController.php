@@ -369,9 +369,10 @@ class LancamentoSafraCrudController extends CrudController
         ));
     }
 
-    public function motorista()
+    public function motorista(Request $request)
     {
-        $id = 10;
+        $id = $request->motorista;
+        //dd($id);
         //$registros = Motorista::listaMotoristas($id);
         $registros = LancamentoSafra::where('motorista_fornecedor_id', '=', $id)->get()->groupBy('motorista_id');
         $listaTransportador = LancamentoSafra::listaTransportador();
