@@ -39,6 +39,11 @@ class LancamentoSafraRequest extends FormRequest
             'peso_liquido' => 'required',
             'colhedor_id' => 'required',
             'fazenda_id' => 'required',
+            'desconto' => 'required',
+            'peso_liquido' => 'required',
+            'saco_liquido' => 'required',
+            'saco_bruto' => 'required',
+            'valor_frete' => 'required',
         ];
     }
 

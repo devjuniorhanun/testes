@@ -14,10 +14,10 @@
 
     <div class="row">
       <div class="col-md-2">
-        <strong>Total Colhido.: <br>{{ number_format($totalColhido->liquido, 0, '.', '.') }} Kg</strong>
+        <strong>Total Colhido.: <br>{{ number_format($totalColhido->liquido, 0, ',', '.') }} Kg</strong>
       </div>
       <div class="col-md-2">
-        <strong>Sacos Colhido.: <br>{{ number_format($totalColhido->sacos, 0, '.', '.') }} Sc</strong>
+        <strong>Sacos Colhido.: <br>{{ number_format($totalColhido->sacos, 0, ',', '.') }} Sc</strong>
       </div>
 
       <div class="col-md-2">
@@ -64,9 +64,9 @@
           <td>{{ $lista->talhao }}</td>
           <td>{{ $lista->num_romaneio }}</td>
           <td>{{ $lista->num_controle }}</td>
-          <td>{{ number_format($lista->peso_bruto, 0, '.', '.') }} kg</td>
-          <td>{{ number_format($lista->peso_desconto, 0, '.', '.') }} Kg</td>
-          <td>{{ number_format($lista->peso_liquido, 0, '.', '.') }} Kg</td>
+          <td>{{ number_format($lista->peso_bruto, 0, ',', '.') }} kg</td>
+          <td>{{ number_format($lista->peso_desconto, 0, ',', '.') }} Kg</td>
+          <td>{{ number_format($lista->peso_liquido, 0, ',', '.') }} Kg</td>
           <td>{{ $lista->nomeArmazen }}</td>
           <td>{{ $lista->nomeColhedor }}</td>
           <td>R$ {{ number_format($lista->matrizFrete, 2, ',', '.') }}</td>

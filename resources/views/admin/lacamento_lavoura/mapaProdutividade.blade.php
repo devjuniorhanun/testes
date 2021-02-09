@@ -49,8 +49,8 @@
                 <tr>
                     <td>{{ $lista->nome }}</td>
                     <td>{{ number_format($lista->saco_liquido, 2, ',', '.') }} Sc</td>
-                    <td>{{ number_format($lista->area_plantada, 2, ',', '.') }}</td>
-                    <td>{{ number_format($lista->saco_liquido / $lista->area_plantada, 2, ',', '.') }} Sc</td>
+                    <td>{{ number_format($lista->area_total, 2, ',', '.') }}</td>
+                    <td>{{ number_format($lista->saco_liquido / $lista->area_total, 2, ',', '.') }} Sc</td>
                     <td>{{ $lista->culturaNome }}</td>
                 </tr>
                 @empty

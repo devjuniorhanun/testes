@@ -39,8 +39,8 @@
         <tr>
           <th scope="row">{{ $lista->qtnViagem }}</th>
           <td>{{ $lista->nome_fantasia }}</td>
-          <td>{{ number_format($lista->sacoBruto, 0, '.', '.') }} Sc</td>
-          <td>R$ {{ number_format($lista->frete, 2, ',', '.') }}</td>
+          <td>{{ number_format($lista->QtnSacoBrutos, 0, '.', '.') }} Sc</td>
+          <td>R$ {{ number_format($lista->valorFrete, 2, ',', '.') }}</td>
           <td>R$ {{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
         </tr>
         @empty

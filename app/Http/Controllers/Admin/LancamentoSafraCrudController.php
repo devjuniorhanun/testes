@@ -126,7 +126,6 @@ class LancamentoSafraCrudController extends CrudController
             ->attributes(['id' => 'motorista_id'])
             ->label('Trasportador.:')
             ->type('select2')
-            //->entity('centroCusto')
             ->attribute('placa_nome')
             ->model('App\Models\Motorista')
             ->options(function ($query) {
