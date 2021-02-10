@@ -44,6 +44,7 @@ class LancamentoSafraRequest extends FormRequest
             'saco_liquido' => 'required',
             'saco_bruto' => 'required',
             'valor_frete' => 'required',
+            'locacao_talhao_id' => 'required',
         ];
     }
 
