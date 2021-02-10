@@ -9,6 +9,7 @@ use App\Models\LancamentoSafra;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class AdiantamentoMotoristaCrudController
@@ -51,6 +52,7 @@ class AdiantamentoMotoristaCrudController extends CrudController
             ->type('select')
             ->entity('fornecedor')
             ->attribute('nome_fantasia');
+
         CRUD::column('data_pagamento')->type('datetime')->format('DD/MM/YYYY');
         CRUD::column('valor_pagamento')->type('number')
             ->prefix('R$ ')
@@ -96,6 +98,7 @@ class AdiantamentoMotoristaCrudController extends CrudController
             ->minimum_input_length(0)
             ->method('post')
             ->size(3);
+
         CRUD::field('data_pagamento')->label('Data Pagamento.:')->size(3);
         CRUD::field('valor_pagamento')->label('Valor Pagamento.:')->size(2)->attributes(['class' => 'form-control valores']);
         CRUD::field('tipo_adiantamento')->label('Tipo Adiantamento.:')->type('enum')->size(2);
@@ -205,10 +208,20 @@ class AdiantamentoMotoristaCrudController extends CrudController
     public function motoristas(Request $request)
     {
         $search_term = $request->input('q');
-        $form = collect($request->input('form'))->pluck('value', 'razao_social');
 
         if ($search_term) {
-            $options = AdiantamentoMotorista::listaTransportador();
+            $options = DB::table('fornecedors')->where('fornecedors.finalidade', '=', 'TRANSPORTADOR')
+            ->join('lancamento_safras', 'lancamento_safras.motorista_fornecedor_id', '=', 'fornecedors.id')
+            ->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
+            ->leftJoin('adiantamento_motoristas', 'adiantamento_motoristas.fornecedor_id', '=', 'fornecedors.id')
+            ->select(
+                'fornecedors.*',
+               
+            )
+            ->where('safras.status', '=', 'Ativa')
+            ->where('fornecedors.razao_social',  'LIKE', '%' . $search_term . '%')
+            ->groupBy('lancamento_safras.motorista_fornecedor_id')
+            ->paginate(1000000);
         } else {
             $options = AdiantamentoMotorista::listaTransportadores();
         }
