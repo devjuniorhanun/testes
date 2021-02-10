@@ -77,7 +77,7 @@ class Colhedor extends Model
         return $this->belongsTo(Fornecedor::class);
     }
 
-    public function scopeListaColhedor()
+    /*public function scopeListaColhedor()
     {
         $result = DB::table('fornecedors')->where('fornecedors.finalidade', '=', 'COLHEDOR')
             ->join('lancamento_safras', 'lancamento_safras.colhedor_fornecedor_id', '=', 'fornecedors.id')
@@ -94,6 +94,33 @@ class Colhedor extends Model
             ->where('safras.status', '=', 'Ativa')
             ->groupBy('lancamento_safras.colhedor_fornecedor_id')
             ->get();
+        return $result;
+    }*/
+
+    public function scopeListaColhedor()
+    {
+        $result = DB::table('fornecedors')->where('fornecedors.finalidade', '=', 'COLHEDOR')
+            ->join('lancamento_safras', 'lancamento_safras.colhedor_fornecedor_id', '=', 'fornecedors.id')
+            ->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
+            //
+            ->addSelect([
+                'valorAdiantamento' => AdiantamentoMotorista::whereColumn('fornecedor_id', '=', 'fornecedors.id')
+                    ->select(DB::raw('SUM(valor_pagamento)'))->limit(1)
+            ])
+            ->addSelect([
+                'sacoBruto' => LancamentoSafra::whereColumn('colhedor_fornecedor_id', '=', 'fornecedors.id')
+                    ->select(DB::raw('SUM(saco_bruto)'))->limit(1)
+            ])
+            
+            ->addSelect([
+                'qtnViagem' => LancamentoSafra::whereColumn('colhedor_fornecedor_id', '=', 'fornecedors.id')
+                    ->select(DB::raw('count(id)'))->limit(1)
+            ])
+            ->where('safras.status', '=', 'Ativa')
+            ->groupBy('lancamento_safras.colhedor_fornecedor_id')
+            ->orderBy('fornecedors.nome_fantasia')
+            ->get();
+        //dd($result);
         return $result;
     }
 }

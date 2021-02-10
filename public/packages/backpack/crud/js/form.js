@@ -80,7 +80,7 @@ jQuery(function ($) {
         var idMotorista = $("#motorista_id").val(); // Id do Motorista
         var idColhedor = $("#colhedor_id").val(); // Id do Colhedor
         var totalPeso = pesoBruto - pesoDesconto; // Total do Peso
-        var valorDesconto = pesoDesconto / pesoBruto; // Porcentagem de desconto
+        var valorDesconto = (pesoDesconto / pesoBruto) * 100; // Porcentagem de desconto
         var sacoBruto = (pesoBruto / 60); // Quantidade de Sacos Bruto
         var saco_liquido = (totalPeso / 60); // Quantidade de Saco Liquido
 

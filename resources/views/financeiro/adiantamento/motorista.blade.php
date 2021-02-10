@@ -35,7 +35,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                     <div class="col numeroRecibo">{{ $entry->id }}</div>
                 </div>
             </div>
-            <div class="col col-md-2 offset-md-1 border rounded">
+            <div class="col col-md-3 border rounded">
                 <div class="row">
                     <div class="col"><b>Valor R$</b></div>
                 </div>
@@ -79,7 +79,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
         <div class="row pt-2">
             <div class="col col-md-2 border rounded">{{ $entry->tipo_adiantamento }}</div>
-            <div class="col col-md-1 offset-md-1 border rounded">
+            <div class="col col-md-2 border rounded">
                 <div class="row">
                     <div class="col"><b>Nº</b></div>
                 </div>
@@ -169,7 +169,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-4">
                             <div class="col">&nbsp;</div>
                         </div>
                         <div class="row pt-2">

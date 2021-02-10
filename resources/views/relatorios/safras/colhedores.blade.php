@@ -42,7 +42,7 @@
                     <th scope="col">QtnViagem</th>
                     <th scope="col">Colhedor</th>
                     <th scope="col">Peso Bruto</th>
-                    <th scope="col">Valor Colhido</th>
+                    <th scope="col">Qnt %</th>
                     <th scope="col">Adiantamentos</th>
                 </tr>
             </thead>
@@ -55,8 +55,8 @@
                 <tr>
                     <th scope="row">{{ $lista->qtnViagem }}</th>
                     <td>{{ $lista->nome_fantasia }}</td>
-                    <td>{{ number_format($lista->sacoBruto, 0, '.', '.') }} Sc</td>
-                    <td>{{ ($lista->sacoBruto * 0.05) }}</td>
+                    <td>{{ number_format($lista->sacoBruto, 3, ',', '.') }} Sc</td>
+                    <td>{{ number_format(($lista->sacoBruto * 0.05), 3, ',', '.') }} Sc</td>
                     <td>{{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
 
                 </tr>

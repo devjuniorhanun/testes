@@ -99,9 +99,9 @@ class AdiantamentoMotoristaCrudController extends CrudController
         CRUD::field('data_pagamento')->label('Data Pagamento.:')->size(3);
         CRUD::field('valor_pagamento')->label('Valor Pagamento.:')->size(2)->attributes(['class' => 'form-control valores']);
         CRUD::field('tipo_adiantamento')->label('Tipo Adiantamento.:')->type('enum')->size(2);
-        CRUD::field('nome_banco')->label('Banco.:')->size(3);
-        CRUD::field('agencia')->label('Agência.:')->size(3);
-        CRUD::field('num_conta')->label('Nº Cheque.:')->size(3);
+        CRUD::field('nome_banco')->label('Banco.:')->size(2);
+        CRUD::field('agencia')->label('Agência.:')->size(2);
+        CRUD::field('num_conta')->label('Nº.:')->size(3);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -174,24 +174,6 @@ class AdiantamentoMotoristaCrudController extends CrudController
 
     protected function setupShowOperation()
     {
-        /*
-        $this->crud->set('show.setFromDb', false);
-        CRUD::column('safra_id')
-            ->type('select')
-            ->entity('safra')
-            ->attribute('nome');
-        CRUD::column('fornecedor_id')
-            ->type('select')
-            ->entity('fornecedor')
-            ->attribute('nome_fantasia');
-        CRUD::column('data_pagamento')->type('datetime')->format('DD/MM/YYYY');
-        CRUD::column('valor_pagamento')->type('number')
-            ->prefix('R$ ')
-            ->decimals(2)
-            ->dec_point(',')
-            ->thousands_sep('.');
-        CRUD::column('tipo_adiantamento')->type('enum');
-        */
         $this->crud->hasAccessOrFail('show');
 
         $this->data['crud'] = $this->crud;
@@ -230,7 +212,12 @@ class AdiantamentoMotoristaCrudController extends CrudController
         } else {
             $options = AdiantamentoMotorista::listaTransportadores();
         }
-        //$options = AdiantamentoMotorista::listaTransportador();
         return $options;
+    }
+
+    public function transportadores()
+    {
+        $listaTransportador = LancamentoSafra::listaTransportador();
+        return view('financeiro.adiantamento.transportadores',compact('listaTransportador'));
     }
 }
