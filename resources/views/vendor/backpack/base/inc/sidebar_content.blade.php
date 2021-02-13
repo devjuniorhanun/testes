@@ -137,7 +137,21 @@
 			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Contas</a>
 			<ul class="nav-dropdown-items">
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Contas Apagar</span></a></li>
-				
+
+			</ul>
+		</li>
+	</ul>
+</li>
+
+<!-- Embarque -->
+<li class="nav-item nav-dropdown">
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Embarque</a>
+	<ul class="nav-dropdown-items">
+		<li class="nav-item nav-dropdown">
+			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Entrada</a>
+			<ul class="nav-dropdown-items">
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('embarquearmazem') }}"><i class="nav-icon la la-question"></i> <span>Safra</span></a></li>
+
 			</ul>
 		</li>
 	</ul>

@@ -192,6 +192,7 @@ class LancamentoSafraCrudController extends CrudController
             ->type('select2')
             ->attribute('inscricao_estadual')
             ->model('App\Models\Fazenda')
+            ->default(0)
             ->options(function ($query) {
                 return $query->where('status', '=', 'Ativa')->orderBy('nome', 'ASC')->get();
             })
@@ -407,7 +408,9 @@ class LancamentoSafraCrudController extends CrudController
                 ->leftJoin('talhaos', 'talhaos.id', '=', 'locacao_talhaos.talhao_id')
                 ->orderBy('talhaos.nome')
                 ->where('talhaos.nome', 'LIKE', '%' . $search_term . '%')
-                ->select('locacao_talhaos.id','talhaos.nome')
+                ->select('talhaos.id','talhaos.nome')
+                ->groupBy('talhaos.id')
+                ->where('talhaos.deleted_at', '=', null)
                 ->paginate(1000000);
             return $options;
         } else {
@@ -415,7 +418,9 @@ class LancamentoSafraCrudController extends CrudController
                 ->leftJoin('locacao_talhaos', 'locacao_talhaos.safra_id', '=', 'safras.id')
                 ->leftJoin('talhaos', 'talhaos.id', '=', 'locacao_talhaos.talhao_id')
                 ->orderBy('talhaos.nome')
-                ->select('locacao_talhaos.id','talhaos.nome')
+                ->select('talhaos.id','talhaos.nome')
+                ->groupBy('talhaos.id')
+                ->where('talhaos.deleted_at', '=', null)
                 //->pluck('talhaos.nome','locacao_talhaos.id');
                 ->paginate(1000000);
                 ;

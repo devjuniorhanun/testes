@@ -45,7 +45,7 @@ Route::group([
     Route::crud('matrizfrete', 'MatrizFreteCrudController');
     Route::crud('motorista', 'MotoristaCrudController');
     Route::crud('lancamentosafra', 'LancamentoSafraCrudController');
-    Route::post('lancamentosafra/locacao', 'LancamentoSafraCrudController@locacao');
+    Route::any('lancamentosafra/locacao', 'LancamentoSafraCrudController@locacao');
     Route::post('lancamentosafra/{id?}/locacao', 'LancamentoSafraCrudController@locacao');
     Route::any('lancamentosafra/frete/{idLocacao}/{idArmazen}/{idMotorista}/{idColhedor}', 'LancamentoSafraCrudController@frete');
     Route::get('relatorios/safra', 'LancamentoSafraCrudController@safra');
@@ -61,8 +61,12 @@ Route::group([
     Route::crud('adiantamentocolhedo', 'Financiero\AdiantamentoColhedoCrudController');
     Route::post('adiantamentocolhedo/colhedores', 'Financiero\AdiantamentoColhedoCrudController@colhedores');
     
+    // Embarque
+    Route::crud('embarquearmazem', 'Embarque\EmbarqueArmazemCrudController');
+
     // Relatorios
     Route::any('relatorios/motorista', 'LancamentoSafraCrudController@motorista')->name('relatorio_motorista');
     Route::get('relatorios/motoristas', 'LancamentoSafraCrudController@motoristas');    
     Route::get('relatorios/colhedores', 'Relatorios\SafraController@colhedores');
+    
 }); // this should be the absolute last line of this file
