@@ -144,10 +144,10 @@ class LancamentoSafraCrudController extends CrudController
             ->size(3);
         CRUD::field('num_romaneio')->label('Nº Romaneio')->size(3);
         CRUD::field('num_controle')->label('Nº Controle')->size(3);
-        CRUD::field('talhao_id')->type('hidden')->attributes(['id' => 'talhao_id']);
+        //CRUD::field('talhao_id')->type('hidden')->attributes(['id' => 'talhao_id']);
 
-        CRUD::field('locacao_talhao_id')
-            ->attributes(['id' => 'locacao_talhao_id'])
+        CRUD::field('talhao_id')
+            ->attributes(['id' => 'talhao_id'])
             ->label('Talhão')
             ->model('App\Models\LocacaoTalhao')
             ->type('select2_from_ajax')
