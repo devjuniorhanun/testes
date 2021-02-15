@@ -105,6 +105,37 @@ jQuery(function ($) {
             });
     });
 
+    /**
+     * Função para calcular.
+     * Peso liquido, Quantidade de sacos, valor do frete
+     */
+    $("#segunda_pesagam").focusout(function () { 
+        var primeiraPesagem = $("#primeira_pesagem").val(); // Peso Bruto
+        var umidade = $("#umidade").val(); // Peso do Desconto
+        var segundaPesagam = $("#segunda_pesagam").val(); // Peso do Desconto
+        var valorDesconto = 0;
+        var pesoBruto = primeiraPesagem - segundaPesagam;
+        var sacoBruto = pesoBruto / 60;
+        var pesoLiquido = pesoBruto;
+        var sacoLiquido = pesoBruto / 60;        
+
+        if(umidade > 14) {
+            var descontoUmidade = (umidade - 14) * 1.5;
+            valorDesconto = ((pesoBruto * descontoUmidade) / 100);
+            pesoBrutos = pesoBruto - valorDesconto;
+            pesoLiquido = pesoBrutos;
+            sacoLiquido = pesoBrutos / 60;
+            
+            //alert(valorDesconto);
+        }
+        $("#desconto").val(valorDesconto);
+        $("#peso_bruto").val(pesoBruto);
+        $("#peso_liquido").val(pesoLiquido);
+        $("#saco_bruto").val(sacoBruto.toFixed(3));
+        $("#saco_liquido").val(sacoLiquido.toFixed(3));
+        
+    });
+
 
 
 

@@ -39,6 +39,9 @@ class EmbarqueArmazemCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->removeButton('delete');
+        $this->crud->removeButton('show');
+        $this->crud->addClause('where', 'status', '=', 'ABERTO');
         CRUD::column('ardido');
         CRUD::column('avariado');
         CRUD::column('created_at');
@@ -119,18 +122,18 @@ class EmbarqueArmazemCrudController extends CrudController
                 return $query->where('status', '=', 'Ativa')->orderBy('nome', 'ASC')->get();
             })
             ->size(2);
-            CRUD::field('primeira_pesagem')->label('1º Pesagem.:')->size(2);
-            CRUD::field('umidade')->label('Umidade.:')->size(2);
-            CRUD::field('segunda_pesagam')->label('2º Pesagem.:')->size(2);
+            CRUD::field('primeira_pesagem')->label('1º Pesagem.:')->size(2)->attributes(['id' => 'primeira_pesagem']);
+            CRUD::field('umidade')->label('Umidade.:')->size(2)->attributes(['id' => 'umidade']);
+            CRUD::field('segunda_pesagam')->label('2º Pesagem.:')->size(2)->attributes(['id' => 'segunda_pesagam']);
             CRUD::field('impuresa')->label('Impuresa.:')->size(2);
             CRUD::field('ardido')->label('Ardido.:')->size(2);
             CRUD::field('partido')->label('Partidos.:')->size(2);
             CRUD::field('avariado')->label('Avariados.:')->size(2);
-            CRUD::field('desconto')->label('Descontos.:')->size(2);
-            CRUD::field('peso_bruto')->label('Peso Bruto.:')->size(2);
-            CRUD::field('saco_bruto')->label('Saco Bruto.:')->size(2);
-            CRUD::field('peso_liquido')->label('Peso Liquido.:')->size(2);
-            CRUD::field('saco_liquido')->label('Saco Liquido.:')->size(2);
+            CRUD::field('desconto')->label('Descontos.:')->size(2)->attributes(['id' => 'desconto', 'class' => 'form-control desabilitado']);
+            CRUD::field('peso_bruto')->label('Peso Bruto.:')->size(2)->attributes(['id' => 'peso_bruto', 'class' => 'form-control desabilitado']);
+            CRUD::field('saco_bruto')->label('Saco Bruto.:')->size(2)->attributes(['id' => 'saco_bruto', 'class' => 'form-control desabilitado']);
+            CRUD::field('peso_liquido')->label('Peso Liquido.:')->size(2)->attributes(['id' => 'peso_liquido', 'class' => 'form-control desabilitado']);
+            CRUD::field('saco_liquido')->label('Saco Liquido.:')->size(2)->attributes(['id' => 'saco_liquido', 'class' => 'form-control desabilitado']);
             
     }
 
@@ -144,4 +147,17 @@ class EmbarqueArmazemCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+/*
+    public function index()
+    {
+        $this->crud->hasAccessOrFail('list');
+
+        $this->data['crud'] = $this->crud;
+        $this->data['title'] = $this->crud->getTitle() ?? mb_ucfirst($this->crud->entity_name_plural);
+
+        // load the view from /resources/views/vendor/backpack/crud/ if it exists, otherwise load the one in the package
+        dd($this->data);
+        return view($this->crud->getListView(), $this->data);
+    }*/
+
 }
