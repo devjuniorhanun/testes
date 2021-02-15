@@ -75,7 +75,7 @@ jQuery(function ($) {
     $("#peso_desconto").focusout(function () {
         var pesoBruto = $("#peso_bruto").val(); // Peso Bruto
         var pesoDesconto = $("#peso_desconto").val(); // Peso do Desconto
-        var idLocacao = $("#locacao_talhao_id").val(); // Id do Talhão
+        var idLocacao = $("#talhao_id").val(); // Id do Talhão
         var idArmazen = $("#armazem_id").val(); // Id do Armazem
         var idMotorista = $("#motorista_id").val(); // Id do Motorista
         var idColhedor = $("#colhedor_id").val(); // Id do Colhedor
@@ -93,7 +93,7 @@ jQuery(function ($) {
                 var valorFrete = sacoBruto * response.data['frete']['frete'];
                 $("#valor_frete").val(valorFrete.toFixed(2));
                 $("#motorista_fornecedor_id").val(response.data['motorista']['fornecedor_id']);
-                $("#talhao_id").val(response.data['locacao']['talhao_id']);
+                //$("#talhao_id").val(response.data['locacao']['talhao_id']);
                 $("#variedade_cultura_id").val(response.data['locacao']['variedade_cultura_id']);
                 $("#cultura_id").val(response.data['locacao']['cultura_id']);
                 $("#colhedor_fornecedor_id").val(response.data['colhedor']['fornecedor_id']);

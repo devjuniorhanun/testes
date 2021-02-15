@@ -47,7 +47,7 @@ Route::group([
     Route::crud('lancamentosafra', 'LancamentoSafraCrudController');
     Route::any('lancamentosafra/locacao', 'LancamentoSafraCrudController@locacao');
     Route::post('lancamentosafra/{id?}/locacao', 'LancamentoSafraCrudController@locacao');
-    Route::any('lancamentosafra/frete/{idLocacao}/{idArmazen}/{idMotorista}/{idColhedor}', 'LancamentoSafraCrudController@frete');
+    Route::any('lancamentosafra/frete/{idArmazen}/{idMotorista}/{idColhedor}', 'LancamentoSafraCrudController@frete');
     Route::get('relatorios/safra', 'LancamentoSafraCrudController@safra');
     Route::any('relatorios/safras', 'LancamentoSafraCrudController@safras')->name('relatorio_safra');;
     Route::get('relatorios/mapaProdutividade', 'LancamentoSafraCrudController@mapaProdutividade');
