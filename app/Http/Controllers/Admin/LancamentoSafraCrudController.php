@@ -80,8 +80,6 @@ class LancamentoSafraCrudController extends CrudController
         CRUD::column('fazenda_id')->type('select')
             ->entity('Fazenda')
             ->attribute('nome');
-        //CRUD::column('locacao_talhao_id');
-        //CRUD::column('matriz_frete_id');
         CRUD::column('matriz_frete_id')
             ->type('select')
             ->entity('matrizFrete')
@@ -144,7 +142,7 @@ class LancamentoSafraCrudController extends CrudController
             ->size(3);
         CRUD::field('num_romaneio')->label('Nº Romaneio')->size(3);
         CRUD::field('num_controle')->label('Nº Controle')->size(3);
-        //CRUD::field('talhao_id')->type('hidden')->attributes(['id' => 'talhao_id']);
+        CRUD::field('locacao_talhao_id')->type('hidden')->attributes(['id' => 'locacao_talhao_id']);
 
         CRUD::field('talhao_id')
             ->attributes(['id' => 'talhao_id'])
@@ -252,8 +250,6 @@ class LancamentoSafraCrudController extends CrudController
         CRUD::column('fazenda_id')->type('select')
             ->entity('Fazenda')
             ->attribute('nome');
-        //CRUD::column('locacao_talhao_id');
-        //CRUD::column('matriz_frete_id');
         CRUD::column('matriz_frete_id')
             ->type('select')
             ->entity('matrizFrete')
