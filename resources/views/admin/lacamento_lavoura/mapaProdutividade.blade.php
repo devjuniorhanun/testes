@@ -45,11 +45,19 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $sacoLiquido = 0;
+                    $areaTotal = 0;
+                @endphp
                 @forelse ($produtividade as $lista)
+                @php
+                    $sacoLiquido += $lista->saco_liquido;
+                    $areaTotal += $lista->area_total;
+                @endphp
                 <tr>
                     <td>{{ $lista->nome }}</td>
                     <td>{{ number_format($lista->saco_liquido, 2, ',', '.') }} Sc</td>
-                    <td>{{ number_format($lista->area_total, 2, ',', '.') }}</td>
+                    <td>{{ number_format($lista->area_total, 2, ',', '.') }} ha</td>
                     <td>{{ number_format($lista->saco_liquido / $lista->area_total, 2, ',', '.') }} Sc</td>
                     <td>{{ $lista->culturaNome }}</td>
                 </tr>
@@ -58,6 +66,22 @@
                 @endforelse
 
             </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="col">Talhão</th>
+                    <th scope="col">Produção</th>
+                    <th scope="col">Área Colhida</th>
+                    <th scope="col">Média</th>
+                    <th scope="col">Cultura</th>
+                </tr>
+                <tr>
+                    <th>Meida Colhida</th>
+                    <th>{{ number_format($sacoLiquido, 2, ',', '.') }} Sc</th>
+                    <th>{{ number_format($areaTotal, 2, ',', '.') }} ha</th>
+                    <td>{{ number_format($sacoLiquido / $areaTotal, 2, ',', '.') }} Sc</td>
+                    <th></th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 

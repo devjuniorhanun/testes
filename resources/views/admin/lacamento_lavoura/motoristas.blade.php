@@ -32,16 +32,31 @@
           <th scope="col">Peso Bruto</th>
           <th scope="col">Valor Frete</th>
           <th scope="col">Adiantamentos</th>
+          <th scope="col">Saldo</th>
         </tr>
       </thead>
       <tbody>
+        @php
+          $qntViagem = 0;
+          $qntSaco = 0;
+          $qntFrete = 0;
+          $qntAdiantamento = 0;
+        @endphp
+
         @forelse ($listaTransportador as $lista)
+        @php
+          $qntViagem += $lista->qtnViagem;
+          $qntSaco += $lista->QtnSacoBrutos;
+          $qntFrete += $lista->valorFrete;
+          $qntAdiantamento += $lista->valorAdiantamento;
+        @endphp
         <tr>
           <th scope="row">{{ $lista->qtnViagem }}</th>
           <td>{{ $lista->nome_fantasia }}</td>
           <td>{{ number_format($lista->QtnSacoBrutos, 0, '.', '.') }} Sc</td>
           <td>R$ {{ number_format($lista->valorFrete, 2, ',', '.') }}</td>
           <td>R$ {{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
+          <td>R$ {{ ($lista->valorAdiantamento)? number_format(($lista->valorFrete - $lista->valorAdiantamento), 2, ',', '.') : "0"}}</td>
         </tr>
         @empty
         <p>Não foi encontrado Nem um Registro</p>
@@ -55,6 +70,15 @@
           <th scope="col">Peso Bruto</th>
           <th scope="col">Valor Frete</th>
           <th scope="col">Adiantamentos</th>
+          <th scope="col">Saldo</th>
+        </tr>
+        <tr>
+          <td>{{$qntViagem}}</td>
+          <td></td>
+          <td>{{ number_format($qntSaco, 0, '.', '.') }} Sc</td>
+          <td>R$ {{ number_format($qntFrete, 2, ',', '.') }}</td>
+          <td>R$ {{ number_format($qntAdiantamento, 2, ',', '.') }}</td>
+          <td>R$ {{ ($qntAdiantamento)? number_format(($qntFrete - $qntAdiantamento), 2, ',', '.') : "0"}}</td>
         </tr>
 
       </tfoot>

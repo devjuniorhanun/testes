@@ -28,9 +28,16 @@
         @forelse ($registros as $listas)
         @php $i = 0; @endphp
         <table class="table table-striped table-hover table-sm table-bordered">
+           
             @foreach ($listas as $lista)
             @if($i == 0)
             @php $i++; @endphp
+            @php
+                $qntViagem = 0;
+                $qntPesoBruto = 0;
+                $qntFrete = 0;
+                $qntAdiantamento = 0;
+            @endphp
             <thead>
                 <tr>
                     <th scope="col" colspan="11">{{$lista->motorista->nome}}</th>
@@ -50,10 +57,16 @@
                 </tr>
             </thead>
             <tbody>
-            @endif
+                @endif
 
-            @if($i > 0) 
-            <tr>
+                @if($i > 0)
+                @php
+                    $qntViagem += $i;
+                    $qntPesoBruto += $lista->peso_bruto;
+                    $qntFrete += $lista->valor_frete;
+                    
+                @endphp
+                <tr>
                     <th scope="col">{{ Carbon\Carbon::parse($lista->data_colhido)->format('d/m/Y') }}</th>
                     <th scope="col">{{$lista->talhao->nome}}</th>
                     <th scope="col">{{$lista->num_romaneio}}</th>
@@ -66,13 +79,39 @@
                     <th scope="col">R$ {{number_format($lista->matrizFrete->frete, 2, ',', '.')}}</th>
                     <th scope="col">R$ {{number_format($lista->valor_frete, 2, ',', '.')}}</th>
                 </tr>
-
-
-
-            @endif
+                @endif
             </tbody>
 
             @endforeach
+            <tfoot>
+                <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Talhão</th>
+                    <th scope="col">Romaneio</th>
+                    <th scope="col">Controle</th>
+                    <th scope="col">Peso Bruto</th>
+                    <th scope="col">Desconto</th>
+                    <th scope="col">Peso Líquido</th>
+                    <th scope="col">Armazén</th>
+                    <th scope="col">Colhedor</th>
+                    <th scope="col">Frete</th>
+                    <th scope="col">Valor Frete</th>
+                </tr>
+                <tr>
+                    <td><strong>Qnt Viagem</strong></td>
+                    <td><strong>{{$qntViagem}}</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong>{{number_format($qntPesoBruto, 0, '.', '.')}} Kg</strong></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><strong>R$ {{number_format($qntFrete, 2, ',', '.')}}</strong></td>
+                </tr>
+
+            </tfoot>
         </table>
 
         @empty
