@@ -45,6 +45,7 @@ class AdiantamentoMotorista extends Model
         'nome_banco',
         'agencia',
         'num_conta',
+        'num_cheque',
     ];
 
     /**

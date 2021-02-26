@@ -75,7 +75,7 @@
                     <th scope="col">Cultura</th>
                 </tr>
                 <tr>
-                    <th>Meida Colhida</th>
+                    <th>Média Colhida</th>
                     <th>{{ number_format($sacoLiquido, 2, ',', '.') }} Sc</th>
                     <th>{{ number_format($areaTotal, 2, ',', '.') }} ha</th>
                     <td>{{ number_format($sacoLiquido / $areaTotal, 2, ',', '.') }} Sc</td>

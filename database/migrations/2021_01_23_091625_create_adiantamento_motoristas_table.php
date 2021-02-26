@@ -28,6 +28,7 @@ class CreateAdiantamentoMotoristasTable extends Migration
             $table->string('nome_banco')->nullable();
             $table->string('agencia')->nullable();
             $table->string('num_conta')->nullable();
+            $table->string('num_cheque')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

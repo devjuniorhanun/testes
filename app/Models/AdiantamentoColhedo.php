@@ -45,6 +45,7 @@ class AdiantamentoColhedo extends Model
         'nome_banco',
         'agencia',
         'num_conta',
+        'num_cheque',
     ];
 
     /**
@@ -81,11 +82,12 @@ class AdiantamentoColhedo extends Model
     {
          $result = DB::table('fornecedors')->where('fornecedors.finalidade', '=', 'COLHEDOR')
             ->join('lancamento_safras', 'lancamento_safras.colhedor_fornecedor_id', '=', 'fornecedors.id')
-            //->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
-            //->leftJoin('adiantamento_colhedos', 'adiantamento_colhedos.fornecedor_id', '=', 'fornecedors.id')
+            ->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
+            ->leftJoin('adiantamento_colhedos', 'adiantamento_colhedos.fornecedor_id', '=', 'fornecedors.id')
             ->select('fornecedors.*')
-            //->where('safras.status', '=', 'Ativa')
-            //->groupBy('lancamento_safras.colhedor_fornecedor_id')
+            ->where('safras.status', '=', 'Ativa')
+            ->orderBy('fornecedors.razao_social')
+            ->groupBy('lancamento_safras.colhedor_fornecedor_id')
             ->paginate(1000000);
         return $result;
     }

@@ -335,6 +335,19 @@ class LancamentoSafra extends Model
         return $result;
     }
 
+    public function scopeListaProprietarios()
+    {
+        $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
+            ->leftJoin('lancamento_safras', '.safra_id', '=', 'safras.id')
+            ->where('lancamento_safras.data_colhido', '<>', null)
+            ->leftJoin('proprietarios', 'proprietarios.id', '=', 'lancamento_safras.proprietario_id')
+            ->select('proprietarios.id', 'proprietarios.razao_social')
+            ->orderBy('proprietarios.razao_social')
+            ->groupBy('proprietarios.id')
+            ->get();
+        return $result;
+    }
+
     public function scopeMapaProdutividade()
     {
         $result = DB::table('lancamento_safras')

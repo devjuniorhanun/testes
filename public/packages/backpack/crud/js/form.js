@@ -39,6 +39,7 @@ jQuery(function ($) {
     $('.celular').mask('(00) 00000-0000');
     $('.areas').mask("#.##0,00", { reverse: true });
     $('.inscricao').mask('00.000.000-0');
+    //$('.valores').mask("#.##0,00", { reverse: true });
     $('.valores').mask("#.##0,00", { reverse: true });
     $('.volume').mask("#.##0,000", { reverse: true });
     $('.peso').mask("#.##0", { reverse: true });

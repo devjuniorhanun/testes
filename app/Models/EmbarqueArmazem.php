@@ -37,6 +37,7 @@ class EmbarqueArmazem extends Model
    protected $fillable = [
         'tenant_id',
         'safra_id',
+        'proprietario_id',
         'fazenda_id',
         'motorista_id',
         'cultura_id',
@@ -65,6 +66,7 @@ class EmbarqueArmazem extends Model
         'id' => 'integer',
         'tenant_id' => 'integer',
         'safra_id' => 'integer',
+        'proprietario_id' => 'integer',
         'fazenda_id' => 'integer',
         'motorista_id' => 'integer',
         'cultura_id' => 'integer',
@@ -85,26 +87,31 @@ class EmbarqueArmazem extends Model
 
     public function tenant()
     {
-        return $this->belongsTo(\App\Models\Tenant::class);
+        return $this->belongsTo(Tenant::class);
     }
 
     public function safra()
     {
-        return $this->belongsTo(\App\Models\Safra::class);
+        return $this->belongsTo(Safra::class);
     }
 
     public function fazenda()
     {
-        return $this->belongsTo(\App\Models\Fazenda::class);
+        return $this->belongsTo(Fazenda::class);
     }
 
     public function motorista()
     {
-        return $this->belongsTo(\App\Models\Motorista::class);
+        return $this->belongsTo(Motorista::class);
     }
 
     public function cultura()
     {
-        return $this->belongsTo(\App\Models\Cultura::class);
+        return $this->belongsTo(Cultura::class);
+    }
+
+    public function proprietario()
+    {
+        return $this->belongsTo(Proprietario::class);
     }
 }

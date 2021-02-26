@@ -35,7 +35,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                     <div class="col numeroRecibo">{{ $entry->id }}</div>
                 </div>
             </div>
-            <div class="col col-md-2 offset-md-1 border rounded">
+            <div class="col col-md-3 border rounded">
                 <div class="row">
                     <div class="col"><b>Valor R$</b></div>
                 </div>
@@ -65,7 +65,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
         <div class="row pt-2">
             <div class="col border rounded">
-                Referente a: <b>Adiantamento de Serviços de Frete da {{ $entry->safra->nome}} </b>
+                Referente a: <b>Adiantamento de Serviços de Colheitadeira da {{ $entry->safra->nome}} </b>
             </div>
         </div>
 
@@ -79,29 +79,40 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
         <div class="row pt-2">
             <div class="col col-md-2 border rounded">{{ $entry->tipo_adiantamento }}</div>
-            <div class="col col-md-1 offset-md-1 border rounded">
-                <div class="row">
-                    <div class="col"><b>Nº</b></div>
-                </div>
-                <div class="row">
-                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->num_conta : '' }}</div>
-                </div>
-            </div>
-            <div class="col col-md-4 offset-md-1 border rounded">
+            
+            <div class="col col-md-2 border rounded">
                 <div class="row">
                     <div class="col"><b>Banco</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->banco : '' }}</div>
+                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->banco : $entry->nome_banco }}</div>
                 </div>
 
             </div>
+            
             <div class="col col-md-2 offset-md-1 border rounded">
                 <div class="row">
                     <div class="col"><b>Agência</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->agencia : '' }}</div>
+                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->agencia : $entry->agencia }}</div>
+                </div>
+            </div>
+            <div class="col col-md-2 border rounded">
+                <div class="row">
+                    <div class="col"><b>Nº Conta</b></div>
+                </div>
+                <div class="row">
+                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? $entry->fornecedor->num_conta : $entry->num_conta }}</div>
+                </div>
+            </div>
+
+            <div class="col col-md-2 border rounded">
+                <div class="row">
+                    <div class="col"><b>Nº Cheque</b></div>
+                </div>
+                <div class="row">
+                    <div class="col numeroRecibo">{{ ($entry->tipo_adiantamento == 'DEPOSITO')? '' : $entry->num_cheque }}</div>
                 </div>
             </div>
         </div>
@@ -169,7 +180,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-4">
                             <div class="col">&nbsp;</div>
                         </div>
                         <div class="row pt-2">

@@ -8,6 +8,7 @@ use App\Models\LancamentoContaApagar;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class AdiantamentoColhedoCrudController
@@ -95,11 +96,12 @@ class AdiantamentoColhedoCrudController extends CrudController
             ->method('post')
             ->size(3);
         CRUD::field('data_pagamento')->label('Data Pagamento.:')->size(3);
-        CRUD::field('valor_pagamento')->label('Valor Pagamento.:')->size(2)->attributes(['class' => 'form-control valores']);
+        CRUD::field('valor_pagamento')->label('Valor Pagamento.:')->size(2)->attributes(['class' => 'form-control']);
         CRUD::field('tipo_adiantamento')->label('Tipo Adiantamento.:')->type('enum')->size(2);
         CRUD::field('nome_banco')->label('Banco.:')->size(3);
-        CRUD::field('agencia')->label('Agência.:')->size(3);
-        CRUD::field('num_conta')->label('Nº Cheque.:')->size(3);
+        CRUD::field('agencia')->label('Agência.:')->size(2);
+        CRUD::field('num_conta')->label('Nº Conta.:')->size(2);
+        CRUD::field('num_cheque')->label('Nº Cheque.:')->size(2);
     }
 
     /**
@@ -190,7 +192,15 @@ class AdiantamentoColhedoCrudController extends CrudController
        // $form = collect($request->input('form'))->pluck('value', 'razao_social');
 
         if ($search_term) {
-            $options = AdiantamentoColhedo::listaColhedores();
+            $options = DB::table('fornecedors')->where('fornecedors.finalidade', '=', 'COLHEDOR')
+            ->join('lancamento_safras', 'lancamento_safras.colhedor_fornecedor_id', '=', 'fornecedors.id')
+            ->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
+            ->leftJoin('adiantamento_colhedos', 'adiantamento_colhedos.fornecedor_id', '=', 'fornecedors.id')
+            ->select('fornecedors.*')
+            ->where('fornecedors.razao_social',  'LIKE', '%' . $search_term . '%')
+            ->orderBy('fornecedors.razao_social')
+            ->groupBy('lancamento_safras.colhedor_fornecedor_id')
+            ->paginate(1000000);
         } else {
             $options = AdiantamentoColhedo::listaColhedores();
         }

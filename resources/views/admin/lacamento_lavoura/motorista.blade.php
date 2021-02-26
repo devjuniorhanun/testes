@@ -35,21 +35,26 @@
             @php
                 $qntViagem = 0;
                 $qntPesoBruto = 0;
+                $qntSacoBruto = 0;
+                $qntSacoLiquido = 0;
+                $mediaFrete = 0;
                 $qntFrete = 0;
                 $qntAdiantamento = 0;
             @endphp
             <thead>
                 <tr>
-                    <th scope="col" colspan="11">{{$lista->motorista->nome}}</th>
+                    <th scope="col" colspan="13">{{$lista->motorista->nome}}</th>
                 </tr>
                 <tr>
                     <th scope="col">Data</th>
                     <th scope="col">Talhão</th>
                     <th scope="col">Romaneio</th>
                     <th scope="col">Controle</th>
-                    <th scope="col">Peso Bruto</th>
-                    <th scope="col">Desconto</th>
-                    <th scope="col">Peso Líquido</th>
+                    <th scope="col">P. Bruto</th>
+                    <th scope="col">S. Bruto</th>
+                    <th scope="col">Des.</th>
+                    <th scope="col">P. Líquido</th>
+                    <th scope="col">S. Líquido</th>
                     <th scope="col">Armazén</th>
                     <th scope="col">Colhedor</th>
                     <th scope="col">Frete</th>
@@ -63,7 +68,10 @@
                 @php
                     $qntViagem += $i;
                     $qntPesoBruto += $lista->peso_bruto;
+                    $qntSacoBruto += $lista->saco_bruto;
+                    $qntSacoLiquido += $lista->saco_liquido;
                     $qntFrete += $lista->valor_frete;
+                    $mediaFrete += $lista->matrizFrete->frete;
                     
                 @endphp
                 <tr>
@@ -72,8 +80,10 @@
                     <th scope="col">{{$lista->num_romaneio}}</th>
                     <th scope="col">{{$lista->num_controle}}</th>
                     <th scope="col">{{number_format($lista->peso_bruto, 0, '.', '.')}} Kg</th>
+                    <th scope="col">{{number_format($lista->saco_bruto, 0, '.', '.')}} Sc</th>
                     <th scope="col">{{number_format($lista->peso_desconto, 0, '.', '.')}} Kg</th>
                     <th scope="col">{{number_format($lista->peso_liquido, 0, '.', '.')}} Kg</th>
+                    <th scope="col">{{number_format($lista->saco_liquido, 0, '.', '.')}} Kg</th>
                     <th scope="col">{{$lista->armazem->nome}}</th>
                     <th scope="col">{{$lista->colhedor->nome}}</th>
                     <th scope="col">R$ {{number_format($lista->matrizFrete->frete, 2, ',', '.')}}</th>
@@ -85,13 +95,15 @@
             @endforeach
             <tfoot>
                 <tr>
-                    <th scope="col">Data</th>
+                <th scope="col">Data</th>
                     <th scope="col">Talhão</th>
                     <th scope="col">Romaneio</th>
                     <th scope="col">Controle</th>
-                    <th scope="col">Peso Bruto</th>
-                    <th scope="col">Desconto</th>
-                    <th scope="col">Peso Líquido</th>
+                    <th scope="col">P. Bruto</th>
+                    <th scope="col">S. Bruto</th>
+                    <th scope="col">Des.</th>
+                    <th scope="col">P. Líquido</th>
+                    <th scope="col">S. Líquido</th>
                     <th scope="col">Armazén</th>
                     <th scope="col">Colhedor</th>
                     <th scope="col">Frete</th>
@@ -103,11 +115,13 @@
                     <td></td>
                     <td></td>
                     <td><strong>{{number_format($qntPesoBruto, 0, '.', '.')}} Kg</strong></td>
+                    <td><strong>{{number_format($qntSacoBruto, 0, ',', '.')}} Sc</strong></td>
                     <td></td>
                     <td></td>
+                    <td><strong>{{number_format($qntSacoLiquido, 0, ',', '.')}} Sc</strong></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td><strong>R$ {{number_format(($mediaFrete / $qntViagem) , 2, ',', '.')}}</strong></td>
                     <td><strong>R$ {{number_format($qntFrete, 2, ',', '.')}}</strong></td>
                 </tr>
 

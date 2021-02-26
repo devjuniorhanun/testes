@@ -19,6 +19,7 @@ class CreateEmbarqueArmazemsTable extends Migration
             $table->id();
             $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('safra_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('proprietario_id')->constrained()->cascadeOnDelete();
             $table->foreignId('fazenda_id')->constrained()->cascadeOnDelete();
             $table->foreignId('motorista_id')->constrained()->cascadeOnDelete();
             $table->foreignId('cultura_id')->constrained()->cascadeOnDelete();

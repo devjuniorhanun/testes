@@ -100,11 +100,12 @@ class AdiantamentoMotoristaCrudController extends CrudController
             ->size(3);
 
         CRUD::field('data_pagamento')->label('Data Pagamento.:')->size(3);
-        CRUD::field('valor_pagamento')->label('Valor Pagamento.:')->size(2)->attributes(['class' => 'form-control valores']);
+        CRUD::field('valor_pagamento')->label('Valor Pagamento.:')->size(2)->attributes(['class' => 'form-control']);
         CRUD::field('tipo_adiantamento')->label('Tipo Adiantamento.:')->type('enum')->size(2);
-        CRUD::field('nome_banco')->label('Banco.:')->size(2);
+        CRUD::field('nome_banco')->label('Banco.:')->size(3);
         CRUD::field('agencia')->label('Agência.:')->size(2);
-        CRUD::field('num_conta')->label('Nº.:')->size(3);
+        CRUD::field('num_conta')->label('Nº Conta.:')->size(2);
+        CRUD::field('num_cheque')->label('Nº Cheque.:')->size(2);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

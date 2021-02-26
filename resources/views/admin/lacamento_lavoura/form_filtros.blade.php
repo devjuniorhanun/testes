@@ -1,6 +1,6 @@
 <hr>
 <div class="form-row">
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-1">
         <label for="periodo">Periodo.:</label><br>
         <select class="form-control form-control-sm" id="periodo" name="periodo">
         <option value="0">Periodo</option>
@@ -42,6 +42,15 @@
         <option value="0">Colhedores</option>
             @foreach($listaColhedores as $lista)
                 <option value="{{ $lista->id }}">{{ $lista->nome }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="form-group col-md-2">
+        <label for="colhedor">Proprietario.:</label><br>
+        <select class="form-control form-control-sm" id="colhedor" name="colhedor">
+        <option value="0">Proprietario</option>
+            @foreach($listaProprietarios as $lista)
+                <option value="{{ $lista->id }}">{{ $lista->razao_social }}</option>
             @endforeach
         </select>
     </div>
