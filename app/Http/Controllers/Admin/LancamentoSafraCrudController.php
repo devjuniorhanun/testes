@@ -355,9 +355,7 @@ class LancamentoSafraCrudController extends CrudController
             $listagem = LancamentoSafra::where('colhedor_id', '=', $request->colhedor)->get();
         }
         
-        $listagem = LancamentoSafra::where('data_colhido', 'like', "%$request->periodo%")
-            ->where('motorista_id', '=', $request->motorista)
-            ->get();
+        
 
         return view('admin.lacamento_lavoura.relatorios', compact(
             'listagem',
