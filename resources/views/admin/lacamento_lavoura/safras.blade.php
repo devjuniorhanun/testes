@@ -28,7 +28,7 @@
     <div class="row no-print">
       <div class="col">
         {{-- Abre o formulário --}}
-        {!! Form::open(['route' => 'relatorio_safra']) !!}
+        {!! Form::model($date,['route' => 'relatorio_safra']) !!}
         {{-- Chama os campos do formulário --}}
         @include('admin.lacamento_lavoura.form_filtros')
         {{-- Fecha o formulário --}}
