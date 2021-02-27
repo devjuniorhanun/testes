@@ -339,7 +339,6 @@ class LancamentoSafraCrudController extends CrudController
     public function safras(Request $request)
     {
         $date = $request->all();
-        //dd($date);
         $totalColhido = LancamentoSafra::totalColhido();
         $totalColhidoCulutra = LancamentoSafra::totalColhidoCulutra();
         $listaData = LancamentoSafra::listaData();
@@ -348,29 +347,26 @@ class LancamentoSafraCrudController extends CrudController
         $listaArmazem = LancamentoSafra::listaArmazem();
         $listaColhedores = LancamentoSafra::listaColhedores();
         $listaProprietarios = LancamentoSafra::listaProprietarios();
-        //dd($request->periodo);
         
         $query = LancamentoSafra::query();
         if ($request->periodo > 0) {
             $query->where('data_colhido', 'like', "%$request->periodo%");
-            //$query = LancamentoSafra::where('data_colhido', 'like', "%$request->periodo%")->get();
         } 
         if ($request->motorista > 0) {
-            //$where .= " where `motorista_id`, '=', $request->motorista";
             $query->where('motorista_id', '=', $request->motorista)->get();
         } 
         if ($request->talhao > 0) {
-            //$where .= " where('talhao_id', '=', $request->talhao )";
             $query->where('talhao_id', '=', $request->talhao)->get();
         } 
         if ($request->armazem > 0) {
-            //$where .= " where('armazem_id', '=', $request->armazem) ";
             $query->where('armazem_id', '=', $request->armazem)->get();
         } 
         if ($request->colhedor > 0) {
-            //$where .= "  where('colhedor_id', '=', $request->colhedor)";
             $query->where('colhedor_id', '=', $request->colhedor)->get();
-        }        
+        }  
+        if ($request->proprietario > 0) {
+            $query->where('proprietario_id', '=', $request->proprietario)->get();
+        }         
 
         $listagem = $query->get();
 
