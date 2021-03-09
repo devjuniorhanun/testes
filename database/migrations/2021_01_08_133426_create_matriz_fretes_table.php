@@ -18,6 +18,7 @@ class CreateMatrizFretesTable extends Migration
         Schema::create('matriz_fretes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
+            //$table->foreignId('safra_id')->constrained()->cascadeOnDelete();
             $table->uuid('uuid');
             $table->string('bloco');
             $table->string('percurso');

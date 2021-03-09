@@ -35,6 +35,7 @@ class MatrizFrete extends Model
     //Define os campos da entidade
     protected $fillable = [
         'tenant_id',
+        'safra_id',
         'uuid',
         'bloco',
         'percurso',
@@ -50,6 +51,7 @@ class MatrizFrete extends Model
     protected $casts = [
         'id' => 'integer',
         'tenant_id' => 'integer',
+        'safra_id' => 'integer',
         'frete' => 'double',
     ];
 
@@ -63,5 +65,16 @@ class MatrizFrete extends Model
     public function empresa()
     {
         return $this->belongsTo(Tenant::class);
+    }
+
+    /**
+     * Método safra()
+     * Responsavel por interligar as Entidades LocacaoTalhao com Safra
+     * Traz as informações da Safra
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function safra()
+    {
+        return $this->belongsTo(Safra::class);
     }
 }

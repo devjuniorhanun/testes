@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MatrizFreteRequest;
+use App\Models\LancamentoSafra;
 use App\Models\MatrizFrete;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -40,6 +41,11 @@ class MatrizFreteCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->enableExportButtons();
+        CRUD::column('safra_id')->type('select')
+            ->entity('Safra')
+            ->attribute('nome')
+            ->size(4);
         CRUD::column('bloco');
         CRUD::column('percurso');
         CRUD::column('frete');
@@ -61,11 +67,18 @@ class MatrizFreteCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(MatrizFreteRequest::class);
-
-        CRUD::field('bloco')->size(3);
-        CRUD::field('percurso')->size(3);
-        CRUD::field('frete')->size(3)->attributes(['class' => 'form-control areas']);
-        CRUD::field('status')->size(3)->type('enum');
+        CRUD::field('safra_id')
+        ->type('select2')
+        ->entity('safra')
+        ->attribute('nome')
+        ->options(function ($query) {
+            return $query->where('status','=', 'Ativa')->orderBy('nome', 'ASC')->get();
+        })
+        ->size(3);
+        CRUD::field('bloco')->size(2);
+        CRUD::field('percurso')->size(2);
+        CRUD::field('frete')->size(2)->attributes(['class' => 'form-control areas']);
+        CRUD::field('status')->size(2)->type('enum');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -88,9 +101,18 @@ class MatrizFreteCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->crud->set('show.setFromDb', false);
+        CRUD::column('safra_id')->type('select')
+            ->entity('Safra')
+            ->attribute('nome')
+            ->size(4);
         CRUD::column('bloco');
         CRUD::column('percurso');
-        CRUD::column('frete');
+        CRUD::column('frete')->size(2)
+        ->type('number')
+        ->decimals(2)
+        ->prefix('R$ ')
+        ->dec_point(',')
+        ->thousands_sep('.');
         CRUD::column('status')->type('enum');
     }
 
@@ -115,5 +137,45 @@ class MatrizFreteCrudController extends CrudController
         $this->crud->setSaveAction();
 
         return $this->crud->performSaveAction($model->id);
+    }
+
+    public function update()
+    {
+        $this->crud->hasAccessOrFail('update');
+
+        // execute the FormRequest authorization and validation, if one is required
+        $request = $this->crud->validateRequest();
+        $data = $this->crud->validateRequest()->all();
+        //dd($data);
+        if (isset($data['frete'])) {
+            $data['frete'] = str_replace('.', "", $data['frete']);
+            $data['frete'] = str_replace(',', ".", $data['frete']);
+        }
+        //dd($this->crud->getStrippedSaveRequest());
+        // update the row in the db
+        $item = $this->crud->update($request->get($this->crud->model->getKeyName()), $data);
+        $this->data['entry'] = $this->crud->entry = $item;
+
+        // execute the FormRequest authorization and validation, if one is required
+        //$data = $this->crud->validateRequest()->all();
+        
+
+        $lacamentos = LancamentoSafra::where('matriz_frete_id',$data['id'])
+                ->where('safra_id',$data['safra_id'])->get();
+
+        foreach ($lacamentos as $lacamento)
+        {
+            $novo = LancamentoSafra::find($lacamento->id);
+            $novoFrete = $lacamento->saco_bruto * $data['frete'];
+            $novo->valor_frete = $novoFrete;
+            $novo->save();
+        }
+        // show a success message
+        \Alert::success(trans('backpack::crud.update_success'))->flash();
+
+        // save the redirect choice for next time
+        $this->crud->setSaveAction();
+
+        return $this->crud->performSaveAction($item->getKey());
     }
 }

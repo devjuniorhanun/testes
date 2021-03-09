@@ -27,6 +27,7 @@ class MatrizFreteRequest extends FormRequest
     {
         $id = $this->segment(3);
         return [
+            'safra_id' => "required",
             'bloco' => "required",
             'percurso' => "required",
             'frete' => "required",

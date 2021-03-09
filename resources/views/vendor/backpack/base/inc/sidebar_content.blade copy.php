@@ -32,6 +32,7 @@
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talhao') }}"><i class="nav-icon la la-question"></i> <span>Talhãos</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('locacaotalhao') }}"><i class="nav-icon la la-question"></i> <span>Locação Talhões</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('matrizfrete') }}"><i class="nav-icon la la-question"></i> <span>Matriz Fretes</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('lancamentocontaapagar') }}"><i class="nav-icon la la-question"></i> <span>Correção Frete</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('grupofrota') }}"><i class="nav-icon la la-question"></i> <span>Grupos Frotas</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('frota') }}"><i class="nav-icon la la-question"></i> <span>Frotas</span></a></li>
 
