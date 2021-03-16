@@ -3,7 +3,7 @@
 @section('header')
 <div class="container-fluid">
     <h2>
-        <span class="text-capitalize">Relátorio de Transportador</span>
+        <span class="text-capitalize">Relátorio de Transportadores</span>
     </h2>
 </div>
 @endsection
@@ -27,7 +27,7 @@
     <div class="card-body">
         @forelse ($registros as $listas)
         @php $i = 0; @endphp
-        <table class="table table-striped table-hover table-sm table-bordered">
+        <table class="table table-striped table-hover table-sm table-bordered printFont">
            
             @foreach ($listas as $lista)
             @if($i == 0)

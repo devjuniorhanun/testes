@@ -24,6 +24,8 @@ class CreateAdiantamentoColhedosTable extends Migration
             $table->date('data_pagamento');
             $table->double('valor_pagamento', 10, 2);
             $table->enum('tipo_adiantamento', ["DINHEIRO","CHEQUE","DEPOSITO","DIESEL"]);
+            $table->string('nome_fornecedor')->nullable();
+            $table->string('cpf_cnpj')->nullable();
             $table->string('nome_banco')->nullable();
             $table->string('agencia')->nullable();
             //$table->string('agencia')->nullable();

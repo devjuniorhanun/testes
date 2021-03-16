@@ -42,6 +42,8 @@ class AdiantamentoMotorista extends Model
         'data_pagamento',
         'valor_pagamento',
         'tipo_adiantamento',
+        'nome_fornecedor',
+        'cpf_cnpj',
         'nome_banco',
         'agencia',
         'num_conta',

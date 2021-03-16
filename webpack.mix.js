@@ -19,4 +19,5 @@ mix
         require('tailwindcss'),
     ])*/
     .sass('resources/sass/style.scss', 'public/css')
+    .sass('resources/sass/print.scss', 'public/css')
     .webpackConfig(require('./webpack.config'));

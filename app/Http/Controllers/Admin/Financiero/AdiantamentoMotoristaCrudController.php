@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Financiero;
 
 use App\Http\Requests\AdiantamentoMotoristaRequest;
 use App\Models\AdiantamentoMotorista;
+use App\Models\Fornecedor;
 use App\Models\LancamentoContaApagar;
 use App\Models\LancamentoSafra;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -131,11 +132,17 @@ class AdiantamentoMotoristaCrudController extends CrudController
 
         // execute the FormRequest authorization and validation, if one is required
         $data = $this->crud->validateRequest()->all();
+        $fornecedor = Fornecedor::find($data['fornecedor_id']);
 
         // Retira transforma a virgula em ponto
         if (isset($data['valor_pagamento'])) {
             $data['valor_pagamento'] = str_replace('.', "", $data['valor_pagamento']);
             $data['valor_pagamento'] = str_replace(',', ".", $data['valor_pagamento']);
+            $data['nome_fornecedor'] = $fornecedor->nome_banco;
+            $data['cpf_cnpj'] = $fornecedor->cpf_cnpj;
+            $data['nome_banco'] = $fornecedor->banco;
+            $data['agencia'] = $fornecedor->agencia;
+            $data['num_conta'] = $fornecedor->num_conta;
         }
 
         $model = AdiantamentoMotorista::create($data);
