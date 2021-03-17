@@ -53,7 +53,7 @@
         <tr>
           <th scope="row">{{ $lista->qtnViagem }}</th>
           <td>{{ $lista->nome_fantasia }}</td>
-          <td>{{ number_format($lista->QtnSacoBrutos, 3, '.', '.') }} Sc</td>
+          <td>{{ number_format($lista->QtnSacoBrutos, 3, ',', '.') }} Sc</td>
           <td>R$ {{ number_format($lista->valorFrete, 2, ',', '.') }}</td>
           <td>R$ {{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
           <td>R$ {{ ($lista->valorAdiantamento)? number_format(($lista->valorFrete - $lista->valorAdiantamento), 2, ',', '.') : $lista->valorFrete}}</td>
@@ -75,7 +75,7 @@
         <tr>
           <td>{{$qntViagem}}</td>
           <td></td>
-          <td>{{ number_format($qntSaco, 3, '.', '.') }} Sc</td>
+          <td>{{ number_format($qntSaco, 3, ',', '.') }} Sc</td>
           <td>R$ {{ number_format($qntFrete, 2, ',', '.') }}</td>
           <td>R$ {{ number_format($qntAdiantamento, 2, ',', '.') }}</td>
           <td>R$ {{ ($qntAdiantamento)? number_format(($qntFrete - $qntAdiantamento), 2, ',', '.') : "0"}}</td>
