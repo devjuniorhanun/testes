@@ -79,7 +79,7 @@
                     <th scope="col">{{$lista->talhao->nome}}</th>
                     <th scope="col">{{$lista->num_romaneio}}</th>
                     <th scope="col">{{$lista->num_controle}}</th>
-                    <th scope="col">{{number_format($lista->peso_bruto, 3, ',', '.')}} Kg</th>
+                    <th scope="col">{{number_format($lista->peso_bruto, 0, ',', '.')}} Kg</th>
                     <th scope="col">{{number_format($lista->saco_bruto, 3, ',', '.')}} Sc</th>
                     <th scope="col">{{number_format($lista->peso_desconto, 3, ',', '.')}} Kg</th>
                     <th scope="col">{{number_format($lista->peso_liquido, 3, ',', '.')}} Kg</th>
@@ -114,7 +114,7 @@
                     <td><strong>{{$qntViagem}}</strong></td>
                     <td></td>
                     <td></td>
-                    <td><strong>{{number_format($qntPesoBruto, 3, ',', '.')}} Kg</strong></td>
+                    <td><strong>{{number_format($qntPesoBruto, 0, ',', '.')}} Kg</strong></td>
                     <td><strong>{{number_format($qntSacoBruto, 3, ',', '.')}} Sc</strong></td>
                     <td></td>
                     <td></td>

@@ -62,8 +62,7 @@ Route::group([
     Route::crud('adiantamentocolhedo', 'Financiero\AdiantamentoColhedoCrudController');
     Route::post('adiantamentocolhedo/colhedores', 'Financiero\AdiantamentoColhedoCrudController@colhedores');
     
-    // Embarque
-    Route::crud('embarquearmazem', 'Embarque\EmbarqueArmazemCrudController');
+    
 
     // Relatorios
     Route::any('relatorios/motorista', 'LancamentoSafraCrudController@motorista')->name('relatorio_motorista');
