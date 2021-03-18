@@ -368,7 +368,7 @@ class LancamentoSafraCrudController extends CrudController
             $query->where('proprietario_id', '=', $request->proprietario)->get();
         }         
 
-        $listagem = $query->get();
+        $listagem = $query->orderBy('num_romaneio')->get();
 
         return view('admin.lacamento_lavoura.relatorios', compact(
             'listagem',

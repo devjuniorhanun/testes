@@ -1,6 +1,6 @@
 created:
     - database/factories/Models/InscricaoEstadualFactory.php
-    - database/migrations/2021_03_18_081827_create_inscricao_estaduals_table.php
+    - database/migrations/2021_03_18_094246_create_inscricao_estaduals_table.php
     - app/Models/InscricaoEstadual.php
 models:
     Models\CentroAdministrativo: { tenant_id: 'biginteger unsigned', produtor_id: 'biginteger unsigned', fazenda_id: 'biginteger unsigned', uuid: 'string:36' }

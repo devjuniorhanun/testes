@@ -1,0 +1,25 @@
+<VirtualHost *:80>
+    ServerName lavoura.local
+
+    ServerAdmin devjuniorhanun@gmail.com
+    DocumentRoot /mnt/0ECE29BD79BEB7CF/Projetos/Laravel/TecnoLavoura/public
+    DirectoryIndex index.php
+
+    <Directory /mnt/0ECE29BD79BEB7CF/Projetos/Laravel/TecnoLavoura>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride all
+        Order Deny,Allow
+        Allow from all
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+
+
+
+
+127.0.0.1	modelo.local lavoura.local lara.local

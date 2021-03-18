@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Silo;
 
+use App\Models\Fazenda;
+use App\Models\Proprietario;
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,7 +29,7 @@ class InscricaoEstadual extends Model
    protected static $submitEmptyLogs = false;
 
    // Define o nome da tabela
-   protected $table = 'adiantamento_colhedos';
+   protected $table = 'inscricao_estaduals';
 
    // Chave Primaria
    protected $primaryKey = 'id';
@@ -57,16 +60,16 @@ class InscricaoEstadual extends Model
 
     public function tenant()
     {
-        return $this->belongsTo(\App\Models\Tenant::class);
+        return $this->belongsTo(Tenant::class);
     }
 
     public function fazenda()
     {
-        return $this->belongsTo(\App\Models\Fazenda::class);
+        return $this->belongsTo(Fazenda::class);
     }
 
     public function proprietario()
     {
-        return $this->belongsTo(\App\Models\Proprietario::class);
+        return $this->belongsTo(Proprietario::class);
     }
 }
