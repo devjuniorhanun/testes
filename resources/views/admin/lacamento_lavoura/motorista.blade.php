@@ -82,7 +82,7 @@
                     <th scope="col">{{number_format($lista->peso_bruto, 0, ',', '.')}} Kg</th>
                     <th scope="col">{{number_format($lista->saco_bruto, 3, ',', '.')}} Sc</th>
                     <th scope="col">{{number_format($lista->peso_desconto, 0, ',', '.')}} Kg</th>
-                    <th scope="col">{{number_format($lista->peso_liquido, 3, ',', '.')}} Kg</th>
+                    <th scope="col">{{number_format($lista->peso_liquido, 0, ',', '.')}} Kg</th>
                     <th scope="col">{{number_format($lista->saco_liquido, 3, ',', '.')}} Kg</th>
                     <th scope="col">{{$lista->armazem->nome}}</th>
                     <th scope="col">{{$lista->colhedor->nome}}</th>
