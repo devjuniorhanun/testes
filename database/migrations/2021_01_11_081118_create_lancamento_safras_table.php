@@ -42,7 +42,7 @@ class CreateLancamentoSafrasTable extends Migration
             $table->double('peso_liquido', 10, 3);
             $table->double('saco_liquido', 10, 3);
             $table->double('saco_bruto', 10, 3);
-            $table->double('valor_frete', 10, 3);
+            $table->double('valor_frete', 10, 2);
             $table->softDeletes();
             $table->timestamps();
         });

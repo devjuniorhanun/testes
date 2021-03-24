@@ -51,6 +51,7 @@
         @php
         $viagens = 0;
         $peso_bruto = 0;
+        $peso_liquido = 0;
         $valor_frete = 0;
         $saco_bruto = 0;
         $saco_liquido = 0;
@@ -62,6 +63,7 @@
         @php
         $viagens +=1;
         $peso_bruto += $lista->peso_bruto;
+        $peso_liquido += $lista->peso_liquido;
         $saco_bruto += $lista->saco_bruto;
         $valor_frete += $lista->valor_frete;
         $saco_liquido += $lista->saco_liquido;
@@ -118,7 +120,7 @@
           <td><strong>{{ number_format($peso_bruto, 0, ',', '.')}} Kg</strong></td>
           <td><strong>{{ number_format($saco_bruto, 2, ',', '.')}} Sc</strong></td>
           <td></td>
-          <td></td>
+          <td><strong>{{ number_format($peso_liquido, 2, ',', '.')}} Sc</strong></td>
           <td><strong>{{ number_format($saco_liquido, 2, ',', '.')}} Sc</strong></td>
           <td></td>
           <td></td>

@@ -490,6 +490,16 @@ models:
     softDeletes: true
     timestamps: true
 
+  Models\InscricaoEstadual:
+    tenant_id: id foreign
+    fazenda_id: id foreign
+    proprietario_id: id foreign
+    uuid: uuid
+    inscricao: string unique
+    status: enum:ATIVA,DESATIVADA
+    softDeletes: true
+    timestamps: true
+
 
   Models\EntradaSilo:
     tenant_id: id foreign

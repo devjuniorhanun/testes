@@ -31,6 +31,7 @@
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talhao') }}"><i class="nav-icon la la-question"></i> <span>Talhãos</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('locacaotalhao') }}"><i class="nav-icon la la-question"></i> <span>Locação Talhões</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('matrizfrete') }}"><i class="nav-icon la la-question"></i> <span>Matriz Fretes</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('inscricaoestadual') }}"><i class="nav-icon la la-question"></i> <span>Inscrições</span></a></li>				
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('grupofrota') }}"><i class="nav-icon la la-question"></i> <span>Grupos Frotas</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('frota') }}"><i class="nav-icon la la-question"></i> <span>Frotas</span></a></li>
 
@@ -143,18 +144,17 @@
 	</ul>
 </li>
 
-<!-- Embarque 
+<!-- Embarque --> 
 <li class="nav-item nav-dropdown">
-	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Embarque</a>
+	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Silo</a>
 	<ul class="nav-dropdown-items">
 		<li class="nav-item nav-dropdown">
 			<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Entrada</a>
 			<ul class="nav-dropdown-items">
-				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('embarquearmazem') }}"><i class="nav-icon la la-question"></i> <span>Safra</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('entradasilo') }}"><i class="nav-icon la la-question"></i> <span>Armazém</span></a></li>
 
 			</ul>
 		</li>
 	</ul>
-</li>-->
+</li>
 
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('inscricaoestadual') }}'><i class='nav-icon la la-question'></i> InscricaoEstaduals</a></li>

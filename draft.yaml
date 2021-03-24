@@ -1,10 +1,24 @@
 models:
-  Models\InscricaoEstadual:
+  Models\EntradaSilo:
     tenant_id: id foreign
-    fazenda_id: id foreign
-    proprietario_id: id foreign
+    safra_id: id foreign
+    cultura_id: id foreign
+    inscricao_estadual_id: id foreign
+    motorista_id: id foreign    
     uuid: uuid
-    inscricao: string unique
-    status: enum:ATIVA,DESATIVADA
+    primeira_pesagem: double:10,3 nullable
+    segunda_pesagam: double:10,3 nullable
+    umidade: double:10,3 nullable
+    tipo_entrada: enum:ARMAZÉM,BOLSÃO
+    impuresa: double:10,3 nullable
+    ardido: double:10,3 nullable
+    partido: double:10,3 nullable
+    avariado: double:10,3 nullable
+    desconto: double:10,3 nullable
+    peso_bruto: double:10,3 nullable
+    peso_liquido: double:10,3 nullable
+    saco_bruto: double:10,3 nullable
+    saco_liquido: double:10,3 nullable
+    status: enum:ABERTO,FECHADO
     softDeletes: true
     timestamps: true

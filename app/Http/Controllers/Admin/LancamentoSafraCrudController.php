@@ -58,8 +58,6 @@ class LancamentoSafraCrudController extends CrudController
         //CRUD::column('motorista_id');
         CRUD::column('motorista_id')->type('select')
             ->entity('motorista')
-            ->with('fornecedor')
-            //->model('App\Models\Fornecedor')
             ->attribute('placa_nome');
 
         CRUD::column('talhao_id')->type('select')
