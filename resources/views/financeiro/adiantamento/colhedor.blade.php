@@ -37,17 +37,17 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
             </div>
             <div class="col col-md-3 border rounded">
                 <div class="row">
-                    <div class="col"><b>Qnt Sc</b></div>
+                    <div class="col"><b>Valor R$</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">( {{$entry->valor_pagamento}} Sc )</div>
+                    <div class="col numeroRecibo">R$ {{ number_format($entry->valor_pagamento, 2, ',', '.') }}</div>
                 </div>
             </div>
         </div>
 
         <div class="row pt-2">
             <div class="col border rounded">
-                Recebi(emos) de: <b>Paulo Roberto Titoto - CPF.: 744.932.058-49</b>
+                Recebi(emos) de: <b>Paulo Roberto Titoto</b>
             </div>
         </div>
 
@@ -59,13 +59,13 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
         <div class="row pt-2">
             <div class="col border rounded">
-                A importância de: <b>( {{$entry->valor_pagamento}} Sc ) </b>
+                A importância de: <b>( {{extenso(number_format($entry->valor_pagamento, 2, ',', '.'))}} ) </b>
             </div>
         </div>
 
         <div class="row pt-2">
             <div class="col border rounded">
-                Referente a: <b>Pagamento via Transferencia de {{$entry->valor_pagamento}} sacas de Soja, no Armazém Agrobom (Bom Jesus), referente a serviço prestado de colheita de Soja, Safra 20/21. <b>(Produto depositado em nome de WEIDER EURIPEDES PEREIRA, sob o CPF.: 129.870.921-72)</b> </b>
+                Referente a: <b>Adiantamento de Serviços de Colheitadeira da {{ $entry->safra->nome}} </b>
             </div>
         </div>
 
