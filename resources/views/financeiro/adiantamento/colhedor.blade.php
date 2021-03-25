@@ -40,7 +40,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
                     <div class="col"><b>Qnt Sc</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">600 Sc</div>
+                    <div class="col numeroRecibo">( {{$entry->valor_pagamento}} Sc )</div>
                 </div>
             </div>
         </div>
