@@ -85,7 +85,7 @@ class AdiantamentoColhedoCrudController extends CrudController
                 return $query->where('status', '=', 'Ativa')->orderBy('nome', 'ASC')->get();
             })
             ->size(3);
-        CRUD::field('fornecedor_id')
+        /*CRUD::field('fornecedor_id')
             ->label('Colhedor.:')
             ->type('select2_from_ajax')
             ->attribute('razao_social')
@@ -94,6 +94,15 @@ class AdiantamentoColhedoCrudController extends CrudController
             ->include_all_form_fields(true)
             ->minimum_input_length(0)
             ->method('post')
+            ->size(3);*/
+            CRUD::field('safra_id')
+            ->label('Safra.:')
+            ->type('select2')
+            ->attribute('razao_social')
+            ->model('App\Models\Fornecedor')
+            ->options(function ($query) {
+                return $query->where('status', '=', 'Ativo')->where('finalidade','=','COLHEDOR')->orderBy('razao_social', 'ASC')->get();
+            })
             ->size(3);
         CRUD::field('data_pagamento')->label('Data Pagamento.:')->size(3);
         CRUD::field('valor_pagamento')->label('Valor Pagamento.:')->size(2)->attributes(['class' => 'form-control']);
