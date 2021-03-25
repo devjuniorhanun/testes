@@ -95,7 +95,7 @@ class AdiantamentoColhedoCrudController extends CrudController
             ->minimum_input_length(0)
             ->method('post')
             ->size(3);*/
-            CRUD::field('safra_id')
+            CRUD::field('fornecedor_id')
             ->label('Safra.:')
             ->type('select2')
             ->attribute('razao_social')
