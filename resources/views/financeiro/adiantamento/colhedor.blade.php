@@ -59,13 +59,13 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
         <div class="row pt-2">
             <div class="col border rounded">
-                A importância de: <b>( {{number_format($entry->valor_pagamento, 2, ',', '.')}} Sc ) </b>
+                A importância de: <b>( {{$entry->valor_pagamento}} Sc ) </b>
             </div>
         </div>
 
         <div class="row pt-2">
             <div class="col border rounded">
-                Referente a: <b>Pagamento via Transferencia de {{number_format($entry->valor_pagamento, 2, ',', '.')}} sacas de Soja, no Armazém Agrobom (Bom Jesus), referente a serviço prestado de colheita de Soja, Safra 20/21 </b>
+                Referente a: <b>Pagamento via Transferencia de {{$entry->valor_pagamento}} sacas de Soja, no Armazém Agrobom (Bom Jesus), referente a serviço prestado de colheita de Soja, Safra 20/21 </b>
             </div>
         </div>
 
