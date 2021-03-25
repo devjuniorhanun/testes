@@ -47,7 +47,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
         <div class="row pt-2">
             <div class="col border rounded">
-                Recebi(emos) de: <b>Paulo Roberto Titoto - CPF.: 744.932.058-49</b>
+                Recebi(emos) de: <b>Paulo Roberto Titoto</b>
             </div>
         </div>
 
@@ -65,7 +65,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
         <div class="row pt-2">
             <div class="col border rounded">
-                Referente a: <b>Pagamento via Transferencia de 600 sacas de Soja, no Armazém Agrobom (Bom Jesus), referente a serviço prestado de colheita de Soja, Safra 20/21 </b>
+                Referente a: <b>Adiantamento de Serviços de Colheitadeira da {{ $entry->safra->nome}} </b>
             </div>
         </div>
 
