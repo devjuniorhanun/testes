@@ -65,7 +65,7 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
 
         <div class="row pt-2">
             <div class="col border rounded">
-                Referente a: <b>Pagamento via Transferencia de {{$entry->valor_pagamento}} sacas de Soja, no Armazém Agrobom (Bom Jesus), referente a serviço prestado de colheita de Soja, Safra 20/21 </b>
+                Referente a: <b>Pagamento via Transferencia de {{$entry->valor_pagamento}} sacas de Soja, no Armazém Agrobom (Bom Jesus), referente a serviço prestado de colheita de Soja, Safra 20/21. <b>(Produto depositado em nome de WEIDER EURIPEDES PEREIRA, sob o CPF.: 129.870.921-72)</b> </b>
             </div>
         </div>
 
