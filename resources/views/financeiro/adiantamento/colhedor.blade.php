@@ -37,10 +37,10 @@ $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
             </div>
             <div class="col col-md-3 border rounded">
                 <div class="row">
-                    <div class="col"><b>Valor R$</b></div>
+                    <div class="col"><b>Qnt Sc</b></div>
                 </div>
                 <div class="row">
-                    <div class="col numeroRecibo">R$ {{ number_format($entry->valor_pagamento, 2, ',', '.') }}</div>
+                    <div class="col numeroRecibo">600 Sc</div>
                 </div>
             </div>
         </div>
