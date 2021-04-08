@@ -55,6 +55,7 @@
         $valor_frete = 0;
         $saco_bruto = 0;
         $saco_liquido = 0;
+        $desconto = 0;
 
         @endphp
 
@@ -67,6 +68,7 @@
         $saco_bruto += $lista->saco_bruto;
         $valor_frete += $lista->valor_frete;
         $saco_liquido += $lista->saco_liquido;
+        $desconto += $lista->peso_desconto;
 
         @endphp
 
@@ -119,8 +121,8 @@
           <td></td>
           <td><strong>{{ number_format($peso_bruto, 0, ',', '.')}} Kg</strong></td>
           <td><strong>{{ number_format($saco_bruto, 2, ',', '.')}} Sc</strong></td>
-          <td></td>
-          <td><strong>{{ number_format($peso_liquido, 2, ',', '.')}} Sc</strong></td>
+          <td><b>{{number_format($desconto, 0, ',', '.')}} Kg</b></td>
+          <td><strong>{{ number_format($peso_liquido, 2, ',', '.')}} Kg</strong></td>
           <td><strong>{{ number_format($saco_liquido, 2, ',', '.')}} Sc</strong></td>
           <td></td>
           <td></td>

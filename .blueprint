@@ -1,7 +1,7 @@
 created:
-    - database/factories/Models/EntradaSiloFactory.php
-    - database/migrations/2021_03_19_151431_create_entrada_silos_table.php
-    - app/Models/EntradaSilo.php
+    - database/factories/Models/AdiantamentoArrendoFactory.php
+    - database/migrations/2021_04_08_073705_create_adiantamento_arrendos_table.php
+    - app/Models/AdiantamentoArrendo.php
 models:
     Models\CentroAdministrativo: { tenant_id: 'biginteger unsigned', produtor_id: 'biginteger unsigned', fazenda_id: 'biginteger unsigned', uuid: 'string:36' }
     Models\CentroCusto: { tenant_id: 'biginteger unsigned', uuid: 'string:36', nome: string, tipo: 'enum:PRODUÇÃO,MÁQUINAS,ADMINISTRATIVO,COMBUSTÍVEL,DIVERSOS,LUBRIFICANTES,OFICINA default:PRODUÇÃO', status: 'enum:Ativo,Desativada default:Ativo' }
@@ -35,3 +35,4 @@ models:
     Models\EmbarqueArmazem: { tenant_id: 'id foreign', safra_id: 'id foreign', fazenda_id: 'id foreign', motorista_id: 'id foreign', cultura_id: 'id foreign', uuid: uuid, primeira_pesagem: 'double:10,3 nullable', segunda_pesagam: 'double:10,3 nullable', umidade: 'double:10,3 nullable', impuresa: 'double:10,3 nullable', ardido: 'double:10,3 nullable', partido: 'double:10,3 nullable', avariado: 'double:10,3 nullable', desconto: 'double:10,3 nullable', peso_bruto: 'double:10,3 nullable', peso_liquido: 'double:10,3 nullable', saco_bruto: 'double:10,3 nullable', saco_liquido: 'double:10,3 nullable', status: 'enum:ABERTO,FECHADO', softdeletes: softDeletes, timestamps: timestamps }
     Models\InscricaoEstadual: { tenant_id: 'id foreign', fazenda_id: 'id foreign', proprietario_id: 'id foreign', uuid: uuid, inscricao: 'string unique', status: 'enum:ATIVA,DESATIVADA', softdeletes: softDeletes, timestamps: timestamps }
     Models\EntradaSilo: { tenant_id: 'id foreign', safra_id: 'id foreign', cultura_id: 'id foreign', inscricao_estadual_id: 'id foreign', motorista_id: 'id foreign', uuid: uuid, primeira_pesagem: 'double:10,3 nullable', segunda_pesagam: 'double:10,3 nullable', umidade: 'double:10,3 nullable', tipo_entrada: 'enum:ARMAZÉM,BOLSÃO', impuresa: 'double:10,3 nullable', ardido: 'double:10,3 nullable', partido: 'double:10,3 nullable', avariado: 'double:10,3 nullable', desconto: 'double:10,3 nullable', peso_bruto: 'double:10,3 nullable', peso_liquido: 'double:10,3 nullable', saco_bruto: 'double:10,3 nullable', saco_liquido: 'double:10,3 nullable', status: 'enum:ABERTO,FECHADO', softdeletes: softDeletes, timestamps: timestamps }
+    Models\AdiantamentoArrendo: { tenant_id: 'id foreign', safra_id: 'id foreign', fornecedor_id: 'id foreign', uuid: uuid, data_pagamento: date, valor_pagamento: 'double:10,2', tipo_adiantamento: 'enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL', nome_fornecedor: 'string nullable', cpf_cnpj: 'string nullable', nome_banco: 'string nullable', agencia: 'string nullable', num_conta: 'string nullable', num_cheque: 'string nullable', softdeletes: softDeletes, timestamps: timestamps }

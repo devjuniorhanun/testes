@@ -1,24 +1,17 @@
 models:
-  Models\EntradaSilo:
+  Models\AdiantamentoArrendo:
     tenant_id: id foreign
     safra_id: id foreign
-    cultura_id: id foreign
-    inscricao_estadual_id: id foreign
-    motorista_id: id foreign    
+    fornecedor_id: id foreign
     uuid: uuid
-    primeira_pesagem: double:10,3 nullable
-    segunda_pesagam: double:10,3 nullable
-    umidade: double:10,3 nullable
-    tipo_entrada: enum:ARMAZÉM,BOLSÃO
-    impuresa: double:10,3 nullable
-    ardido: double:10,3 nullable
-    partido: double:10,3 nullable
-    avariado: double:10,3 nullable
-    desconto: double:10,3 nullable
-    peso_bruto: double:10,3 nullable
-    peso_liquido: double:10,3 nullable
-    saco_bruto: double:10,3 nullable
-    saco_liquido: double:10,3 nullable
-    status: enum:ABERTO,FECHADO
+    data_pagamento: date
+    valor_pagamento: double:10,2
+    tipo_adiantamento: enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL
+    nome_fornecedor: string nullable
+    cpf_cnpj: string nullable
+    nome_banco: string nullable
+    agencia: string nullable
+    num_conta: string nullable
+    num_cheque: string nullable
     softDeletes: true
     timestamps: true

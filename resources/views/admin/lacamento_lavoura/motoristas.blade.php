@@ -56,7 +56,7 @@
           <td>{{ number_format($lista->QtnSacoBrutos, 3, ',', '.') }} Sc</td>
           <td>R$ {{ number_format($lista->valorFrete, 2, ',', '.') }}</td>
           <td>R$ {{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
-          <td>R$ {{ (($lista->valorFrete - $lista->valorAdiantamento) <> -0.01)? number_format(($lista->valorFrete - $lista->valorAdiantamento), 2, ',', '.') : 0}}</td>
+          <td>R$ {{ (($lista->valorFrete - $lista->valorAdiantamento) !== -0.01)? number_format(($lista->valorFrete - $lista->valorAdiantamento), 2, ',', '.') : 0}}</td>
         </tr>
         @empty
         <p>Não foi encontrado Nem um Registro</p>

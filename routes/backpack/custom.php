@@ -61,6 +61,7 @@ Route::group([
     Route::get('adiantamentomotorista/transportadores', 'Financiero\AdiantamentoMotoristaCrudController@transportadores');
     Route::crud('adiantamentocolhedo', 'Financiero\AdiantamentoColhedoCrudController');
     Route::post('adiantamentocolhedo/colhedores', 'Financiero\AdiantamentoColhedoCrudController@colhedores');
+    Route::crud('adiantamentoarrendo', 'Financiero\AdiantamentoArrendoCrudController');
 
     // Relatorios
     Route::any('relatorios/motorista', 'LancamentoSafraCrudController@motorista')->name('relatorio_motorista');
@@ -70,4 +71,5 @@ Route::group([
     // Silo
     Route::crud('inscricaoestadual', 'Silo\InscricaoEstadualCrudController');
     Route::crud('entradasilo', 'Silo\EntradaSiloCrudController');
+    
 }); // this should be the absolute last line of this file
