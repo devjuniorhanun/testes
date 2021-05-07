@@ -43,6 +43,7 @@ class CreateFornecedorsTable extends Migration
             $table->string('banco')->nullable();
             $table->string('agencia')->nullable();
             $table->string('num_conta')->nullable();
+            //$table->string('operacao')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

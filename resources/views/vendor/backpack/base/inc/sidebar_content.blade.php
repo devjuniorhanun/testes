@@ -159,4 +159,4 @@
 </li>
 
 
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('adiantamentoarrendo') }}'><i class='nav-icon la la-question'></i> AdiantamentoArrendos</a></li>
+<!-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('adiantamentoarrendo') }}'><i class='nav-icon la la-question'></i> AdiantamentoArrendos</a></li> -->

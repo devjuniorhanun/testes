@@ -63,6 +63,7 @@ class Fornecedor extends Model
         'banco',
         'agencia',
         'num_conta',
+        'operacao',
     ];
 
     /**

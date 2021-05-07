@@ -84,8 +84,9 @@ class FornecedorCrudController extends CrudController
         CRUD::field('status')->type('enum')->size(3)->tab('Fornecedor');
         CRUD::field('nome_banco')->label('Nome.:')->size(3)->tab('Dados Bancarios');
         CRUD::field('banco')->label('Banco.:')->size(3)->tab('Dados Bancarios');
-        CRUD::field('agencia')->label('Agencia.:')->size(3)->tab('Dados Bancarios');
-        CRUD::field('num_conta')->label('Nº Conta.:')->size(3)->tab('Dados Bancarios');
+        CRUD::field('agencia')->label('Agencia.:')->size(2)->tab('Dados Bancarios');
+        CRUD::field('num_conta')->label('Nº Conta.:')->size(2)->tab('Dados Bancarios');
+        CRUD::field('operacao')->label('OP.:')->size(2)->tab('Dados Bancarios');
 
     }
 
