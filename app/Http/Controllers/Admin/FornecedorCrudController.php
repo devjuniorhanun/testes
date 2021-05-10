@@ -128,6 +128,7 @@ class FornecedorCrudController extends CrudController
         CRUD::column('banco')->label('Banco');
         CRUD::column('agencia')->label('Agencia');
         CRUD::column('num_conta')->label('Nº Conta');
+        CRUD::column('operacao')->label('OP.');
         
     }
 }
