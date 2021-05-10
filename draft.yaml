@@ -1,17 +1,12 @@
 models:
-  Models\AdiantamentoArrendo:
+  Models\ContratoEmbarque:
     tenant_id: id foreign
     safra_id: id foreign
+    inscricao_estadual_id: id foreign 
+    cultura_id: id foreign
     fornecedor_id: id foreign
     uuid: uuid
-    data_pagamento: date
-    valor_pagamento: double:10,2
-    tipo_adiantamento: enum:DINHEIRO,CHEQUE,DEPOSITO,DIESEL
-    nome_fornecedor: string nullable
-    cpf_cnpj: string nullable
-    nome_banco: string nullable
-    agencia: string nullable
-    num_conta: string nullable
-    num_cheque: string nullable
+    quantidade: double:10,3 nullable
+    status: enum:ABERTO,FECHADO
     softDeletes: true
     timestamps: true
