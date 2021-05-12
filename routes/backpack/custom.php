@@ -70,7 +70,8 @@ Route::group([
     
     // Silo
     Route::crud('inscricaoestadual', 'Silo\InscricaoEstadualCrudController');
-    Route::crud('entradasilo', 'Silo\EntradaSiloCrudController');
-    
-    Route::crud('contratoembarque', 'ContratoEmbarqueCrudController');
+    Route::crud('entradasilo', 'Silo\EntradaSiloCrudController');    
+    Route::crud('contratoembarque', 'Silo\ContratoEmbarqueCrudController');
+    Route::crud('contratoinscricao', 'Silo\ContratoInscricaoCrudController');
+    Route::crud('saidasilo', 'Silo\SaidaSiloCrudController');
 }); // this should be the absolute last line of this file

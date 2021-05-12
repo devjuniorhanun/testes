@@ -28,7 +28,7 @@ class ContratoEmbarqueCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Silo\ContratoEmbarque::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/contratoembarque');
-        CRUD::setEntityNameStrings('contratoembarque', 'contrato_embarques');
+        CRUD::setEntityNameStrings('Contrato Embarque', 'Contratos Embarques');
     }
 
     /**
@@ -39,14 +39,19 @@ class ContratoEmbarqueCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('tenant_id');
-        CRUD::column('safra_id');
-        CRUD::column('inscricao_estadual_id');
-        CRUD::column('cultura_id');
-        CRUD::column('fornecedor_id');
-        CRUD::column('uuid');
-        CRUD::column('quantidade');
-        CRUD::column('status');
+        CRUD::column('safra_id')->type('select')
+            ->entity('Safra')
+            ->attribute('nome')
+            ->size(4);
+        CRUD::column('cultura_id')->type('select')
+            ->entity('Cultura')
+            ->attribute('nome')
+            ->size(4);
+        CRUD::column('fornecedor_id')->type('select')
+            ->entity('Fornecedor')
+            ->attribute('nome_fantasia');
+        CRUD::column('num_contrato')->label('Núm Contrato');
+        CRUD::column('status')->type('enum');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -65,14 +70,33 @@ class ContratoEmbarqueCrudController extends CrudController
     {
         CRUD::setValidation(ContratoEmbarqueRequest::class);
 
-        CRUD::field('tenant_id');
-        CRUD::field('safra_id');
-        CRUD::field('inscricao_estadual_id');
-        CRUD::field('cultura_id');
-        CRUD::field('fornecedor_id');
-        CRUD::field('uuid');
-        CRUD::field('quantidade');
-        CRUD::field('status');
+        CRUD::field('safra_id')
+            ->type('select2')
+            ->entity('safra')
+            ->attribute('nome')
+            ->options(function ($query) {
+                return $query->where('status', '=', 'Ativa')->orderBy('nome', 'ASC')->get();
+            })
+            ->size(3);
+        CRUD::field('cultura_id')
+            ->type('select2')
+            ->entity('cultura')
+            ->attribute('nome')
+            ->options(function ($query) {
+                return $query->where('status', '=', 'Ativa')->orderBy('nome', 'ASC')->get();
+            })
+            ->size(2);
+        CRUD::field('fornecedor_id')
+            ->type('select2')
+            ->entity('fornecedor')
+            ->attribute('nome_fantasia')
+            //->model('App\Models\CentroCusto')
+            ->options(function ($query) {
+                return $query->where('status', '=', 'Ativo')->where('finalidade', '=', 'ARMAZÉNS GERAIS')->orderBy('nome_fantasia', 'ASC')->get();
+            })
+            ->size(3);
+        CRUD::field('num_contrato')->label('Núm Contrato')->size(2);
+        CRUD::field('status')->type('enum')->size(2);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
@@ -90,5 +114,24 @@ class ContratoEmbarqueCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->crud->set('show.setFromDb', false);
+        CRUD::column('safra_id')->type('select')
+            ->entity('Safra')
+            ->attribute('nome')
+            ->size(4);
+
+        CRUD::column('cultura_id')->type('select')
+            ->entity('Cultura')
+            ->attribute('nome')
+            ->size(4);
+
+        CRUD::column('fornecedor_id')->type('select')
+            ->entity('Fornecedor')
+            ->attribute('nome_fantasia');
+        CRUD::column('num_contrato')->label('Núm Contrato');
     }
 }

@@ -41,6 +41,7 @@ class ContratoEmbarque extends Model
         'cultura_id',
         'fornecedor_id',
         'uuid',
+        'num_contrato',
         'quantidade',
         'status',
     ];
@@ -73,7 +74,7 @@ class ContratoEmbarque extends Model
 
     public function inscricaoEstadual()
     {
-        return $this->belongsTo(\App\Models\InscricaoEstadual::class);
+        return $this->belongsTo(\App\Models\Silo\InscricaoEstadual::class);
     }
 
     public function cultura()

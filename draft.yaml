@@ -1,12 +1,1 @@
 models:
-  Models\ContratoEmbarque:
-    tenant_id: id foreign
-    safra_id: id foreign
-    inscricao_estadual_id: id foreign 
-    cultura_id: id foreign
-    fornecedor_id: id foreign
-    uuid: uuid
-    quantidade: double:10,3 nullable
-    status: enum:ABERTO,FECHADO
-    softDeletes: true
-    timestamps: true

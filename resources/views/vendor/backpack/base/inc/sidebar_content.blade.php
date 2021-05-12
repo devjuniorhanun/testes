@@ -51,6 +51,8 @@
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('armazem') }}"><i class="nav-icon la la-question"></i> <span>Armazéns</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('colhedor') }}"><i class="nav-icon la la-question"></i> <span>Colhedores</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('motorista') }}"><i class="nav-icon la la-question"></i> <span>Motoristas</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('contratoembarque') }}"><i class="nav-icon la la-question"></i> <span>Contratos Embarque</span></a></li>
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('contratoinscricao') }}"><i class="nav-icon la la-question"></i> <span>Contratos Inscrições</span></a></li>
 
 			</ul>
 		</li>
@@ -160,4 +162,6 @@
 
 
 <!-- <li class='nav-item'><a class='nav-link' href='{{ backpack_url('adiantamentoarrendo') }}'><i class='nav-icon la la-question'></i> AdiantamentoArrendos</a></li> -->
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('contratoembarque') }}'><i class='nav-icon la la-question'></i> ContratoEmbarques</a></li>
+
+
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('saidasilo') }}'><i class='nav-icon la la-question'></i> SaidaSilos</a></li>

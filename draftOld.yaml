@@ -524,12 +524,23 @@ models:
     softDeletes: true
     timestamps: true
 
+  Models\ContratoEmbarque:
+    tenant_id: id foreign
+    safra_id: id foreign
+    cultura_id: id foreign
+    fornecedor_id: id foreign
+    uuid: uuid
+    status: enum:ABERTO,FECHADO
+    softDeletes: true
+    timestamps: true
+
   Models\SaidaSilo:
     tenant_id: id foreign
     safra_id: id foreign
-    fazenda_id: id foreign
-    motorista_id: id foreign
     cultura_id: id foreign
+    contrato_embarque_id: id foreign
+    contrato_inscricao_id: id foreign
+    motorista_id: id foreign
     uuid: uuid
     primeira_pesagem: double:10,3 nullable
     segunda_pesagam: double:10,3 nullable
