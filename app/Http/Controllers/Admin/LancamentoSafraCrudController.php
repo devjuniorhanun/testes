@@ -51,6 +51,11 @@ class LancamentoSafraCrudController extends CrudController
     {
         $this->crud->enableExportButtons();
         $this->crud->enableResponsiveTable();
+        $this->crud->addClause('whereHas', 'safra', function($query) {
+            $query->where('status', '=', 'Ativa');
+        });
+
+
         CRUD::column('id')->label('Nº');
 
         CRUD::column('data_colhido')->type('datetime')->format('DD/MM/YYYY');
@@ -299,7 +304,9 @@ class LancamentoSafraCrudController extends CrudController
         // /$dados['armazem'] = Armazem::find($idArmazen);
         $dados['motorista'] = Motorista::find($idMotorista);
         $dados['colhedor'] = Colhedor::find($idColhedor);
-        $dados['frete'] = MatrizFrete::where('bloco', '=', $bloco)->where('percurso', '=', $dados['percuso']->percurso)->first();
+        $dados['frete'] = MatrizFrete::whereHas('safra', function($query) {
+            $query->where('status', '=', 'Ativa');
+        })->where('bloco', '=', $bloco)->where('percurso', '=', $dados['percuso']->percurso)->first();
 
        //dd($dados['percuso']);
         return $dados;

@@ -42,6 +42,9 @@ class MatrizFreteCrudController extends CrudController
     protected function setupListOperation()
     {
         $this->crud->enableExportButtons();
+        $this->crud->addClause('whereHas', 'safra', function($query) {
+            $query->where('status', '=', 'Ativa');
+        });
         CRUD::column('safra_id')->type('select')
             ->entity('Safra')
             ->attribute('nome')
