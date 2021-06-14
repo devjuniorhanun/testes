@@ -18,6 +18,7 @@ Route::group([
     // Casdastros
     
     Route::crud('postocombustivel', 'Cadastro\PostoCombustivelCrudController');
+    Route::crud('postoproduto', 'Cadastro\PostoProdutoCrudController');
 
 
 
@@ -81,6 +82,7 @@ Route::group([
     Route::crud('contratoembarque', 'Silo\ContratoEmbarqueCrudController');
     Route::crud('contratoinscricao', 'Silo\ContratoInscricaoCrudController');
     Route::crud('saidasilo', 'Silo\SaidaSiloCrudController');
+    
     
     
 }); // this should be the absolute last line of this file

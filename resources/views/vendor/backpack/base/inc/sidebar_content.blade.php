@@ -31,10 +31,18 @@
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('talhao') }}"><i class="nav-icon la la-question"></i> <span>Talhãos</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('locacaotalhao') }}"><i class="nav-icon la la-question"></i> <span>Locação Talhões</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('matrizfrete') }}"><i class="nav-icon la la-question"></i> <span>Matriz Fretes</span></a></li>
-				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('inscricaoestadual') }}"><i class="nav-icon la la-question"></i> <span>Inscrições</span></a></li>				
+				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('inscricaoestadual') }}"><i class="nav-icon la la-question"></i> <span>Inscrições</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('grupofrota') }}"><i class="nav-icon la la-question"></i> <span>Grupos Frotas</span></a></li>
 				<li class="nav-item"><a class="nav-link" href="{{ backpack_url('frota') }}"><i class="nav-icon la la-question"></i> <span>Frotas</span></a></li>
 
+				<li class="nav-item nav-dropdown">
+					<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Posto</a>
+					<ul class="nav-dropdown-items">
+						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('postocombustivel') }}"><i class="nav-icon la la-question"></i> <span>Postos</span></a></li>
+						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('postoproduto') }}"><i class="nav-icon la la-question"></i> <span>Posto Produto</span></a></li>
+
+					</ul>
+				</li>
 			</ul>
 		</li>
 		<li class="nav-item nav-dropdown">
@@ -146,7 +154,7 @@
 	</ul>
 </li>
 
-<!-- Embarque --> 
+<!-- Embarque -->
 <li class="nav-item nav-dropdown">
 	<a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i>Silo</a>
 	<ul class="nav-dropdown-items">
@@ -165,4 +173,3 @@
 
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('saidasilo') }}'><i class='nav-icon la la-question'></i> SaidaSilos</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('postocombustivel') }}'><i class='nav-icon la la-question'></i> PostoCombustivels</a></li>

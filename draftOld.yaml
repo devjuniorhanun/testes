@@ -574,3 +574,24 @@ models:
     num_cheque: string nullable
     softDeletes: true
     timestamps: true
+
+  Models\PostoCombustivel:
+    tenant_id: id foreign
+    uuid: uuid
+    nome: string
+    tipo_posto: enum:PRINCIPAL,COMBOIO,SEGUNDARIO
+    qtn_estoque: double:10,3 nullable
+    status: enum:ABERTO,FECHADO
+    softDeletes: true
+    timestamps: true  
+
+  Models\PostoProduto:
+    tenant_id: id foreign
+    posto_combustivel_id: id foreign
+    produto_id: id foreign
+    uuid: uuid
+    estoque: double:10,3 nullable
+    softDeletes: true
+    timestamps: true  
+
+    
