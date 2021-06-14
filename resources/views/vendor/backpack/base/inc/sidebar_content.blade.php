@@ -165,3 +165,4 @@
 
 
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('saidasilo') }}'><i class='nav-icon la la-question'></i> SaidaSilos</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('postocombustivel') }}'><i class='nav-icon la la-question'></i> PostoCombustivels</a></li>
