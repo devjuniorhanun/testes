@@ -1,7 +1,3 @@
-created:
-    - database/factories/Models/PostoProdutoFactory.php
-    - database/migrations/2021_06_14_144116_create_posto_produtos_table.php
-    - app/Models/PostoProduto.php
 models:
     Models\CentroAdministrativo: { tenant_id: 'biginteger unsigned', produtor_id: 'biginteger unsigned', fazenda_id: 'biginteger unsigned', uuid: 'string:36' }
     Models\CentroCusto: { tenant_id: 'biginteger unsigned', uuid: 'string:36', nome: string, tipo: 'enum:PRODUÇÃO,MÁQUINAS,ADMINISTRATIVO,COMBUSTÍVEL,DIVERSOS,LUBRIFICANTES,OFICINA default:PRODUÇÃO', status: 'enum:Ativo,Desativada default:Ativo' }
@@ -41,3 +37,5 @@ models:
     Models\SaidaSilo: { tenant_id: 'id foreign', safra_id: 'id foreign', cultura_id: 'id foreign', contrato_embarque_id: 'id foreign', contrato_inscricao_id: 'id foreign', motorista_id: 'id foreign', uuid: uuid, primeira_pesagem: 'double:10,3 nullable', segunda_pesagam: 'double:10,3 nullable', umidade: 'double:10,3 nullable', impuresa: 'double:10,3 nullable', ardido: 'double:10,3 nullable', partido: 'double:10,3 nullable', avariado: 'double:10,3 nullable', desconto: 'double:10,3 nullable', peso_bruto: 'double:10,3 nullable', peso_liquido: 'double:10,3 nullable', saco_bruto: 'double:10,3 nullable', saco_liquido: 'double:10,3 nullable', status: 'enum:ABERTO,FECHADO', softdeletes: softDeletes, timestamps: timestamps }
     Models\PostoCombustivel: { tenant_id: 'id foreign', uuid: uuid, nome: string, tipo_posto: 'enum:PRINCIPAL,COMBOIO,SEGUNDARIO', status: 'enum:ABERTO,FECHADO', softdeletes: softDeletes, timestamps: true }
     Models\PostoProduto: { tenant_id: 'id foreign', posto_combustivel_id: 'id foreign', produto_id: 'id foreign', uuid: uuid, softdeletes: softDeletes, timestamps: true }
+    Models\PostoTransferencia: { tenant_id: 'id foreign', user_id: 'id foreign', posto_combustivel_id: 'id foreign', produto_id: 'id foreign', uuid: uuid, qtn_estoque: 'double:10,3 nullable', softdeletes: softDeletes, timestamps: true }
+    Models\PostoTransferenciass: { tenant_id: 'id foreign', user_id: 'id foreign', posto_combustivel_id: 'id foreign', posto_segundario_id: 'id foreign:posto_combustivel_id', produto_id: 'id foreign', uuid: uuid, qtn_estoque: 'double:10,3 nullable', softdeletes: softDeletes, timestamps: true }

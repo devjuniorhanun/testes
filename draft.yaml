@@ -1,12 +1,11 @@
 models:
-  Models\PostoCombustivel:
+  Models\PostoTransferenciass:
     tenant_id: id foreign
-    #safra_id: id foreign
-    #produto_id: id foreign
+    user_id: id foreign
+    posto_combustivel_id: id foreign
+    posto_segundario_id: id foreign:posto_combustivel_id
+    produto_id: id foreign
     uuid: uuid
-    nome: string
-    tipo_posto: enum:PRINCIPAL,COMBOIO,SEGUNDARIO
     qtn_estoque: double:10,3 nullable
-    status: enum:ABERTO,FECHADO
     softDeletes: true
     timestamps: true  

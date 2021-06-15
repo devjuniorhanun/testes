@@ -40,8 +40,10 @@
 					<ul class="nav-dropdown-items">
 						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('postocombustivel') }}"><i class="nav-icon la la-question"></i> <span>Postos</span></a></li>
 						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('postoproduto') }}"><i class="nav-icon la la-question"></i> <span>Posto Produto</span></a></li>
+						<li class="nav-item"><a class="nav-link" href="{{ backpack_url('postotransferencia') }}"><i class="nav-icon la la-question"></i> <span>Transferéncia Posto</span></a></li>
 
-					</ul>
+
+					 </ul>
 				</li>
 			</ul>
 		</li>
