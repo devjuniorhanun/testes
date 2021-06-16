@@ -316,6 +316,7 @@ class LancamentoSafraCrudController extends CrudController
     {
         $date = $request->all();
         $listagem = LancamentoSafra::Listagem();
+        //dd("Safra");
 
         $totalColhido = LancamentoSafra::totalColhido();
         $totalColhidoCulutra = LancamentoSafra::totalColhidoCulutra();
@@ -354,6 +355,7 @@ class LancamentoSafraCrudController extends CrudController
         $listaProprietarios = LancamentoSafra::listaProprietarios();
         
         $query = LancamentoSafra::query();
+        //dd("Safras");
         if ($request->periodo > 0) {
             $query->where('data_colhido', 'like', "%$request->periodo%");
         } 
@@ -373,7 +375,9 @@ class LancamentoSafraCrudController extends CrudController
             $query->where('proprietario_id', '=', $request->proprietario)->get();
         }         
 
-        $listagem = $query->orderBy('num_romaneio')->get();
+        $listagem = $query->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
+        ->where('safras.status','=','Ativa')
+        ->orderBy('num_controle')->get();
 
         return view('admin.lacamento_lavoura.relatorios', compact(
             'listagem',

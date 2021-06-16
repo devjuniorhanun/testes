@@ -594,4 +594,13 @@ models:
     softDeletes: true
     timestamps: true  
 
-    
+  Models\PostoTransferencias:
+    tenant_id: id foreign
+    user_id: id foreign
+    posto_combustivel_id: id foreign
+    posto_segundario_id: id foreign:posto_combustivel_id
+    produto_id: id foreign
+    uuid: uuid
+    qtn_estoque: double:10,3 nullable
+    softDeletes: true
+    timestamps: true  

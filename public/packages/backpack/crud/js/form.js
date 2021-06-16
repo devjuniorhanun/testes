@@ -137,6 +137,37 @@ jQuery(function ($) {
         
     });
 
+    $("#quantidade").focusout(function () {
+        var quantidade = $("#quantidade").val(); // Peso Bruto
+        var frotaId = $("#frota_id").val(); // Peso do Desconto
+        var postoId = $("#posto_combustivel_id").val(); // Id do Talhão
+        var produtoId = $("#produto_id").val(); // Id do Armazem
+        var horimetro = $("#horimetro").val(); // Id do Armazem
+        
+
+        axios.get(`http://${url}/admin/lancamentocombustivel/estoque/${frotaId}/${postoId}/${produtoId}/${quantidade}/${horimetro}`)
+            .then(response => {
+                if(response.data['estoque'] === "Vazio"){
+                    alert(response.data['estoque']);
+                    $("#produtividade").val();                    
+                } else {
+                    $("#produtividade").val(response.data['produtividade']);
+                }
+                
+                /*var valorFrete = sacoBruto * response.data['frete']['frete'];
+                $("#valor_frete").val(valorFrete.toFixed(2));
+                $("#motorista_fornecedor_id").val(response.data['motorista']['fornecedor_id']);
+                $("#locacao_talhao_id").val(response.data['locacao']['id']);
+                $("#variedade_cultura_id").val(response.data['locacao']['variedade_cultura_id']);
+                $("#cultura_id").val(response.data['locacao']['cultura_id']);
+                $("#colhedor_fornecedor_id").val(response.data['colhedor']['fornecedor_id']);
+                $("#matriz_frete_id").val(response.data['frete']['id']);
+                $("#armazen_fornecedor_id").val(response.data['percuso']['fornecedor_id']);    */            
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    });
 
 
 

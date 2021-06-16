@@ -1,11 +1,15 @@
 models:
-  Models\PostoTransferenciass:
+  Models\LancamentoCombustivel:
     tenant_id: id foreign
     user_id: id foreign
     posto_combustivel_id: id foreign
-    posto_segundario_id: id foreign:posto_combustivel_id
+    frota_id: id foreign
     produto_id: id foreign
     uuid: uuid
-    qtn_estoque: double:10,3 nullable
+    quantidade: double:10,3 nullable
+    horimetro: string nullable
+    romaneio: string nullable
+    produtividade: double:10,3 nullable
+    data_abastecimento: date nullable
     softDeletes: true
     timestamps: true  

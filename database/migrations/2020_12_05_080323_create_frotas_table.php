@@ -28,8 +28,8 @@ class CreateFrotasTable extends Migration
             $table->date('data_aquisicao')->nullable();
             $table->double('valor_aquisicao', 10, 2)->nullable();
             $table->double('volume_tanque', 10, 3)->nullable();
-            $table->enum('combustivel', ["S-10","S-500","GASOLINA","ETANOL"]);
-            $table->enum('tipo_marcacao', ["HORIMETRO","KILOMETRO"]);
+            $table->enum('combustivel', ["S-10","S-500","GASOLINA","ETANOL"])->nullable();
+            $table->enum('tipo_marcacao', ["HORIMETRO","KILOMETRO"])->nullable();
             $table->double('medidor_inicial', 10, 3)->nullable();
             $table->double('medidor_final', 10, 3)->nullable();
             $table->text('observacao')->nullable();
