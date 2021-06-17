@@ -51,6 +51,7 @@
           <th scope="col">Peso Líquido</th>
           <th scope="col">Armazén</th>
           <th scope="col">Colhedor</th>
+          <th scope="col">Inscrição</th>
           <th scope="col">Frete</th>
           <th scope="col">Valor Frete</th>
         </tr>
@@ -69,6 +70,7 @@
           <td>{{ number_format($lista->peso_liquido, 0, ',', '.') }} Kg</td>
           <td>{{ $lista->nomeArmazen }}</td>
           <td>{{ $lista->nomeColhedor }}</td>
+          <td>{{ $lista->inscricao }}</td>
           <td>R$ {{ number_format($lista->matrizFrete, 2, ',', '.') }}</td>
           <td>R$ {{ number_format($lista->valor_frete, 2, ',', '.') }}</td>
 

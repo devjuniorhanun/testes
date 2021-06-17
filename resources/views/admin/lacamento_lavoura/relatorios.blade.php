@@ -43,6 +43,7 @@
           <th scope="col">S.Líq.</th>
           <th scope="col">Armazén</th>
           <th scope="col">Colhedor</th>
+          <th scope="col">Inscrição</th>
           <th scope="col">Frete</th>
           <th scope="col">V.Frete</th>
         </tr>
@@ -86,6 +87,7 @@
           <td>{{ number_format($lista->saco_liquido, 0, ',', '.') }} Sc</td>
           <td>{{ $lista->armazem->nome }}</td>
           <td>{{ $lista->colhedor->nome }}</td>
+          <td>{{ $lista->fazenda->inscricao_estadual }}</td>
           <td>R$ {{ number_format($lista->matrizFrete->frete, 2, ',', '.') }}</td>
           <td>R$ {{ number_format($lista->valor_frete, 2, ',', '.') }}</td>
 

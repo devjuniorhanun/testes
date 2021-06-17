@@ -196,13 +196,15 @@ class LancamentoSafra extends Model
             ->leftJoin('matriz_fretes', 'matriz_fretes.id', '=', 'lancamento_safras.matriz_frete_id')
             ->leftJoin('armazems', 'armazems.id', '=', 'lancamento_safras.armazem_id')
             ->leftJoin('colhedors', 'colhedors.id', '=', 'lancamento_safras.colhedor_id')
+            ->leftJoin('fazendas', 'fazendas.id', '=', 'lancamento_safras.fazenda_id')
             ->select(
                 'lancamento_safras.*',
                 'motoristas.placa_nome as motorista',
                 'talhaos.nome as talhao',
                 'matriz_fretes.frete as matrizFrete',
                 'armazems.nome as nomeArmazen',
-                'colhedors.nome as nomeColhedor'
+                'colhedors.nome as nomeColhedor',
+                'fazendas.inscricao_estadual as inscricao'
             )
             ->get();
         //->paginate($pagina);
