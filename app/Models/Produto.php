@@ -60,7 +60,7 @@ class Produto extends Model
         'tenant_id' => 'integer',
         'grupo_produto_id' => 'integer',
         'sub_grupo_produto_id' => 'integer',
-        'estoque' => 'double',
+        'estoque' => 'string',
         'qtn_minima' => 'double',
         'valor_unitario' => 'double',
     ];
