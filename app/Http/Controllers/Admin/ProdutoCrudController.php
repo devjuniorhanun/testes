@@ -75,8 +75,8 @@ class ProdutoCrudController extends CrudController
         CRUD::field('grupo_produto_id')
             ->label('Grupo')
             ->type('select2')
-            ->entity('subGrupoProdutos')
-            ->model('App\Models\SubGrupoProduto')
+            ->entity('grupoProduto')
+            ->model('App\Models\GrupoProduto')
             ->attribute('nome')
             ->options(function ($query) {
                 return $query->orderBy('nome', 'ASC')->get();
