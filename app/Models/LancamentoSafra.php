@@ -274,18 +274,22 @@ class LancamentoSafra extends Model
             //
             ->addSelect([
                 'valorAdiantamento' => AdiantamentoMotorista::whereColumn('fornecedor_id', '=', 'fornecedors.id')
+                    ->where('safra_id', '=', 4)
                     ->select(DB::raw('SUM(valor_pagamento)'))->limit(1)
             ])
             ->addSelect([
                 'valorFrete' => LancamentoSafra::whereColumn('motorista_fornecedor_id', '=', 'fornecedors.id')
+                    ->where('safra_id', '=', 4)
                     ->select(DB::raw('SUM(valor_frete)'))->limit(1)
             ])
             ->addSelect([
                 'QtnSacoBrutos' => LancamentoSafra::whereColumn('motorista_fornecedor_id', '=', 'fornecedors.id')
+                    ->where('safra_id', '=', 4)
                     ->select(DB::raw('SUM(saco_bruto)'))->limit(1)
             ])
             ->addSelect([
                 'qtnViagem' => LancamentoSafra::whereColumn('motorista_fornecedor_id', '=', 'fornecedors.id')
+                    ->where('safra_id', '=', 4)
                     ->select(DB::raw('count(id)'))->limit(1)
             ])
             ->where('safras.status', '=', 'Ativa')
@@ -359,14 +363,15 @@ class LancamentoSafra extends Model
 
             ->select(
                 'lancamento_safras.talhao_id',
-                'talhaos.nome','talhaos.area_total',
+                'talhaos.nome',
+                'talhaos.area_total',
                 'culturas.nome as culturaNome',
                 DB::raw('SUM(lancamento_safras.saco_liquido) as saco_liquido')
-                )
+            )
 
             ->where('safras.status', '=', 'Ativa')
             ->orderBy('talhaos.nome')
-            ->groupBy('lancamento_safras.talhao_id','culturas.nome')
+            ->groupBy('lancamento_safras.talhao_id', 'culturas.nome')
             ->get();
         //dd($result);
         return $result;

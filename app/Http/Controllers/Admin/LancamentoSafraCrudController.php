@@ -408,7 +408,7 @@ class LancamentoSafraCrudController extends CrudController
     {
         $this->crud->hasAccessOrFail('list');
         $registros = LancamentoSafra::where('safra_id', '=', '4')->select(DB::raw('SUM(peso_bruto) as peso'))->first()->peso;
-        dd($registros);
+        //dd($registros);
         $listaTransportador = LancamentoSafra::listaTransportador();
         return view('admin.lacamento_lavoura.motoristas', compact('registros', 'listaTransportador'));
     }
