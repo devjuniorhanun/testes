@@ -99,7 +99,7 @@ jQuery(function ($) {
                 $("#cultura_id").val(response.data['locacao']['cultura_id']);
                 $("#colhedor_fornecedor_id").val(response.data['colhedor']['fornecedor_id']);
                 $("#matriz_frete_id").val(response.data['frete']['id']);
-                $("#armazen_fornecedor_id").val(response.data['percuso']['fornecedor_id']);                
+                $("#armazen_fornecedor_id").val(response.data['percuso']['fornecedor_id']);
             })
             .catch(error => {
                 console.log(error)
@@ -110,7 +110,7 @@ jQuery(function ($) {
      * Função para calcular.
      * Peso liquido, Quantidade de sacos, valor do frete
      */
-    $("#segunda_pesagam").focusout(function () { 
+    $("#segunda_pesagam").focusout(function () {
         var primeiraPesagem = $("#primeira_pesagem").val(); // Peso Bruto
         var umidade = $("#umidade").val(); // Peso do Desconto
         var segundaPesagam = $("#segunda_pesagam").val(); // Peso do Desconto
@@ -118,15 +118,15 @@ jQuery(function ($) {
         var pesoBruto = primeiraPesagem - segundaPesagam;
         var sacoBruto = pesoBruto / 60;
         var pesoLiquido = pesoBruto;
-        var sacoLiquido = pesoBruto / 60;        
+        var sacoLiquido = pesoBruto / 60;
 
-        if(umidade > 14) {
+        if (umidade > 14) {
             var descontoUmidade = (umidade - 14) * 1.5;
             valorDesconto = ((pesoBruto * descontoUmidade) / 100);
             pesoBrutos = pesoBruto - valorDesconto;
             pesoLiquido = pesoBrutos;
             sacoLiquido = pesoBrutos / 60;
-            
+
             //alert(valorDesconto);
         }
         $("#desconto").val(valorDesconto);
@@ -134,7 +134,7 @@ jQuery(function ($) {
         $("#peso_liquido").val(pesoLiquido);
         $("#saco_bruto").val(sacoBruto.toFixed(3));
         $("#saco_liquido").val(sacoLiquido.toFixed(3));
-        
+
     });
 
     $("#quantidade").focusout(function () {
@@ -143,17 +143,17 @@ jQuery(function ($) {
         var postoId = $("#posto_combustivel_id").val(); // Id do Talhão
         var produtoId = $("#produto_id").val(); // Id do Armazem
         var horimetro = $("#horimetro").val(); // Id do Armazem
-        
+
 
         axios.get(`http://${url}/admin/lancamentocombustivel/estoque/${frotaId}/${postoId}/${produtoId}/${quantidade}/${horimetro}`)
             .then(response => {
-                if(response.data['estoque'] === "Vazio"){
+                if (response.data['estoque'] === "Vazio") {
                     alert(response.data['estoque']);
-                    $("#produtividade").val();                    
+                    $("#produtividade").val();
                 } else {
                     $("#produtividade").val(response.data['produtividade']);
                 }
-                
+
                 /*var valorFrete = sacoBruto * response.data['frete']['frete'];
                 $("#valor_frete").val(valorFrete.toFixed(2));
                 $("#motorista_fornecedor_id").val(response.data['motorista']['fornecedor_id']);
@@ -162,11 +162,33 @@ jQuery(function ($) {
                 $("#cultura_id").val(response.data['locacao']['cultura_id']);
                 $("#colhedor_fornecedor_id").val(response.data['colhedor']['fornecedor_id']);
                 $("#matriz_frete_id").val(response.data['frete']['id']);
-                $("#armazen_fornecedor_id").val(response.data['percuso']['fornecedor_id']);    */            
+                $("#armazen_fornecedor_id").val(response.data['percuso']['fornecedor_id']);    */
             })
             .catch(error => {
                 console.log(error)
             });
+    });
+
+
+    $("#num_controle").focusout(function () {
+        var numControle = $("#num_controle").val(); // Númeroumero Controle Interno
+        var numRomaneio = $("#num_romaneio").val(); // Número Romaneio
+        
+        axios.get(`http://${url}/admin/lancamentosafra/controles/${numControle}/${numRomaneio}`)
+            .then(response => {
+                if (response.data['numControle'] === "Lançado") {
+                    alert('Controle já Lançado');
+                }
+                if (response.data['numRomaneio'] === "Lançado") {
+                    alert('Romaneio já Lançado');
+                }
+
+            })
+            .catch(error => {
+                console.log(error)
+            });
+
+
     });
 
 

@@ -24,6 +24,7 @@ Route::group([
     // Lancamentos
     Route::crud('lancamentocombustivel', 'Cadastro\LancamentoCombustivelCrudController');
     Route::any('lancamentocombustivel/estoque/{frotaId}/{postoId}/{produtoId}/{quantidade}/{horimetro}', 'Cadastro\LancamentoCombustivelCrudController@estoque');
+    
 
 
 
@@ -61,6 +62,8 @@ Route::group([
     Route::any('lancamentosafra/locacao', 'LancamentoSafraCrudController@locacao');
     Route::post('lancamentosafra/{id?}/locacao', 'LancamentoSafraCrudController@locacao');
     Route::any('lancamentosafra/frete/{idLocacao}/{idArmazen}/{idMotorista}/{idColhedor}', 'LancamentoSafraCrudController@frete');
+    Route::any('lancamentosafra/controles/{numControle}/{numRomaneio}', 'LancamentoSafraCrudController@controles');
+
     Route::get('relatorios/safra', 'LancamentoSafraCrudController@safra');
     Route::any('relatorios/safras', 'LancamentoSafraCrudController@safras')->name('relatorio_safra');;
     Route::get('relatorios/mapaProdutividade', 'LancamentoSafraCrudController@mapaProdutividade');

@@ -143,8 +143,8 @@ class LancamentoSafraCrudController extends CrudController
                 return $query->where('status', '=', 'Ativa')->where('tipo_pagamento', '=', 'Depósito')->orderBy('nome_fantasia', 'ASC')->get();
             })
             ->size(3);
-        CRUD::field('num_romaneio')->label('Nº Romaneio')->size(3);
-        CRUD::field('num_controle')->label('Nº Controle')->size(3);
+        CRUD::field('num_romaneio')->label('Nº Romaneio')->size(3)->attributes(['id' => 'num_romaneio']);
+        CRUD::field('num_controle')->label('Nº Controle')->size(3)->attributes(['id' => 'num_controle']);
         CRUD::field('locacao_talhao_id')->type('hidden')->attributes(['id' => 'locacao_talhao_id']);
 
         CRUD::field('talhao_id')
@@ -451,5 +451,22 @@ class LancamentoSafraCrudController extends CrudController
                 ;
         }
         return $options;
+    }
+
+    public function controles($numControle, $numRomaneio)
+    {
+        $dados = [];
+        $numControle = LancamentoSafra::where('num_controle', '=', $numControle)->first();
+        if(isset($numControle)){
+            $dados['numControle'] = "Lançado";
+        }
+        $numRomaneio = LancamentoSafra::where('num_romaneio', '=', $numRomaneio)->first();
+        if(isset($numRomaneio)){
+            $dados['numRomaneio'] = "Lançado";
+        }
+        
+        //dd($dados);
+        return $dados;
+
     }
 }
