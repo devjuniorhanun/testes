@@ -45,6 +45,9 @@ class AdiantamentoMotoristaCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        $this->crud->addClause('whereHas', 'safra', function ($query) {
+            $query->where('status', '=', 'Ativa');
+        });
         CRUD::column('safra_id')
             ->type('select')
             ->entity('safra')
