@@ -33,23 +33,28 @@
           <th scope="col">Valor Frete</th>
           <th scope="col">Adiantamentos</th>
           <th scope="col">Saldo</th>
+          <th scope="col">Valor Adiantamento</th>
         </tr>
       </thead>
       <tbody>
         @php
-          $qntViagem = 0;
-          $qntSaco = 0;
-          $qntFrete = 0;
-          $qntAdiantamento = 0;
+        $qntViagem = 0;
+        $qntSaco = 0;
+        $qntFrete = 0;
+        $qntAdiantamento = 0;
         @endphp
+        {{-- Abre o formulário --}}
+        {!! Form::open(['route' => 'adiantamento_motoristas']) !!}
+        {{-- Chama os campos do formulário --}}
 
         @forelse ($listaTransportador as $lista)
         @php
-          $qntViagem += $lista->qtnViagem;
-          $qntSaco += $lista->QtnSacoBrutos;
-          $qntFrete += $lista->valorFrete;
-          $qntAdiantamento += $lista->valorAdiantamento;
+        $qntViagem += $lista->qtnViagem;
+        $qntSaco += $lista->QtnSacoBrutos;
+        $qntFrete += $lista->valorFrete;
+        $qntAdiantamento += $lista->valorAdiantamento;
         @endphp
+
         <tr>
           <th scope="row">{{ $lista->qtnViagem }}</th>
           <td>{{ $lista->nome_fantasia }}</td>
@@ -57,10 +62,30 @@
           <td>R$ {{ number_format($lista->valorFrete, 2, ',', '.') }}</td>
           <td>R$ {{ ($lista->valorAdiantamento)? number_format($lista->valorAdiantamento, 2, ',', '.') : "0"}}</td>
           <td>R$ {{ (($lista->valorFrete - $lista->valorAdiantamento) !== -0.01)? number_format(($lista->valorFrete - $lista->valorAdiantamento), 2, ',', '.') : 0}}</td>
+          <td>
+            {!! Form::text('valor_pagamento['.$lista->id.']', number_format(($lista->valorFrete - $lista->valorAdiantamento), 2, ',', '.'), ['class' => 'form-control']) !!}
+            {!! Form::hidden('fornecedor_id['.$lista->id.']', $lista->id) !!}
+          </td>
+          
+          <td>
+          {!! Form::select('tipoPagamento['.$lista->id.']', [
+          '1' => 'DEPOSTIO',
+          '2' => 'CHEQUE',
+          ], null, ['class' => 'form-control']); !!}
+
+          </td>
         </tr>
+
         @empty
         <p>Não foi encontrado Nem um Registro</p>
         @endforelse
+        <tr>
+          <td colspan="6">&nbsp;</td>
+          <td>
+            {!! Form::submit('Gerar', ['class' => 'btn btn-primary']); !!}
+          </td>
+        </tr>
+        {!! Form::close() !!}
 
       </tbody>
       <tfoot>
@@ -71,6 +96,7 @@
           <th scope="col">Valor Frete</th>
           <th scope="col">Adiantamentos</th>
           <th scope="col">Saldo</th>
+          <td>&nbsp;</td>
         </tr>
         <tr>
           <td>{{$qntViagem}}</td>
@@ -79,6 +105,7 @@
           <td>R$ {{ number_format($qntFrete, 2, ',', '.') }}</td>
           <td>R$ {{ number_format($qntAdiantamento, 2, ',', '.') }}</td>
           <td>R$ {{ ($qntAdiantamento)? number_format(($qntFrete - $qntAdiantamento), 2, ',', '.') : "0"}}</td>
+          <td>&nbsp;</td>
         </tr>
 
       </tfoot>

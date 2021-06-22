@@ -81,7 +81,8 @@ Route::group([
 
     // Relatorios
     Route::any('relatorios/motorista', 'LancamentoSafraCrudController@motorista')->name('relatorio_motorista');
-    Route::get('relatorios/motoristas', 'LancamentoSafraCrudController@motoristas');    
+    Route::get('relatorios/motoristas', 'LancamentoSafraCrudController@motoristas');
+    Route::post('relatorios/adiantamento_motoristas', 'LancamentoSafraCrudController@adiantamentoMotoristas')->name('adiantamento_motoristas');
     Route::get('relatorios/colhedores', 'Relatorios\SafraController@colhedores');
     
     // Silo

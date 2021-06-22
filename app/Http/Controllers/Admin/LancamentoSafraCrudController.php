@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\LancamentoSafraRequest;
+use App\Models\AdiantamentoMotorista;
 use App\Models\Armazem;
 use App\Models\Colhedor;
+use App\Models\Fornecedor;
+use App\Models\LancamentoContaApagar;
 use App\Models\LancamentoSafra;
 use App\Models\LocacaoTalhao;
 use App\Models\MatrizFrete;
@@ -51,7 +54,7 @@ class LancamentoSafraCrudController extends CrudController
     {
         $this->crud->enableExportButtons();
         $this->crud->enableResponsiveTable();
-        $this->crud->addClause('whereHas', 'safra', function($query) {
+        $this->crud->addClause('whereHas', 'safra', function ($query) {
             $query->where('status', '=', 'Ativa');
         });
 
@@ -304,11 +307,11 @@ class LancamentoSafraCrudController extends CrudController
         // /$dados['armazem'] = Armazem::find($idArmazen);
         $dados['motorista'] = Motorista::find($idMotorista);
         $dados['colhedor'] = Colhedor::find($idColhedor);
-        $dados['frete'] = MatrizFrete::whereHas('safra', function($query) {
+        $dados['frete'] = MatrizFrete::whereHas('safra', function ($query) {
             $query->where('status', '=', 'Ativa');
         })->where('bloco', '=', $bloco)->where('percurso', '=', $dados['percuso']->percurso)->first();
 
-       //dd($dados['percuso']);
+        //dd($dados['percuso']);
         return $dados;
     }
 
@@ -326,8 +329,8 @@ class LancamentoSafraCrudController extends CrudController
         $listaArmazem = LancamentoSafra::listaArmazem();
         $listaColhedores = LancamentoSafra::listaColhedores();
         $listaProprietarios = LancamentoSafra::listaProprietarios();
-        
-        
+
+
         return view('admin.lacamento_lavoura.safras', compact(
             'listagem',
             'totalColhido',
@@ -353,31 +356,31 @@ class LancamentoSafraCrudController extends CrudController
         $listaArmazem = LancamentoSafra::listaArmazem();
         $listaColhedores = LancamentoSafra::listaColhedores();
         $listaProprietarios = LancamentoSafra::listaProprietarios();
-        
+
         $query = LancamentoSafra::query();
         //dd("Safras");
         if ($request->periodo > 0) {
             $query->where('data_colhido', 'like', "%$request->periodo%");
-        } 
+        }
         if ($request->motorista > 0) {
             $query->where('motorista_id', '=', $request->motorista)->get();
-        } 
+        }
         if ($request->talhao > 0) {
             $query->where('talhao_id', '=', $request->talhao)->get();
-        } 
+        }
         if ($request->armazem > 0) {
             $query->where('armazem_id', '=', $request->armazem)->get();
-        } 
+        }
         if ($request->colhedor > 0) {
             $query->where('colhedor_id', '=', $request->colhedor)->get();
-        }  
+        }
         if ($request->proprietario > 0) {
             $query->where('proprietario_id', '=', $request->proprietario)->get();
-        }         
+        }
 
         $listagem = $query->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
-        ->where('safras.status','=','Ativa')
-        ->orderBy('num_controle')->get();
+            ->where('safras.status', '=', 'Ativa')
+            ->orderBy('num_controle')->get();
 
         return view('admin.lacamento_lavoura.relatorios', compact(
             'listagem',
@@ -433,7 +436,7 @@ class LancamentoSafraCrudController extends CrudController
                 ->leftJoin('talhaos', 'talhaos.id', '=', 'locacao_talhaos.talhao_id')
                 ->orderBy('talhaos.nome')
                 ->where('talhaos.nome', 'LIKE', '%' . $search_term . '%')
-                ->select('talhaos.id','talhaos.nome')
+                ->select('talhaos.id', 'talhaos.nome')
                 ->groupBy('talhaos.id')
                 ->where('talhaos.deleted_at', '=', null)
                 ->paginate(1000000);
@@ -443,12 +446,11 @@ class LancamentoSafraCrudController extends CrudController
                 ->leftJoin('locacao_talhaos', 'locacao_talhaos.safra_id', '=', 'safras.id')
                 ->leftJoin('talhaos', 'talhaos.id', '=', 'locacao_talhaos.talhao_id')
                 ->orderBy('talhaos.nome')
-                ->select('talhaos.id','talhaos.nome')
+                ->select('talhaos.id', 'talhaos.nome')
                 ->groupBy('talhaos.id')
                 ->where('talhaos.deleted_at', '=', null)
                 //->pluck('talhaos.nome','locacao_talhaos.id');
-                ->paginate(1000000);
-                ;
+                ->paginate(1000000);;
         }
         return $options;
     }
@@ -457,16 +459,61 @@ class LancamentoSafraCrudController extends CrudController
     {
         $dados = [];
         $numControle = LancamentoSafra::where('num_controle', '=', $numControle)->first();
-        if(isset($numControle)){
+        if (isset($numControle)) {
             $dados['numControle'] = "Lançado";
         }
         $numRomaneio = LancamentoSafra::where('num_romaneio', '=', $numRomaneio)->first();
-        if(isset($numRomaneio)){
+        if (isset($numRomaneio)) {
             $dados['numRomaneio'] = "Lançado";
         }
-        
+
         //dd($dados);
         return $dados;
+    }
 
+    public function adiantamentoMotoristas(Request $request)
+    {
+        $dados = $request->all();
+        //dd($dados);
+        foreach ($dados['valor_pagamento'] as $key => $dado) {
+            //dd($dado . " - " . $key);
+            $fornecedor = Fornecedor::find($key);
+            // Retira transforma a virgula em ponto
+            $data = [];
+            $tipoPagamento = 'CHEQUE';
+            $data['fornecedor_id'] = $fornecedor->id;
+            $data['data_pagamento'] = date('Y-m-d');
+            $data['data_vencimento'] = date('Y-m-d');
+            if (isset($dado)) {
+                $data['valor_pagamento'] = str_replace('.', "", $dado);
+                $data['valor_pagamento'] = str_replace(',', ".", $data['valor_pagamento']);
+                if ($dados['tipoPagamento'][$key] == 1) {
+                    $data['nome_fornecedor'] = $fornecedor->nome_banco;
+                    $data['cpf_cnpj'] = $fornecedor->cpf_cnpj;
+                    $data['nome_banco'] = $fornecedor->banco;
+                    $data['agencia'] = $fornecedor->agencia;
+                    $data['num_conta'] = $fornecedor->num_conta;
+                    $tipoPagamento = 'TRANSFERÊNCIA';
+                }
+                $data['safra_id'] = 4;
+            }
+            //($data);
+            $model = AdiantamentoMotorista::create($data);
+            $conta = [
+                'numero_documento' => $model->id,
+                'fornecedor_id' =>  $fornecedor->id,
+                'centro_custo_id' => 1,
+                'data_documento' => date('Y-m-d'),
+                'data_vencimento' => date('Y-m-d'),
+                'descricao' => 'Adiantamento de Colheita para ' . $model->fornecedor->razao_social,
+                'valor' => $data['valor_pagamento'],
+                'tipo' => $tipoPagamento,
+                'status' => 'APAGO'
+            ];
+            //dd($conta);
+
+
+            $contaApagar = LancamentoContaApagar::create($conta);
+        }
     }
 }
