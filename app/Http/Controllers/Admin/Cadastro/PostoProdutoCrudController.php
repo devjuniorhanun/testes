@@ -80,7 +80,8 @@ class PostoProdutoCrudController extends CrudController
             ->options(function ($query) {
                 return $query->where('status', '=', 'Ativo')->where('finalidade','=','Combustíveis')->orderBy('nome', 'ASC')->get();
             })
-            ->size(3);                
+            ->size(3); 
+            CRUD::field('estoque')->label('Estoque.:')->size(3);               
     }
     
 
