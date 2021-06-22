@@ -476,44 +476,49 @@ class LancamentoSafraCrudController extends CrudController
         $dados = $request->all();
         //dd($dados);
         foreach ($dados['valor_pagamento'] as $key => $dado) {
-            //dd($dado . " - " . $key);
+           // dd($dados['tipoPagamento'][$key]);
             $fornecedor = Fornecedor::find($key);
             // Retira transforma a virgula em ponto
             $data = [];
-            $tipoPagamento = 'CHEQUE';
+
             $data['fornecedor_id'] = $fornecedor->id;
             $data['data_pagamento'] = date('Y-m-d');
             $data['data_vencimento'] = date('Y-m-d');
             if (isset($dado)) {
                 $data['valor_pagamento'] = str_replace('.', "", $dado);
                 $data['valor_pagamento'] = str_replace(',', ".", $data['valor_pagamento']);
-                if ($dados['tipoPagamento'][$key] == 1) {
-                    $data['nome_fornecedor'] = $fornecedor->nome_banco;
-                    $data['cpf_cnpj'] = $fornecedor->cpf_cnpj;
-                    $data['nome_banco'] = $fornecedor->banco;
-                    $data['agencia'] = $fornecedor->agencia;
-                    $data['num_conta'] = $fornecedor->num_conta;
-                    $tipoPagamento = 'TRANSFERÊNCIA';
-                }
+                $data['nome_fornecedor'] = $fornecedor->nome_banco;
+                $data['cpf_cnpj'] = $fornecedor->cpf_cnpj;
+                $data['nome_banco'] = $fornecedor->banco;
+                $data['agencia'] = $fornecedor->agencia;
+                $data['num_conta'] = $fornecedor->num_conta;
+                $data['tipo_adiantamento'] = $dados['tipoPagamento'][$key];
                 $data['safra_id'] = 4;
+                //($data);
+                $model = AdiantamentoMotorista::create($data);
+                $tipoPagamento = ($dados['tipoPagamento'][$key] == 'DEPOSITO') ? 'TRANSFERÊNCIA' : 'CHEQUE';
+                //dd($tipoPagamento);
+                $conta = [
+                    'numero_documento' => $model->id,
+                    'fornecedor_id' =>  $fornecedor->id,
+                    'centro_custo_id' => 1,
+                    'data_documento' => date('Y-m-d'),
+                    'data_vencimento' => date('Y-m-d'),
+                    'descricao' => 'Adiantamento de Colheita para ' . $model->fornecedor->razao_social,
+                    'valor' => $data['valor_pagamento'],
+                    'tipo' => $tipoPagamento,
+                    'status' => 'APAGO'
+                ];
+                //dd($conta);
+
+
+                LancamentoContaApagar::create($conta);
             }
-            //($data);
-            $model = AdiantamentoMotorista::create($data);
-            $conta = [
-                'numero_documento' => $model->id,
-                'fornecedor_id' =>  $fornecedor->id,
-                'centro_custo_id' => 1,
-                'data_documento' => date('Y-m-d'),
-                'data_vencimento' => date('Y-m-d'),
-                'descricao' => 'Adiantamento de Colheita para ' . $model->fornecedor->razao_social,
-                'valor' => $data['valor_pagamento'],
-                'tipo' => $tipoPagamento,
-                'status' => 'APAGO'
-            ];
-            //dd($conta);
-
-
-            $contaApagar = LancamentoContaApagar::create($conta);
         }
+        // show a success message
+        \Alert::success(trans('Lançanetos Cadastrads com Sucesso'))->flash();
+
+        //return redirect()->route('admin/adiantamentomotorista');
+        return redirect()->route('adiantamentomotorista.index');
     }
 }

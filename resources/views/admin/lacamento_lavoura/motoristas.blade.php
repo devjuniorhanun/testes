@@ -69,8 +69,8 @@
           
           <td>
           {!! Form::select('tipoPagamento['.$lista->id.']', [
-          '1' => 'DEPOSTIO',
-          '2' => 'CHEQUE',
+          'DEPOSITO' => 'DEPOSTIO',
+          'CHEQUE' => 'CHEQUE',
           ], null, ['class' => 'form-control']); !!}
 
           </td>

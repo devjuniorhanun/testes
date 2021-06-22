@@ -73,6 +73,10 @@ Route::group([
     // Adiantamentos
     Route::crud('adiantamentomotorista', 'Financiero\AdiantamentoMotoristaCrudController');
     Route::post('adiantamentomotorista/motoristas', 'Financiero\AdiantamentoMotoristaCrudController@motoristas');
+
+    Route::post('adiantamentomotorista/lote', 'LancamentoSafraCrudController@motoristas');
+
+
     Route::post('adiantamentomotorista/{id?}/motoristas', 'Financiero\AdiantamentoMotoristaCrudController@motoristas');
     Route::get('adiantamentomotorista/transportadores', 'Financiero\AdiantamentoMotoristaCrudController@transportadores');
     Route::crud('adiantamentocolhedo', 'Financiero\AdiantamentoColhedoCrudController');
