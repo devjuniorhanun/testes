@@ -50,6 +50,7 @@ class PostoProdutoCrudController extends CrudController
             ->entity('produto')
             ->model('\App\Models\Produto')
             ->attribute('nome');
+        CRUD::column('estoque')->label('Estoque.:');
     }
 
     /**
@@ -72,18 +73,18 @@ class PostoProdutoCrudController extends CrudController
             })
             ->size(3);
 
-            CRUD::field('produto_id')
+        CRUD::field('produto_id')
             ->label('Produto.:')
             ->type('select2')
             ->attribute('nome')
             ->model('\App\Models\Produto')
             ->options(function ($query) {
-                return $query->where('status', '=', 'Ativo')->where('finalidade','=','Combustíveis')->orderBy('nome', 'ASC')->get();
+                return $query->where('status', '=', 'Ativo')->where('finalidade', '=', 'Combustíveis')->orderBy('nome', 'ASC')->get();
             })
-            ->size(3); 
-            CRUD::field('estoque')->label('Estoque.:')->size(3);               
+            ->size(3);
+        CRUD::field('estoque')->label('Estoque.:')->size(3);
     }
-    
+
 
     /**
      * Define what happens when the Update operation is loaded.
