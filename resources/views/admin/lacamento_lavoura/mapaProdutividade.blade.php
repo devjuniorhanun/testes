@@ -59,7 +59,7 @@
                     <td>{{ number_format($lista->saco_liquido, 2, ',', '.') }} Sc</td>
                     <td>{{ number_format($lista->area_total, 2, ',', '.') }} ha</td>
                     <td>{{ number_format($lista->saco_liquido / $lista->area_total, 2, ',', '.') }} Sc</td>
-                    <td>{{ $lista->culturaNome }}</td>
+                    <td>MILHO</td>
                 </tr>
                 @empty
                 <p>Não foi encontrado Nem um Registro</p>

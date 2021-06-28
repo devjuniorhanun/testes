@@ -401,7 +401,9 @@ class LancamentoSafraCrudController extends CrudController
         $id = $request->motorista;
         //dd($id);
         //$registros = Motorista::listaMotoristas($id);
-        $registros = LancamentoSafra::where('motorista_fornecedor_id', '=', $id)->get()->groupBy('motorista_id');
+        $registros = LancamentoSafra::where('motorista_fornecedor_id', '=', $id)
+        ->join('safras', 'safras.id', '=', 'lancamento_safras.safra_id')
+            ->where('safras.status', '=', 'Ativa')->get()->groupBy('motorista_id');
         $listaTransportador = LancamentoSafra::listaTransportador();
         //dd($registros);
         return view('admin.lacamento_lavoura.motorista', compact('registros', 'listaTransportador'));
