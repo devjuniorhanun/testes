@@ -476,7 +476,7 @@ class LancamentoSafraCrudController extends CrudController
     public function adiantamentoMotoristas(Request $request)
     {
         $dados = $request->all();
-        dd($dados);
+        //dd($dados);
         foreach ($dados['valor_pagamento'] as $key => $dado) {
            // dd($dados['tipoPagamento'][$key]);
             $fornecedor = Fornecedor::find($key);
