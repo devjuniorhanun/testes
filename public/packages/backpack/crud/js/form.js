@@ -173,7 +173,7 @@ jQuery(function ($) {
     $("#num_controle").focusout(function () {
         var numControle = $("#num_controle").val(); // Númeroumero Controle Interno
         var numRomaneio = $("#num_romaneio").val(); // Número Romaneio
-        
+
         axios.get(`http://${url}/admin/lancamentosafra/controles/${numControle}/${numRomaneio}`)
             .then(response => {
                 if (response.data['numControle'] === "Lançado") {
@@ -189,6 +189,15 @@ jQuery(function ($) {
             });
 
 
+    });
+
+    // Desativa a Telha enter
+    $(document).ready(function () {
+        $('input').keypress(function (e) {
+            var code = null;
+            code = (e.keyCode ? e.keyCode : e.which);
+            return (code == 13) ? false : true;
+        });
     });
 
 
