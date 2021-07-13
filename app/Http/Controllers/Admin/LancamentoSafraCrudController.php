@@ -406,7 +406,11 @@ class LancamentoSafraCrudController extends CrudController
             ->where('safras.status', '=', 'Ativa')->get()->groupBy('motorista_id');
         $listaTransportador = LancamentoSafra::listaTransportador();
         //dd($registros);
-        return view('admin.lacamento_lavoura.motorista', compact('registros', 'listaTransportador'));
+        $adiantemento = AdiantamentoMotorista::where('fornecedor_id', '=', $id)
+                    ->where('safra_id', '=', 4)
+                    ->select(DB::raw('SUM(valor_pagamento) as valorPagamento'))->first()->valorPagamento;
+                    //dd($adiantemento);
+        return view('admin.lacamento_lavoura.motorista', compact('registros', 'listaTransportador','adiantemento'));
     }
 
     public function motoristas()

@@ -28,18 +28,18 @@
         @forelse ($registros as $listas)
         @php $i = 0; @endphp
         <table class="table table-striped table-hover table-sm table-bordered printFont">
-           
+
             @foreach ($listas as $lista)
             @if($i == 0)
             @php $i++; @endphp
             @php
-                $qntViagem = 0;
-                $qntPesoBruto = 0;
-                $qntSacoBruto = 0;
-                $qntSacoLiquido = 0;
-                $mediaFrete = 0;
-                $qntFrete = 0;
-                $qntAdiantamento = 0;
+            $qntViagem = 0;
+            $qntPesoBruto = 0;
+            $qntSacoBruto = 0;
+            $qntSacoLiquido = 0;
+            $mediaFrete = 0;
+            $qntFrete = 0;
+            $qntAdiantamento = 0;
             @endphp
             <thead>
                 <tr>
@@ -66,13 +66,13 @@
 
                 @if($i > 0)
                 @php
-                    $qntViagem += $i;
-                    $qntPesoBruto += $lista->peso_bruto;
-                    $qntSacoBruto += $lista->saco_bruto;
-                    $qntSacoLiquido += $lista->saco_liquido;
-                    $qntFrete += $lista->valor_frete;
-                    $mediaFrete += $lista->matrizFrete->frete;
-                    
+                $qntViagem += $i;
+                $qntPesoBruto += $lista->peso_bruto;
+                $qntSacoBruto += $lista->saco_bruto;
+                $qntSacoLiquido += $lista->saco_liquido;
+                $qntFrete += $lista->valor_frete;
+                $mediaFrete += $lista->matrizFrete->frete;
+
                 @endphp
                 <tr>
                     <th scope="col">{{ Carbon\Carbon::parse($lista->data_colhido)->format('d/m/Y') }}</th>
@@ -95,7 +95,7 @@
             @endforeach
             <tfoot>
                 <tr>
-                <th scope="col">Data</th>
+                    <th scope="col">Data</th>
                     <th scope="col">Talhão</th>
                     <th scope="col">Romaneio</th>
                     <th scope="col">Controle</th>
@@ -124,6 +124,16 @@
                     <td><strong>R$ {{number_format(($mediaFrete / $qntViagem) , 2, ',', '.')}}</strong></td>
                     <td><strong>R$ {{number_format($qntFrete, 2, ',', '.')}}</strong></td>
                 </tr>
+                <tr>
+                <td colspan="11">&nbsp;</td>
+                <td><strong>Adiantamento</strong></td>
+                <td><strong>R$ {{number_format($adiantemento, 2, ',', '.')}}</strong></td>
+            </tr>
+            <tr>
+                <td colspan="11">&nbsp;</td>
+                <td><strong>Saldo</strong></td>
+                <td><strong>R$ {{number_format(($qntFrete - $adiantemento), 2, ',', '.')}}</strong></td>
+            </tr>
 
             </tfoot>
         </table>
@@ -132,6 +142,7 @@
         <p>Não foi encontrado Nem um Registro</p>
 
         @endforelse
+        
     </div>
 </div>
 
