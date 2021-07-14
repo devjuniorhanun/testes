@@ -301,7 +301,7 @@ class LancamentoSafraCrudController extends CrudController
     public function frete($idLocacao, $idArmazen, $idMotorista, $idColhedor)
     {
         $dados = [];
-        $dados['locacao'] = LocacaoTalhao::where('talhao_id', '=', $idLocacao)->first();
+        $dados['locacao'] = LocacaoTalhao::where('talhao_id', '=', $idLocacao)->where('safra_id', '=', 4)->first();
         $bloco = Talhao::find($idLocacao)->bloco;
         $dados['percuso'] = Armazem::find($idArmazen);
         // /$dados['armazem'] = Armazem::find($idArmazen);

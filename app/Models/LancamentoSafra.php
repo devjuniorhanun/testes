@@ -230,7 +230,7 @@ class LancamentoSafra extends Model
         $result = DB::table('safras')->where('safras.status', '=', 'Ativa')
             ->leftJoin('lancamento_safras', 'lancamento_safras.safra_id', '=', 'safras.id')
             ->join('locacao_talhaos', 'lancamento_safras.locacao_talhao_id', '=', 'locacao_talhaos.id')
-            ->join('culturas', 'locacao_talhaos.cultura_id', '=', 'culturas.id')
+            ->join('culturas', 'lancamento_safras.cultura_id', '=', 'culturas.id')
             ->select(
                 'culturas.nome',
                 DB::raw('SUM(saco_liquido) as sacos')

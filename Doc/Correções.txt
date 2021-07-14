@@ -1,0 +1,2 @@
+// Corrigir safra
+UPDATE `lancamento_safras` SET `cultura_id` = '2', `deleted_at` = NULL WHERE `lancamento_safras`.`id` > 1503;
